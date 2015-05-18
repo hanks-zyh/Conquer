@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_myzix_h"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/item_myzix_h"
+    android:orientation="horizontal" >
+
+    <com.hpu.pnszx.view.RoundProgressBar
+        android:id="@+id/pb"
+        style="@style/MyProgressBar"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:layout_marginLeft="10dp"
+        android:progress="0"
+        android_custom:max="4320"
+        android_custom:roundColor="#D1D1D1"
+        android_custom:roundProgressColor="@color/red_button"
+        android_custom:roundWidth="6dip"
+        android_custom:textColor="@color/black"
+        android_custom:textSize="12sp" >
+    </com.hpu.pnszx.view.RoundProgressBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/pb"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="11:30"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:gravity="center_vertical|left"
+            android:singleLine="true"
+            android:text="高等数学"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/list_devider" />
+
+</LinearLayout>

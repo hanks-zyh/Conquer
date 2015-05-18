@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <com.hpu.pnszx.view.xlist.XListView
+        android:id="@+id/list_near"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@drawable/base_horizontal_line"
+        android:dividerHeight="1dp"
+        android:fadingEdgeLength="0dp"
+        android:fastScrollEnabled="true"
+        android:paddingBottom="10dp" />
+
+</LinearLayout>

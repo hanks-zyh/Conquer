@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:src="@drawable/default_photo" />
+
+    <TextView
+        android:id="@+id/tv_cotent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/iv_photo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toLeftOf="@id/iv_photo"
+        android:background="@drawable/chat_right_qp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:text="好久不见了.好久不见了.好久不见了.好久不见了.好久不见了.好久不见了.好久不见了."
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_photo"
+        android:layout_toRightOf="@+id/tv_cotent"
+        android:text="花开花落"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_cotent"
+        android:layout_below="@id/tv_cotent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="8dp"
+        android:text="回复" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/tv_cotent"
+        android:layout_below="@+id/tv_cotent"
+        android:layout_marginRight="15dp"
+        android:text="2014-10-20 14:20" />
+
+</RelativeLayout>

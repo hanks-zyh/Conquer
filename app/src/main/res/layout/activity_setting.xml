@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:toggle="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="系统设置"
+                android:textColor="@color/gray" />
+
+            <include layout="@layout/line_title_color" />
+
+            <RelativeLayout style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="主题切换" />
+
+                <ImageButton
+                    android:id="@+id/block_0"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/theme_0" />
+
+                <ImageButton
+                    android:id="@+id/block_1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@+id/block_0"
+                    android:background="@color/theme_1" />
+
+                <ImageButton
+                    android:id="@+id/block_2"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@+id/block_1"
+                    android:background="@color/theme_2" />
+
+                <ImageButton
+                    android:id="@+id/block_3"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@+id/block_2"
+                    android:background="@color/theme_3" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/ll_alert_audio"
+                 style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="提醒音乐" />
+
+                <TextView
+                    android:id="@+id/tv_alert_audio"
+                    style="@style/Setting_arrow"
+                    android:text="Alarm01"
+                    android:textColor="@color/gray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                 android:id="@+id/ll_alarm"
+                 style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="提醒时间" />
+                <TextView
+                    android:id="@+id/tv_alert_time"
+                    style="@style/Setting_arrow"
+                    android:text="提前十分钟"
+                    android:textColor="@color/gray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_black"
+                style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="黑名单" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="其他设置"
+                android:textColor="@color/gray" />
+
+            <include layout="@layout/line_title_color" />
+
+            <RelativeLayout
+                android:id="@+id/ll_version"
+                style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="版本更新" />
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    style="@style/Setting_arrow"
+                    android:text="2.3.1"
+                    android:textColor="@color/gray" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="意见反馈" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_help" 
+                style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="使用帮助" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_about" 
+                style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="关于软件" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/ll_use" 
+                style="@style/Setting_ll" >
+
+                <TextView
+                    style="@style/Setting_tv"
+                    android:text="用户协议" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

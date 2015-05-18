@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        style="@style/Smile.ImageView.Photo_Middle"
+        android:src="@drawable/default_photo" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1.0" >
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/Smile.TextView._Black"
+            android:paddingLeft="5dp"
+            android:paddingRight="0dp"
+            android:text="你好"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            style="@style/Smile.TextView._Gray"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="0dp"
+            android:singleLine="true"
+            android:text="你好"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_logintime"
+            style="@style/Smile.TextView._Gray"
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="0dp"
+            android:singleLine="true"
+            android:text="你好"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</LinearLayout>

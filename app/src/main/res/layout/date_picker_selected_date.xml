@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/day_picker_selected_date_layout"
+    android:layout_width="@dimen/date_picker_component_width"
+    android:layout_height="0.0dip"
+    android:layout_weight="1.0"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@id/date_picker_month_and_day"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@id/date_picker_month"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:gravity="bottom|center"
+            android:includeFontPadding="false"
+            android:textColor="@color/date_picker_text_normal"
+            android:textSize="@dimen/selected_date_month_size" />
+
+        <TextView
+            android:id="@id/date_picker_day"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="-10dip"
+            android:layout_marginTop="-10dip"
+            android:duplicateParentState="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/selected_date_day_size" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@id/date_picker_year"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="top|center"
+        android:includeFontPadding="false"
+        android:textColor="@color/date_picker_text_normal"
+        android:textSize="@dimen/selected_date_year_size" />
+
+</LinearLayout>

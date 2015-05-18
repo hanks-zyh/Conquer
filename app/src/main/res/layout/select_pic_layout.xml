@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_layout"
+    android:layout_width="280dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/select_photo"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="1dip" >
+
+    <Button
+        android:id="@+id/btn_take_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="56dip"
+        android:background="#00ffffff"
+        android:text="相机拍照"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/title_green1" />
+
+    <Button
+        android:id="@+id/btn_pick_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="56dip"
+        android:background="#00ffffff"
+        android:text="手机相册"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/title_green1" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="#00aaaaaa"
+        android:text="取        消"
+        android:textSize="18sp" />
+
+</LinearLayout>

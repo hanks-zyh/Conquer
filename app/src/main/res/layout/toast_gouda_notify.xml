@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="5dp"
+    android:paddingLeft="13dp"
+    android:paddingRight="13dp"
+    android:paddingTop="15dp" >
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="来自XXX的勾搭"
+        android:textColor="#0099CC"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tv_type"
+        android:layout_marginTop="5dp"
+        android:text="来自： 花草人"
+        android:textColor="#666666" />
+
+    <ImageView
+        android:id="@+id/iv_bell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_type"
+        android:layout_marginRight="22dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            style="@style/ToastLL"
+            android:layout_weight="1" >
+
+            <ImageButton
+                android:id="@+id/ib_decline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/moment_action_delete" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忽略" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ToastLL"
+            android:layout_weight="1" >
+
+            <ImageButton
+                android:id="@+id/iv_add_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/moment_action_snooze" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拉黑" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ToastLL"
+            android:layout_weight="1" >
+
+            <ImageButton
+                android:id="@+id/iv_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/moment_action_done" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="接受" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_zixitime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_type"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:text="2014-11-20 10:20"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tv_zixiname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_from"
+        android:layout_alignBottom="@+id/tv_from"
+        android:layout_alignRight="@+id/tv_zixitime"
+        android:text="高等数学" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_centerHorizontal="true"
+        android:text="青青园中葵，朝露待日晞． \n阳春布德泽，万物生光辉。\n常恐秋节至，焜黄华叶衰。\n百川东到海，何时复西归。\n少壮不努力，老大徒伤悲"
+        android:textSize="14sp" />
+
+</RelativeLayout>

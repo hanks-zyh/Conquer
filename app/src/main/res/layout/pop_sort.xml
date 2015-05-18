@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="155dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <RadioButton
+            android:id="@+id/rb_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/pop_tv_height"
+            android:gravity="center"
+            android:text="优先显示好友" />
+
+        <RadioButton
+            android:id="@+id/rb_near"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/pop_tv_height"
+            android:gravity="center"
+            android:text="优先显示附件" />
+
+        <RadioButton
+            android:id="@+id/rb_male"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/pop_tv_height"
+            android:gravity="center"
+            android:text="优先显示公子" />
+
+        <RadioButton
+            android:id="@+id/rb_female"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/pop_tv_height"
+            android:gravity="center"
+            android:text="优先显示姑娘" />
+    </RadioGroup>
+
+</LinearLayout>

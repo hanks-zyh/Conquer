@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg"
+    android:padding="16dp" >
+
+    <com.hpu.pnszx.view.CircularImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="@dimen/photo_size_small"
+        android:layout_height="@dimen/photo_size_small"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/default_photo"
+        app:border="false"
+        app:selector="true"
+        app:selector_color="#44FFBB33"
+        app:selector_stroke_color="#66FF8800"
+        app:selector_stroke_width="2dp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_zixiname"
+        android:layout_alignBottom="@+id/tv_zixiname"
+        android:layout_alignParentRight="true"
+        android:text="20分钟前" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_photo"
+        android:layout_toRightOf="@+id/iv_photo"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="少壮不努力，老大徒伤悲"
+        android:textSize="16sp" />
+
+    <include
+        android:id="@+id/ll_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/iv_photo"
+        layout="@layout/layout_audio" />
+
+    <ImageView
+        android:id="@+id/iv"
+        style="@style/MW"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/ll_audio"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/iv_photo"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tv_time"
+        android:layout_alignTop="@+id/tv_from"
+        android:text="自习邀请"
+        android:textColor="#0099CC"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_photo"
+        android:layout_toRightOf="@+id/iv_photo"
+        android:text="花草人"
+        android:textColor="#666666" />
+
+    <TextView
+        android:id="@+id/tv_zixiname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv"
+        android:layout_toRightOf="@+id/iv_photo"
+        android:text="高等数学"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+</RelativeLayout>

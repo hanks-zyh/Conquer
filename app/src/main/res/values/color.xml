@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="jifen">#4FBFE8</color>
+    <!-- <color name="title">#03A9F5</color> -->
+    <color name="title">#3F51B5</color>
+    <color name="red_button">#E4007F</color>
+    <color name="title_transparent">#aa03A9F4</color>
+    <color name="white">#ffffffff</color>
+    <color name="green_pressed">#22000000</color>
+    <color name="bottom_bg">#ff76afc5</color>
+    <color name="window_bg">#F7F6F6</color>
+    <color name="qqblue">#ff54acea</color>
+    <color name="transparent">#00000000</color>
+    <!-- <color name="title_green1">#FF7c63b1</color> -->
+    <color name="title_green1">#ff3399CC</color>
+    <color name="title_green2">#22F4E6CC</color>
+    <color name="title_green3">#ffA7C520</color>
+    <color name="title_green4">#ff493F0B</color>
+    <color name="check_green">#ff77d247</color>
+    <color name="green">#00FF00</color>
+    <color name="gray">#44000000</color>
+    <color name="title_green">#FF00A733</color>
+    <color name="black">#ff000000</color>
+    <color name="half_black">#66000000</color>
+    <color name="hint">#ff999999</color>
+    <color name="grey">#ff666666</color>
+    <color name="blue">#ff33b5e5</color>
+    <color name="red">#ffa22a22</color>
+    <color name="purple">#FF881177</color>
+    <color name="orange">#FFffbb00</color>
+    <color name="main_bg">#FFEDF7F2</color>
+    <color name="tab_textcolor_normal">#ffffffff</color>
+    <color name="tab_textcolor_pressed">#FF00A733</color>
+    <color name="splash_bg">#ff41c5eb</color>
+    <color name="home_title_bg">#ff41c5eb</color>
+    <color name="tran_title_bg">#2241c5eb</color>
+    <color name="splash_text_shadow">#aa000000</color>
+    <color name="half_tansparent">#22000000</color>
+    <color name="slidingmenu_bg">#ff32394B</color>
+    <color name="restore_list_item_bg">#ffF7F7F7</color>
+    <color name="tab_bg_n">#ffeaedf1</color>
+    <!-- <color name="tab_textcolor_p">#aa161719</color> -->
+    <color name="tab_textcolor_p">#ff41c5eb</color>
+    <color name="tab_textcolor_n">#ffC0C3C8</color>
+    <color name="blue_pressed">#ff0099cc</color>
+    <color name="blue_normal">#ff33b5e5</color>
+    <!-- 水波纹 -->
+    <color name="rippelColor">#FFFFFF</color>
+    <!-- Bmob -->
+    <color name="color_bottom_bg">#272a2e</color>
+    <color name="color_bottom_text_normal">#9da0a4</color>
+    <color name="color_bottom_text_press">#4f9ef6</color>
+    <color name="dialog_color_title">#f82c22</color>
+    <color name="base_color_text_black">#3e3e39</color>
+    <color name="base_color_text_gray">#9fa0a0</color>
+    <color name="base_color_text_white">#ffffff</color>
+    <color name="guide_color">#898989</color>
+    <color name="base_actionbar_bg">#f5f5f5</color>
+    <color name="base_action_bar_title_color">#2f2725</color>
+    <color name="base_tab_indicator_text_color">#f82c22</color>
+    <color name="base_menu_left_bg">#393c44</color>
+    <color name="pull_refresh_textview">#000000</color>
+    <color name="home_item_color_bg">#f4f6f6</color>
+    <color name="base_bg">#f4f6f6</color>
+    <!-- zxing -->
+    <color name="color_half_transparent">#b0000000</color>
+    <color name="color_transparent_bg">#80000000</color>
+    <color name="color_transparent_bg1">#e0000000</color>
+    <!-- emot -->
+    <color name="msg_emote_divider">#ffa1a1a1</color>
+    <color name="text_gray">#969696</color>
+    <color name="msg_chat_bg">#eceff4</color>
+    <color name="theme_bg_color">#f0f2f5</color>
+    <color name="color_theme">#489cfa</color>
+    <color name="c_f98800">#ed4e23</color>
+    <color name="common_bg">#fcfcfc</color>
+    <color name="setting_ll_p">#f3f9fd</color>
+    <color name="setting_ll_n">#f3f9fd</color>
+
+</resources>

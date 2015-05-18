@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <RelativeLayout
+                android:id="@+id/rl_photo"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="头像" />
+
+                <ImageView
+                    android:id="@+id/iv_photo"
+                    style="@style/EditDataTVRight"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/default_photo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_nick"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="昵称" />
+
+                <TextView
+                    android:id="@+id/tv_nick"
+                    style="@style/EditDataTVRight"
+                    android:text="花落叶" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_gender"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="性别" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/EditDataTVRight"
+                    android:text="女" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_school"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="学校" />
+
+                <TextView
+                    android:id="@+id/tv_school"
+                    style="@style/EditDataTVRight"
+                    android:text="河南理工大学" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_dep"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="专业" />
+
+                <TextView
+                    android:id="@+id/tv_dep"
+                    style="@style/EditDataTVRight"
+                    android:text="计算机科学与技术" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_year"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="入学时间" />
+
+                <TextView
+                    android:id="@+id/tv_year"
+                    style="@style/EditDataTVRight"
+                    android:text="2011年" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_phone"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="电话号码" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/EditDataTVRight"
+                    android:text="18236887539" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_city"
+                style="@style/EditDataRL" >
+
+                <TextView
+                    style="@style/EditDataTVLeft"
+                    android:text="城市" />
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    style="@style/EditDataTVRight"
+                    android:text="河南焦作" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

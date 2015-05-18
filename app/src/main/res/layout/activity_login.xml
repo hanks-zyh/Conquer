@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff6fafb"
+    android:orientation="vertical"
+    android:paddingLeft="40dip"
+    android:paddingRight="40dip" >
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dip"
+        android:text="你可以通过以下平台登录"
+        android:textColor="#ffbbbebf"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/bt_qq"
+        style="@style/TextView_Login_QQ_or_Sina"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/qqlogin_selector"
+        android:onClick="qqLogin"
+        android:text="QQ登录" />
+
+    <Button
+        android:id="@+id/bt_sina"
+        style="@style/TextView_Login_QQ_or_Sina"
+        android:background="@drawable/sinalogin_selector"
+        android:onClick="sianLogin"
+        android:text="新浪登录" />
+
+</LinearLayout>

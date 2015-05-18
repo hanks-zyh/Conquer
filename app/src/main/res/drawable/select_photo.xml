@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--
+gradient   对应颜色渐变。 startcolor、endcolor就不多说了。 android:angle 是指从哪个角度开始变。
+solid      填充。
+stroke    描边。
+corners   圆角。
+    -->
+
+    <solid android:color="#fff" />
+
+    <!-- <stroke
+        android:width="1dip"
+        android:color="@color/title_green1" /> -->
+
+    <corners
+        android:bottomLeftRadius="5dip"
+        android:bottomRightRadius="5dip"
+        android:topLeftRadius="5dip"
+        android:topRightRadius="5dip" />
+
+</shape>

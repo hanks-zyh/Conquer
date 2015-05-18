@@ -1,0 +1,99 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/window_bg"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/iv_home_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_bg_height"
+                android:scaleType="centerCrop"
+                android:src="@drawable/home_bg" />
+
+            <View
+                android:id="@+id/iv_camera"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="-28dp"
+                android:background="@drawable/ic_camera" />
+
+            <include layout="@layout/fragment_mydata" />
+
+            <LinearLayout
+                style="@style/MW"
+                android:layout_margin="8dp"
+                android:background="@drawable/card_bg"
+                android:orientation="vertical"
+                android:padding="16dp" >
+
+                <TextView
+                    style="@style/WW"
+                    android:src="@drawable/ic_school"
+                    android:text="相册"
+                    android:textColor="@color/red_button"
+                    android:textSize="22sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_album"
+                    style="@style/MW"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MW"
+                android:layout_margin="8dp"
+                android:background="@drawable/card_bg"
+                android:orientation="vertical"
+                android:padding="16dp" >
+
+                <TextView
+                    style="@style/WW"
+                    android:src="@drawable/ic_school"
+                    android:text="标签"
+                    android:textColor="@color/red_button"
+                    android:textSize="22sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_label"
+                    style="@style/MW"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/user_data_title" />
+
+    <com.hpu.pnszx.view.CircularImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="@dimen/photo_size"
+        android:layout_height="@dimen/photo_size"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/photo_top"
+        android:clickable="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/default_photo"
+        app:border="false"
+        app:selector="true"
+        app:selector_color="#44FFBB33"
+        app:selector_stroke_color="#66FF8800"
+        app:selector_stroke_width="2dp"
+        app:shadow="true" />
+
+</FrameLayout>

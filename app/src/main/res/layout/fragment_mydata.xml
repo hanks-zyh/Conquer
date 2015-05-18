@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:background="@drawable/card_bg"
+    android:orientation="vertical"
+    android:padding="16dp" >
+
+    <TextView
+        style="@style/WW"
+        android:src="@drawable/ic_school"
+        android:text="基本信息"
+        android:textColor="@color/red_button"
+        android:textSize="22sp" />
+
+    <RelativeLayout style="@style/MyDataRL" >
+
+        <TextView
+            style="@style/MyDataTv"
+            android:text="ID" />
+
+        <TextView
+            android:id="@+id/tv_id"
+            style="@style/MyDataET"
+            android:text="1234567" />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/MyDataRL"
+        android:orientation="horizontal" >
+
+        <RelativeLayout style="@style/WM" >
+
+            <TextView
+                style="@style/MyDataTv"
+                android:layout_centerVertical="true"
+                android:text="昵称" />
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                style="@style/MyDataET"
+                android:text="花开花落" />
+
+            <ImageView
+                android:id="@+id/iv_gender"
+                style="@style/WW"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toLeftOf="@+id/tv_nickname"
+                android:src="@drawable/ic_female" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout style="@style/MyDataRL" >
+
+        <TextView
+            style="@style/MyDataTv"
+            android:layout_centerVertical="true"
+            android:text="学校" />
+
+        <TextView
+            android:id="@+id/et_school"
+            style="@style/MyDataET"
+            android:layout_height="wrap_content"
+            android:text="河南理工大学" />
+
+        <TextView
+            android:id="@+id/et_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2011年"
+            android:textColor="@color/gray"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/et_dep"
+            style="@style/WW"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/et_school"
+            android:text="计算机学院"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/MyDataRL" >
+
+        <ImageView
+            android:id="@+id/tv_phone"
+            style="@style/MyDataTv"
+            android:src="@drawable/ic_phone" />
+
+        <TextView
+            android:id="@+id/et_phone"
+            style="@style/MyDataET"
+            android:text="18236887539" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/MyDataRL" >
+
+        <ImageView
+            style="@style/MyDataTv"
+            android:src="@drawable/ic_city" />
+
+        <TextView
+            android:id="@+id/et_city"
+            style="@style/MyDataET"
+            android:text="河南新乡" />
+    </RelativeLayout>
+
+</LinearLayout>

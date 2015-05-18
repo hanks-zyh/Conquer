@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:background="@color/red_button"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:padding="2dp"
+    android:singleLine="true"
+    android:text="单身贵族"
+    android:textColor="@color/white"
+    android:textSize="13sp" >
+
+</TextView>

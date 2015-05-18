@@ -82,11 +82,36 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="logger-1.8" level="project" />
+    <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
+    <orderEntry type="library" exported="" name="BmobSDK_V3.3.5_0408" level="project" />
+    <orderEntry type="library" exported="" name="rebound-core" level="project" />
+    <orderEntry type="library" exported="" name="fbcore-0.4.0" level="project" />
+    <orderEntry type="library" exported="" name="mta-sdk-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="open_sdk" level="project" />
+    <orderEntry type="library" exported="" name="locSDK_4.2" level="project" />
+    <orderEntry type="library" exported="" name="fresco-0.4.0" level="project" />
+    <orderEntry type="library" exported="" name="photoview-library-1.2.2" level="project" />
+    <orderEntry type="library" exported="" name="BmobIM_V1.1.8beta_20150408" level="project" />
+    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="universal-image-loader-1.9.3" level="project" />
+    <orderEntry type="library" exported="" name="leakcanary-analyzer-1.3.1" level="project" />
+    <orderEntry type="library" exported="" name="leakcanary-watcher-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="haha-1.3" level="project" />
+    <orderEntry type="library" exported="" name="otto-1.3.7" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="imagepipeline-0.4.0" level="project" />
+    <orderEntry type="library" exported="" name="baidumapapi_v3_0_0" level="project" />
+    <orderEntry type="library" exported="" name="xUtils-2.6.14" level="project" />
+    <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
+    <orderEntry type="library" exported="" name="drawee-0.4.0" level="project" />
+    <orderEntry type="library" exported="" name="leakcanary-android-1.3.1" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
   </component>
 </module>

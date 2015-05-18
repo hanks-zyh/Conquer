@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_card"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="center" >
+
+    <ImageView
+        android:id="@+id/iv_card_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_bg" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/black_layer" />
+    <EditText
+        android:id="@+id/et_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iv_record"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:hint="　一路沿途的美丽风景参托着所有的悲伤的化身。一路的沧桑，一路的惆怅，无休无止。感念着所有的彷徨，记录着所有的辛酸。道不尽，写不尽的菩提故事。人生，抬头就不能看到地面，低头就不能仰望天空。人生，哭泣就没有微笑，微笑就没有眼泪"
+        android:textColor="#ffff"
+        android:textColorHint="#ffff"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/iv_record"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/iv_card_bg"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="8dp"
+        android:src="@drawable/contacts_button_mic_highlighted" />
+
+    <Button
+        android:id="@+id/bt_send"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/et_note"
+        android:text="发送" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_note"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:text="美丽卡片 勾搭一下"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/tab_bg_n" />
+
+</RelativeLayout>

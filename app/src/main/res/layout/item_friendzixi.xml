@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_bg"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp" >
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:ellipsize="end"
+            android:shadowColor="@color/gray"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:singleLine="true"
+            android:text="高等数学"
+            android:textColor="@color/blue_normal"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:drawableLeft="@drawable/ic_zixi_time"
+            android:gravity="center"
+            android:text="10:10"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tv_zixitime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_margin="8dp"
+            android:layout_toRightOf="@+id/tv_time"
+            android:text="(20分钟后)"
+            android:textColor="@color/grey"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray" />
+
+        <com.hpu.pnszx.view.CircularImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/line"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="16dp"
+            android:clickable="true"
+            android:src="@drawable/default_photo"
+            app:border="false"
+            app:selector="true"
+            app:selector_color="#44FFBB33"
+            app:selector_stroke_color="#66FF8800"
+            app:selector_stroke_width="2dp"
+            app:shadow="false" />
+
+        <TextView
+            android:id="@+id/tv_created_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_nickname"
+            android:layout_alignBottom="@+id/tv_nickname"
+            android:layout_alignRight="@+id/line"
+            android:layout_marginRight="16dp"
+            android:drawableLeft="@drawable/ic_time"
+            android:text="20分钟前"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_dis"
+            android:layout_alignBottom="@+id/tv_dis"
+            android:layout_alignRight="@+id/tv_created_time"
+            android:drawableLeft="@drawable/ic_hot"
+            android:text="12人"
+            android:textColor="@color/text_gray" />
+
+        <TextView
+            android:id="@+id/tv_dis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_photo"
+            android:layout_alignLeft="@+id/iv_gender"
+            android:drawableLeft="@drawable/ic_location"
+            android:text="200米"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_gender"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignTop="@+id/iv_photo"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/iv_photo"
+            android:src="@drawable/ic_female" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_gender"
+            android:layout_toRightOf="@+id/iv_gender"
+            android:text="花开花落" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_bg"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/iv_card_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/home_bg" />
+
+        <include
+            android:id="@+id/ll_audio"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            layout="@layout/layout_audio"
+            android:background="@color/transparent" />
+
+        <TextView
+            android:id="@+id/tv_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_audio"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:shadowColor="@color/gray"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="亲爱的快来和我一块上自习"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</FrameLayout>

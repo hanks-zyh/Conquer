@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:id="@+id/ll_school"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="42.0dip"
+            android:orientation="horizontal"
+            android:paddingLeft="12.0dip"
+            android:paddingRight="10.0dip" >
+
+            <TextView
+                android:layout_width="80.0dip"
+                android:layout_height="wrap_content"
+                android:text="学校"
+                android:textColor="#ff4c4c4c"
+                android:textSize="15.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/school"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/myprofile_list_icon_arrow"
+                android:hint="请选择学校"
+                android:textColor="#ffb2b2b2"
+                android:textSize="15.0sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#ffe5e5e5" />
+
+        <LinearLayout
+            android:id="@+id/ll_department"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="42.0dip"
+            android:orientation="horizontal"
+            android:paddingLeft="12.0dip"
+            android:paddingRight="10.0dip" >
+
+            <TextView
+                android:layout_width="80.0dip"
+                android:layout_height="wrap_content"
+                android:text="院系"
+                android:textColor="#ff4c4c4c"
+                android:textSize="15.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/department"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/myprofile_list_icon_arrow"
+                android:hint="请选择院系"
+                android:textColor="#ffb2b2b2"
+                android:textSize="15.0sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#ffe5e5e5" />
+
+        <LinearLayout
+            android:id="@+id/ll_year"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            android:enabled="false"
+            android:gravity="center_vertical"
+            android:minHeight="42.0dip"
+            android:orientation="horizontal"
+            android:paddingLeft="12.0dip"
+            android:paddingRight="10.0dip" >
+
+            <TextView
+                android:layout_width="80.0dip"
+                android:layout_height="wrap_content"
+                android:text="入学时间"
+                android:textColor="#ff4c4c4c"
+                android:textSize="15.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/myprofile_list_icon_arrow"
+                android:hint="请选择入学时间"
+                android:textColor="#ffb2b2b2"
+                android:textSize="15.0sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/myprofile_cover_icon_tip"
+            android:text="正确的信息让你快速找到陪你上自习的人哦"
+            android:textColor="#727272"
+            android:textSize="12.0sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/bt_save"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ll_bg"
+            android:text="完成"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

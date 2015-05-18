@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/card_bg"
+        android:orientation="vertical"
+        android:padding="16dp" >
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AutoCAD"
+            android:textColor="@color/title_green1"
+            android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:10"
+            android:textSize="30sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_below="@+id/tv_time"
+            android:background="@color/gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" >
+
+            <com.hpu.pnszx.view.CircularImageView
+                android:id="@+id/iv_photo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/default_photo"
+                app:border="true"
+                app:border_color="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/iv_photo"
+                android:text="未知" />
+
+            <ImageView
+                android:id="@+id/iv_gender"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_alignTop="@+id/tv_nickname"
+                android:layout_toRightOf="@+id/tv_nickname"
+                android:src="@drawable/ic_male" />
+
+            <TextView
+                android:id="@+id/tv_created_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/iv_photo"
+                android:layout_alignBottom="@+id/iv_photo"
+                android:layout_alignParentRight="true"
+                android:text="4分钟前"
+                android:textColor="@color/text_gray" />
+
+            <TextView
+                android:id="@+id/tv_dis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_created_time"
+                android:text="300米" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:padding="16dp" >
+
+        <Button
+            android:id="@+id/tv_ok"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_done"
+            android:textColor="@color/title"
+            android:textSize="16sp" />
+        <include
+            android:id="@+id/ll_audio"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_below="@+id/bt_audio"
+            layout="@layout/layout_audio"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/bt_audio"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/et"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_mic" />
+
+        <EditText
+            android:id="@+id/et"
+            style="@style/MyET"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignLeft="@+id/bt_audio"
+            android:layout_alignParentTop="true"
+            android:ems="20"
+            android:hint="说句鼓励的话吧...(20字)"
+            android:lines="1"
+            android:padding="3dp"
+            android:singleLine="true" >
+        </EditText>
+
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_ok"
+            android:layout_alignLeft="@+id/bt_audio"
+            android:checkedButton="@+id/rb0"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="提醒" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一起" />
+        </RadioGroup>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp" >
+
+        <ImageView
+            android:id="@+id/iv_home_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/home_bg" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/shadow_h" />
+
+        <com.hpu.pnszx.view.CircularImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:clickable="true"
+            android:src="@drawable/default_photo"
+            app:border="false"
+            app:border_color="@android:color/white"
+            app:border_width="0dp"
+            app:selector="true"
+            app:selector_color="#22FFBB33"
+            app:selector_stroke_color="#66FF8800"
+            app:selector_stroke_width="2dp"
+            app:shadow="true" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_photo"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:text="暂无信息"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_photo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/iv_photo"
+            android:layout_marginRight="18dp"
+            android:src="@drawable/ic_pencil" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/iv_photo2"
+            android:layout_alignTop="@+id/tv_nickname"
+            android:src="@drawable/ic_arrow_down" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_all_zixi"
+        style="@style/Menu_ll" >
+
+        <ImageView
+            style="@style/Menu_iv"
+            android:src="@drawable/ic_teaser_forums_24dp" />
+
+        <TextView
+            style="@style/Menu_tv"
+            android:text="我的自习" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_history"
+        style="@style/Menu_ll" >
+
+        <ImageView
+            style="@style/Menu_iv"
+            android:src="@drawable/ic_teaser_promos_24dp" />
+
+        <TextView
+            style="@style/Menu_tv"
+            android:text="我的记录" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_friend"
+        style="@style/Menu_ll" >
+
+        <ImageView
+            style="@style/Menu_iv"
+            android:src="@drawable/ic_teaser_social_24dp" />
+
+        <TextView
+            style="@style/Menu_tv"
+            android:text="好友" />
+    </LinearLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        layout="@layout/line" />
+
+    <LinearLayout
+        android:id="@+id/ll_setting"
+        style="@style/Menu_ll" >
+
+        <ImageView
+            style="@style/Menu_iv"
+            android:src="@drawable/ic_drawer_settings_24dp" />
+
+        <TextView
+            style="@style/Menu_tv"
+            android:text="设置" />
+    </LinearLayout>
+
+</LinearLayout>

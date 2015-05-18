@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="?attr/colorValue" >
+
+        <com.hpu.pnszx.view.CircularImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:src="@drawable/default_photo"
+            app:border="true"
+            app:border_color="@android:color/white"
+            app:border_width="2dp"
+            app:selector="true"
+            app:selector_color="#44FFBB33"
+            app:selector_stroke_color="#66FF8800"
+            app:selector_stroke_width="2dp"
+            app:shadow="true" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_photo"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="花开花落"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/iv_gender"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignTop="@id/tv_nickname"
+            android:layout_toRightOf="@id/tv_nickname"
+            android:src="@drawable/ic_female" />
+    </RelativeLayout>
+
+</LinearLayout>

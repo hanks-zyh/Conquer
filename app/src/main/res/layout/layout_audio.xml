@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:background="@drawable/ll_bg"
+    android:gravity="center_vertical"
+    android:minHeight="55dp"
+    android:orientation="horizontal" >
+
+    <FrameLayout
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10dp" >
+
+        <ImageButton
+            android:id="@+id/ib_play"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/add_bt_selector"
+            android:padding="9dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/play_audio" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1" >
+    </ProgressBar>
+
+    <TextView
+        android:id="@+id/tv_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_toRightOf="@id/pb"
+        android:text="0秒"
+        android:textColor="#AFAFAF" />
+
+    <ImageView
+        android:id="@+id/iv_del"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_del_n" />
+
+</LinearLayout>

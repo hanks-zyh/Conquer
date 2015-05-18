@@ -1,12 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".SplashActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorValue" >
 
     <TextView
-        android:text="@string/hello_world"
+        android:id="@+id/tv_dis"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/hello_world"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <ImageView
+        android:id="@+id/iv_photo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_dis"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
 
 </RelativeLayout>

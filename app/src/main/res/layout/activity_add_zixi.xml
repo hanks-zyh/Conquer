@@ -1,0 +1,219 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_bg"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/common_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorValue"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp" >
+
+            <TextView
+                android:id="@+id/wk_0"
+                style="@style/WeekTv"
+                android:text="日" />
+
+            <TextView
+                android:id="@+id/wk_1"
+                style="@style/WeekTv"
+                android:text="一" />
+
+            <TextView
+                android:id="@+id/wk_2"
+                style="@style/WeekTv"
+                android:text="二" />
+
+            <TextView
+                android:id="@+id/wk_3"
+                style="@style/WeekTv"
+                android:text="三" />
+
+            <TextView
+                android:id="@+id/wk_4"
+                style="@style/WeekTv"
+                android:text="四" />
+
+            <TextView
+                android:id="@+id/wk_5"
+                style="@style/WeekTv"
+                android:text="五" />
+
+            <TextView
+                android:id="@+id/wk_6"
+                style="@style/WeekTv"
+                android:text="六" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp" >
+
+            <TextView
+                android:id="@+id/day_0"
+                style="@style/WeekTv"
+                android:text="11" />
+
+            <TextView
+                android:id="@+id/day_1"
+                style="@style/WeekTv"
+                android:text="12" />
+
+            <TextView
+                android:id="@+id/day_2"
+                style="@style/WeekTv"
+                android:text="13" />
+
+            <TextView
+                android:id="@+id/day_3"
+                style="@style/WeekTv"
+                android:text="14" />
+
+            <TextView
+                android:id="@+id/day_4"
+                style="@style/WeekTv"
+                android:text="15" />
+
+            <TextView
+                android:id="@+id/day_5"
+                style="@style/WeekTv"
+                android:text="16" />
+
+            <TextView
+                android:id="@+id/day_6"
+                style="@style/WeekTv"
+                android:text="17" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/ic_alarm_black_24dp"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="10:50"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_time_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_time"
+            android:layout_alignBottom="@+id/tv_time"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/tv_time"
+            android:gravity="center"
+            android:text="(10分钟后)"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="#22666666" />
+
+    <AutoCompleteTextView
+        android:id="@+id/et_name"
+        style="@style/MyET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="添加科目"
+        android:minHeight="48dp"
+        android:paddingLeft="8dp" />
+
+    <com.hpu.pnszx.view.FlowLayout
+        android:id="@+id/ll_at_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" >
+    </com.hpu.pnszx.view.FlowLayout>
+
+    <include
+        android:id="@+id/ll_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_audio"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_bg"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/ib_img"
+                style="@style/WeekTv"
+                android:background="@null"
+                android:src="@drawable/icon_pic" />
+
+            <ImageButton
+                android:id="@+id/ib_audio"
+                style="@style/WeekTv"
+                android:background="@null"
+                android:src="@drawable/icon_h" />
+
+            <ImageButton
+                android:id="@+id/ib_at"
+                style="@style/WeekTv"
+                android:background="@null"
+                android:src="@drawable/icon_a" />
+
+            <ImageButton
+                android:id="@+id/ib_theme"
+                style="@style/WeekTv"
+                android:background="@null"
+                android:src="@drawable/icon_jin" />
+
+            <ImageButton
+                android:id="@+id/ib_save"
+                style="@style/WeekTv"
+                android:background="@null"
+                android:src="@drawable/ic_done_grey600_24dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_above="@+id/ll_bottom"
+            android:background="@color/gray" />
+    </RelativeLayout>
+
+</LinearLayout>
