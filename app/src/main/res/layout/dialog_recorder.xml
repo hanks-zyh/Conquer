@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <com.hpu.pnszx.view.RippleBackground
+    <app.hanks.com.conquer.view.RippleBackground
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             android:layout_margin="90dp"
             android:background="@drawable/recorder_bg"
             android:src="@drawable/record_off" />
-    </com.hpu.pnszx.view.RippleBackground>
+    </app.hanks.com.conquer.view.RippleBackground>
 
     <TextView
         android:id="@+id/tv_second"

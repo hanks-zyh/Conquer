@@ -6,7 +6,7 @@
     android:background="@drawable/card_bg"
     android:padding="16dp" >
 
-    <com.hpu.pnszx.view.CircularImageView
+    <app.hanks.com.conquer.view.CircularImageView
         android:id="@+id/iv_photo"
         android:layout_width="@dimen/photo_size_small"
         android:layout_height="@dimen/photo_size_small"

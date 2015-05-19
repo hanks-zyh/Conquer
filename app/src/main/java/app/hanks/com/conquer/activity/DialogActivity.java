@@ -21,7 +21,6 @@ package app.hanks.com.conquer.activity;
  * Created by Hanks on 2015/5/17.
  */
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import app.hanks.com.conquer.CustomApplication;
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.bean.MaxNumber;
-import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.otto.BusProvider;
 import app.hanks.com.conquer.otto.FinishActivityEvent;
 import app.hanks.com.conquer.util.A;
@@ -50,6 +48,7 @@ public class DialogActivity extends BaseActivity {
     private   String  photoUrl;
     private   String  gender;
     private   String  city;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,6 @@ public class DialogActivity extends BaseActivity {
                 currentUser.setDep("二里沟爬山学院");
                 currentUser.setMajor("爬山减肥");
                 currentUser.setYear("2015");
-                currentUser.setCity(city);
                 currentUser.setLoveStatus("孤家寡人");
                 currentUser.setPhoneNum("57575777");
                 currentUser.setSign("树下斑驳的光影,那是那年盛夏我们零碎的流年.");
@@ -95,7 +93,7 @@ public class DialogActivity extends BaseActivity {
                     public void onSuccess() {
                         userManager.bindInstallationForRegister(currentUser.getUsername());
                         updateUserInfos();
-//                        sendBroadcast(new Intent(Constants.ACTION_REGISTER_SUCCESS_FINISH));
+//                      sendBroadcast(new Intent(Constants.ACTION_REGISTER_SUCCESS_FINISH));
                         BusProvider.getInstance().post(new FinishActivityEvent());
                         A.goOtherActivityFinishNoAnim(context, MainActivity.class);
                     }
@@ -142,7 +140,8 @@ public class DialogActivity extends BaseActivity {
                                 // 更新用户信息
                                 updateUserInfos();
                                 // 发广播通知登陆页面退出
-                                sendBroadcast(new Intent(Constants.ACTION_REGISTER_SUCCESS_FINISH));
+//                                sendBroadcast(new Intent(Constants.ACTION_REGISTER_SUCCESS_FINISH));
+                                BusProvider.getInstance().post(new FinishActivityEvent());
                                 // 去主界面
                                 L.e(currentUser.toString());
                                 // 去学校信息
@@ -173,9 +172,9 @@ public class DialogActivity extends BaseActivity {
             }
         });
     }
+
     @Override
-    public void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back,
-                             ImageButton ib_right, View shadow) {
+    public void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back, ImageButton ib_right, View shadow) {
         tv_title.setText("完善信息");
     }
 

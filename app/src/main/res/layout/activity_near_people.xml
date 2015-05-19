@@ -7,7 +7,7 @@
 
     <include layout="@layout/common_title" />
 
-    <com.hpu.pnszx.view.xlist.XListView
+    <app.hanks.com.conquer.view.xlist.XListView
         android:id="@+id/list_near"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

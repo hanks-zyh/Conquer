@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hpu.pnszx.view.datetime.datepicker.AccessibleDateAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+<app.hanks.com.conquer.view.datetime.datepicker.AccessibleDateAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@id/animator"
     android:layout_width="@dimen/date_picker_component_width"
     android:layout_height="@dimen/date_picker_view_animator_height"

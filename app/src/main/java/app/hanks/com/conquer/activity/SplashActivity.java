@@ -40,16 +40,6 @@ public class SplashActivity extends BaseActivity {
         goMainActivity();                         //界面跳转
     }
 
-    @Override
-    protected View getContentView() {//设置界面
-        return View.inflate(context,R.layout.activity_splash,null);
-    }
-
-    @Override
-    protected void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back, ImageButton ib_right, View shadow) {
-
-    }
-
     /**
      * 设置为全屏显示
      */
@@ -100,8 +90,8 @@ public class SplashActivity extends BaseActivity {
     private void initBmob() {
         // 可设置调试模式，当为true的时候，会在logcat的BmobChat下输出一些日志，包括推送服务是否正常运行，如果服务端返回错误，也会一并打印出来。方便开发者调试
         BmobChat.DEBUG_MODE = true;
-        Bmob.initialize(this, Constants.BMOB_KEY);
-        BmobChat.getInstance(this).init(Constants.BMOB_KEY);
+        Bmob.initialize(getApplicationContext(), Constants.BMOB_KEY);
+        BmobChat.getInstance(getApplicationContext()).init(Constants.BMOB_KEY);
     }
 
     @SuppressLint("HandlerLeak")
@@ -123,7 +113,7 @@ public class SplashActivity extends BaseActivity {
      * 开启定位，更新当前用户的经纬度坐标
      */
     private void initLocClient() {
-        LocationService locationService = LocationService.getInstance(context);
+        LocationService locationService = LocationService.getInstance(getApplicationContext());
         locationService.getMyLocation();
         locationService.setOnLocateCompletedListener(new LocationService.OnLocateCompletedListener() {
             @Override
@@ -151,6 +141,17 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocationService.getInstance(context).stop();
+        //停止定位
+        LocationService.getInstance(getApplicationContext()).stop();
+    }
+
+    @Override
+    protected View getContentView() {//设置界面
+        return View.inflate(context,R.layout.activity_splash,null);
+    }
+
+    @Override
+    protected void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back, ImageButton ib_right, View shadow) {
+
     }
 }

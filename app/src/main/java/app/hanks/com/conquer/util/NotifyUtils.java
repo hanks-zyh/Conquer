@@ -286,7 +286,7 @@ public class NotifyUtils {
 							}
 						});
 						// BmobDB.create(context).saveContact(invitation);
-						// CustomApplcation.getInstance().setContactList(CollectionUtils.list2map(BmobDB.create(context).getContactList()));
+						// CustomApplication.getInstance().setContactList(CollectionUtils.list2map(BmobDB.create(context).getContactList()));
 
 					}
 

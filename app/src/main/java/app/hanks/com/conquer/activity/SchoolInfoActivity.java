@@ -81,7 +81,7 @@ public class SchoolInfoActivity extends BaseActivity implements View.OnClickList
                 A.goOtherActivity(context, SchoolActivity.class);
                 break;
             case R.id.ll_year:
-                final String[] years = new String[] { "2012年", "2012年", "2013年", "2014年" };
+                final String[] years = new String[] { "2012年", "2013年", "2014年", "2015年" };
                 AlertDialogUtils.showChiceGender(context, years, 0, new AlertDialogUtils.OkCallBack() {
                     @Override
                     public void onOkClick(DialogInterface dialog, int which) {
@@ -118,7 +118,7 @@ public class SchoolInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    protected void onStart() {
+    protected void onResume() {
         L.d("SchoolInfo---->>>>onStart");
         UserDataUtils.queryUserByUsername(context, currentUser.getUsername(), new UserDataUtils.QueryUserDataListener() {
             @Override

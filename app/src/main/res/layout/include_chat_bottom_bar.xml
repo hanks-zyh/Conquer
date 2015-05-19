@@ -32,7 +32,7 @@
             android:gravity="center"
             android:onClick="toAction" />
 
-        <com.hpu.pnszx.view.EmoticonsEditText
+        <app.hanks.com.conquer.view.EmoticonsEditText
             android:id="@+id/edit_user_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -34,7 +34,7 @@
             layout="@layout/time_header_label" />
     </FrameLayout>
 
-    <com.hpu.pnszx.view.datetime.timepicker.RadialPickerLayout
+    <app.hanks.com.conquer.view.datetime.timepicker.RadialPickerLayout
         android:id="@+id/time_picker"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/picker_dimen"

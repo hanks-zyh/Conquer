@@ -47,7 +47,6 @@ import cn.bmob.v3.listener.OtherLoginListener;
  * Created by Hanks on 2015/5/17.
  */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
-//    private MyBroadcastReceiver receiver;
 
     private String nickName;
     private String photoUrl;

@@ -43,7 +43,7 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical" >
 
-            <com.hpu.pnszx.view.CircularImageView
+            <app.hanks.com.conquer.view.CircularImageView
                 android:id="@+id/iv_photo"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -104,7 +104,8 @@
             android:background="@drawable/ic_done"
             android:textColor="@color/title"
             android:textSize="16sp" />
-        <include
+
+        <include
             android:id="@+id/ll_audio"
             android:layout_width="match_parent"
             android:layout_height="85dp"

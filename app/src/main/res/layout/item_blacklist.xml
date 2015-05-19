@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <com.hpu.pnszx.view.CircularImageView
+    <app.hanks.com.conquer.view.CircularImageView
         android:id="@+id/img_friend_avatar"
         style="@style/Smile.ImageView.Photo_Middle"
         android:layout_alignParentLeft="true"

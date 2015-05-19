@@ -123,7 +123,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="16dp"
             android:drawableLeft="@drawable/myprofile_cover_icon_tip"
-            android:text="正确的信息让你快速找到陪你上自习的人哦"
+            android:text="正确的信息让你快速找到附近的人哦"
             android:textColor="#727272"
             android:textSize="12.0sp"
             android:textStyle="bold" />

@@ -11,7 +11,7 @@
         android:layout_height="180dp"
         android:background="?attr/colorValue" >
 
-        <com.hpu.pnszx.view.CircularImageView
+        <app.hanks.com.conquer.view.CircularImageView
             android:id="@+id/iv_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"

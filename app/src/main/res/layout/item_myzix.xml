@@ -7,7 +7,7 @@
     android:minHeight="@dimen/item_myzix_h"
     android:orientation="horizontal" >
 
-    <com.hpu.pnszx.view.RoundProgressBar
+    <app.hanks.com.conquer.view.RoundProgressBar
         android:id="@+id/pb"
         style="@style/MyProgressBar"
         android:layout_width="70dip"
@@ -20,7 +20,7 @@
         android_custom:roundWidth="6dip"
         android_custom:textColor="@color/black"
         android_custom:textSize="12sp" >
-    </com.hpu.pnszx.view.RoundProgressBar>
+    </app.hanks.com.conquer.view.RoundProgressBar>
 
     <LinearLayout
         android:layout_width="match_parent"

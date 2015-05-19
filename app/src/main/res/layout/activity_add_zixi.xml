@@ -145,12 +145,12 @@
         android:minHeight="48dp"
         android:paddingLeft="8dp" />
 
-    <com.hpu.pnszx.view.FlowLayout
+    <app.hanks.com.conquer.view.FlowLayout
         android:id="@+id/ll_at_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp" >
-    </com.hpu.pnszx.view.FlowLayout>
+    </app.hanks.com.conquer.view.FlowLayout>
 
     <include
         android:id="@+id/ll_audio"

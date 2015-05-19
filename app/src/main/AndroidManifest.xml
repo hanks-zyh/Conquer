@@ -73,8 +73,32 @@
         <activity android:name=".activity.SchoolActivity"></activity>
         <activity android:name=".activity.SchoolInfoActivity"></activity>
         <activity android:name=".activity.DepartmentActivity"></activity>
+        <activity android:name=".activity.AddFriendActivity"></activity>
+        <activity android:name=".activity.AddZixiActivity"></activity>
+        <activity android:name=".activity.UserDataActivity"></activity>
+        <activity android:name=".activity.AllMyZixiActivity"></activity>
+        <activity android:name=".activity.ChatActivity"></activity>
+        <activity android:name=".activity.SettingActivity"></activity>
+        <activity android:name=".activity.LocationActivity"></activity>
+        <activity android:name=".activity.FriendActivity"></activity>
+        <activity android:name=".activity.FriendDataActivity"></activity>
+        <activity android:name=".activity.BlackListActivity"></activity>
+        <activity android:name=".activity.MyHistoryActivity"></activity>
+        <activity android:name=".activity.MyPhotoActivity"></activity>
+        <activity android:name=".activity.PhotoGallery"></activity>
+        <activity android:name=".activity.SelectFriendActivity"></activity>
+        <activity android:name=".activity.NewFriendActivity"></activity>
+        <activity android:name=".activity.NearPeopleActivity"></activity>
+        <activity android:name=".activity.AboutActivity"></activity>
+        <activity android:name=".activity.SelectPicActivity"    android:theme="@style/MyDialog"></activity>
+        <activity android:name=".activity.AlertActivity"></activity>
 
 
+        <service android:name=".service.AlertService" >
+            <intent-filter>
+                <action android:name="com.hpu.pnszx.service.AlertService" />
+            </intent-filter>
+        </service>
         <!-- qq授权需要注册该activity -->
         <activity
             android:name="com.tencent.connect.common.AssistActivity"

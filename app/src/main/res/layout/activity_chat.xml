@@ -12,7 +12,7 @@
         android:layout_weight="1.0"
         android:background="@color/msg_chat_bg" >
 
-        <com.hpu.pnszx.view.xlist.XListView
+        <app.hanks.com.conquer.view.xlist.XListView
             android:id="@+id/mListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

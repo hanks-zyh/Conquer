@@ -103,7 +103,7 @@ public class AudioUtils {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     pb.setMax(player.getDuration());
-                    loading.setVisibility(8);
+                    loading.setVisibility(View.GONE);
                     player.start();
                     playingAnim(context);
                 }
@@ -151,7 +151,7 @@ public class AudioUtils {
         // isFirst = false;
         // pb.setProgress(0);
         // curPosition = 0;
-        // loading.setVisibility(8);
+        // loading.setVisibility(View.GONE);
         // }
         // palying(context);
         // }

@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:background="?attr/colorValue" >
 
-        <com.hpu.pnszx.view.materialmenu.MaterialMenuView
+        <app.hanks.com.conquer.view.materialmenu.MaterialMenuView
             android:id="@+id/material_menu"
             android:layout_width="32dp"
             android:layout_height="32dp"

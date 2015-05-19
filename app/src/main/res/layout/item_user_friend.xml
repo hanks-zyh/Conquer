@@ -13,7 +13,7 @@
         android:textColor="@color/guide_color"
         android:textSize="16sp" />
 
-    <com.hpu.pnszx.view.CircularImageView
+    <app.hanks.com.conquer.view.CircularImageView
         android:id="@+id/img_friend_avatar"
         android:layout_width="50.0dip"
         android:layout_height="50.0dip"

@@ -23,7 +23,7 @@
             android:layout_height="80dp"
             android:background="@drawable/shadow_h" />
 
-        <com.hpu.pnszx.view.CircularImageView
+        <app.hanks.com.conquer.view.CircularImageView
             android:id="@+id/iv_photo"
             android:layout_width="70dp"
             android:layout_height="70dp"

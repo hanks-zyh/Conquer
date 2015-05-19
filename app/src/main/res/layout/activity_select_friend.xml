@@ -40,7 +40,7 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <com.hpu.pnszx.view.MyLetterView
+        <app.hanks.com.conquer.view.MyLetterView
             android:id="@+id/right_letter"
             android:layout_width="25dip"
             android:layout_height="match_parent"

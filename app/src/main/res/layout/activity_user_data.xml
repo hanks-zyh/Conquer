@@ -80,7 +80,7 @@
 
     <include layout="@layout/user_data_title" />
 
-    <com.hpu.pnszx.view.CircularImageView
+    <app.hanks.com.conquer.view.CircularImageView
         android:id="@+id/iv_photo"
         android:layout_width="@dimen/photo_size"
         android:layout_height="@dimen/photo_size"
