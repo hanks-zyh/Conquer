@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:ripple="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true" >
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/title_shadow_height_3"
+                android:layout_alignParentTop="true">
 
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bg_height"
         android:layout_alignParentTop="true"
-        android:background="?attr/colorValue" >
-        <ImageButton
+        android:background="?attr/colorValue">
+
+        <ImageButton
             android:id="@+id/ib_back"
             android:layout_width="@dimen/title_bg_height"
             android:layout_height="@dimen/title_bg_height"
@@ -21,12 +23,12 @@
             android:onClick="back"
             android:padding="@dimen/title_btn_padding"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_arrow_back_white_24dp" />
+            android:src="@drawable/ic_arrow_back_white_24dp"/>
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/CommonTitleTV"
-            android:text="@string/title" />
+            android:text="@string/title"/>
 
         <ImageButton
             android:id="@+id/ib_right"
@@ -38,7 +40,7 @@
             android:padding="@dimen/title_btn_padding"
             android:scaleType="centerInside"
             android:src="@drawable/ic_title_add"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <View
@@ -46,6 +48,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_shadow_height"
         android:layout_below="@+id/rl_title"
-        android:background="@drawable/shadow_title" />
+        android:background="@drawable/shadow_title"/>
 
 </RelativeLayout>

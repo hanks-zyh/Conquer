@@ -461,7 +461,7 @@ public class AlertActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back, ImageButton ib_right, View shadow) {
 		tv_title.setText("提醒好友");
-		ib_back.setImageResource(R.drawable.ic_clear_white_24dp);
+		ib_back.setImageResource(R.drawable.ic_arrow_back_white_24dp);
 		shadow.setVisibility(View.GONE);
 	}
 

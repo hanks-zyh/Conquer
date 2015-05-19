@@ -90,6 +90,7 @@
         <activity android:name=".activity.NewFriendActivity"></activity>
         <activity android:name=".activity.NearPeopleActivity"></activity>
         <activity android:name=".activity.AboutActivity"></activity>
+        <activity android:name=".activity.EditMyInfoActivity"></activity>
         <activity android:name=".activity.SelectPicActivity"    android:theme="@style/MyDialog"></activity>
         <activity android:name=".activity.AlertActivity"></activity>
 

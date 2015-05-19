@@ -1,20 +1,25 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/window_bg" >
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+
+                                        android:background="@color/window_bg">
 
     <!-- The main content view -->
 
     <RelativeLayout
+        android:fitsSystemWindows="true"
+        android:clipToPadding="false"
+        android:clipChildren="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/title"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <!-- android.support.v4.view.ViewPager -->
 
@@ -25,7 +30,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:fadingEdge="none" >
+                android:fadingEdge="none">
             </android.support.v4.view.ViewPager>
 
             <ListView
@@ -35,7 +40,7 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/card_bg"
                 android:fadingEdge="none"
-                android:scrollbars="none" >
+                android:scrollbars="none">
             </ListView>
         </LinearLayout>
 
@@ -47,14 +52,14 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="16dp"
             android:layout_marginTop="-32dp"
-            android:src="@drawable/drag_circle" />
+            android:src="@drawable/drag_circle"/>
 
         <include
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
             android:layout_alignParentTop="true"
-            layout="@layout/layout_title" />
+            layout="@layout/layout_title"/>
 
         <ImageView
             android:id="@+id/iv_add"
@@ -63,7 +68,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_add"/>
     </RelativeLayout>
     <!-- The navigation drawer -->
 
@@ -71,6 +76,6 @@
         android:id="@+id/left_drawer"
         android:layout_width="280dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start" />
+        android:layout_gravity="start"/>
 
 </android.support.v4.widget.DrawerLayout>
