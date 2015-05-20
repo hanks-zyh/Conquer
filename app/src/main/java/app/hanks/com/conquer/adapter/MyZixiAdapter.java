@@ -6,10 +6,10 @@ import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.nostra13.universalimageloader.utils.L;
 
 import java.util.List;
@@ -67,6 +67,10 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 	@Override
 	public ZixiViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_myzix, viewGroup, false);
+        final SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, v.findViewById(R.id.bottom_right));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, v.findViewById(R.id.bottom_left));
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         return new ZixiViewHolder(v);
 	}
 
@@ -96,13 +100,13 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
         }
         if (p < 100) p = 100;// 防止太小了
         zixiViewHolder. pb.setProgress(p);
-        zixiViewHolder.itemView.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                deleteZixi(position);
-                return false;
-            }
-        });
+//        zixiViewHolder.itemView.setOnLongClickListener(new OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                deleteZixi(position);
+//                return false;
+//            }
+//        });
 	}
 
 	@Override

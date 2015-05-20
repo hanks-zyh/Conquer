@@ -55,11 +55,13 @@ android:visibility="gone"                android:id="@+id/lv_friend"
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0px"
+                android:overScrollMode="never"
                 android:background="@color/white"
                 android:id="@+id/lv_my"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fadingEdge="none"
                 android:scrollbars="none">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
