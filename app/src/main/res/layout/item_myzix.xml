@@ -43,10 +43,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <View
+            android:layout_alignParentTop="true"
+            android:id="@+id/bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/devid_grey"/>
         <LinearLayout
             android:background="@color/white"
-            android:layout_above="@+id/bottom_line"
+            android:layout_below="@+id/bottom_line"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -100,12 +105,7 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_alignParentBottom="true"
-            android:id="@+id/bottom_line"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/devid_grey"/>
+
     </RelativeLayout>
 
     <!-- Surface View End -->

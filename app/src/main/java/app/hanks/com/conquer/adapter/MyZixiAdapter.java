@@ -1,9 +1,8 @@
 package app.hanks.com.conquer.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,8 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 
     private final List<Task> list;
     private final Context    context;
+    private boolean finish = false;
+    private boolean delete = false;
 
     public MyZixiAdapter(Context context, List<Task> list) {
         this.context = context;
@@ -43,10 +44,10 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 	 */
 	private void deleteZixi(final int position) {
 
-		new AlertDialog.Builder(context).setTitle("是否删除该条自习").setMessage("").setPositiveButton("删除", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				ProgressUtil.showWaitting(context);
+//		new AlertDialog.Builder(context).setTitle("是否删除该条自习").setMessage("").setPositiveButton("删除", new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				ProgressUtil.showWaitting(context);
 				ZixiUtil.DeleteZixi(context, list.get(position), new DeleteZixiListener() {
 					@Override
 					public void onSuccess() {
@@ -60,8 +61,8 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 						ProgressUtil.dismiss();
 					}
 				});
-			}
-		}).setNegativeButton("算了", null).show();
+//			}
+//		}).setNegativeButton("算了", null).show();
 	}
 
 	@Override
@@ -107,6 +108,61 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 //                return false;
 //            }
 //        });
+
+        zixiViewHolder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+            @Override
+            public void onClose(SwipeLayout layout) {
+                Log.d("SwipeLayout", "onClose:" + layout.getDragDistance());
+                delete = false;
+                finish = false;
+            }
+
+            @Override
+            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+                //you are swiping.
+                Log.d("SwipeLayout","onUpdate:"+"  "+leftOffset+"    "+topOffset);
+                if(Math.abs(leftOffset)>layout.getDragDistance()/4){
+                    if(leftOffset>0){
+                        delete = true;
+                    }else {
+                        finish = true;
+                    }
+                }else {
+
+                }
+            }
+
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+                Log.d("SwipeLayout","onStartOpen:"+layout.getDragDistance());
+            }
+
+            @Override
+            public void onOpen(SwipeLayout layout) {
+                //when the BottomView totally show.
+                Log.d("SwipeLayout","onOpen:"+layout.getDragDistance());
+                if(delete){
+                    deleteZixi(position);
+                    L.d("position:"+position);
+                }
+                delete = false;
+                finish = false;
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+
+                Log.d("SwipeLayout","onStartClose:"+layout.getDragDistance());
+            }
+
+            @Override
+            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+                //when user's hand released.
+                Log.d("SwipeLayout","onHandRelease:"+layout.getDragDistance()+","+xvel+","+yvel);
+
+
+            }
+        });
 	}
 
 	@Override
@@ -115,16 +171,18 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 	}
 
 	class ZixiViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_time ;
-        TextView tv_name ;
+        SwipeLayout swipeLayout;
+        TextView         tv_time;
+        TextView         tv_name;
         RoundProgressBar pb;
 
-		public ZixiViewHolder(View itemView) {
-			super(itemView);
-              tv_time = (TextView) itemView.findViewById(R.id.tv_time);
-              tv_name =  (TextView) itemView.findViewById(R.id.tv_name);
-              pb = (RoundProgressBar) itemView.findViewById( R.id.pb);
-		}
+        public ZixiViewHolder(View itemView) {
+            super(itemView);
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
+            tv_time = (TextView) itemView.findViewById(R.id.tv_time);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            pb = (RoundProgressBar) itemView.findViewById(R.id.pb);
+        }
 
-	}
+    }
 }
