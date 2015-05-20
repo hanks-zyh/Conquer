@@ -25,11 +25,12 @@
     <color name="half_black">#66000000</color>
     <color name="hint">#ff999999</color>
     <color name="grey">#ff666666</color>
+    <color name="devid_grey">#E5E5E5</color>
     <color name="blue">#ff33b5e5</color>
     <color name="red">#ffa22a22</color>
     <color name="purple">#FF881177</color>
     <color name="orange">#FFffbb00</color>
-    <color name="main_bg">#FFEDF7F2</color>
+    <color name="main_bg">#EBEBEB</color>
     <color name="tab_textcolor_normal">#ffffffff</color>
     <color name="tab_textcolor_pressed">#FF00A733</color>
     <color name="splash_bg">#ff41c5eb</color>
@@ -69,7 +70,7 @@
     <color name="color_transparent_bg1">#e0000000</color>
     <!-- emot -->
     <color name="msg_emote_divider">#ffa1a1a1</color>
-    <color name="text_gray">#969696</color>
+    <color name="text_gray">#9AA0A7</color>
     <color name="msg_chat_bg">#eceff4</color>
     <color name="theme_bg_color">#f0f2f5</color>
     <color name="color_theme">#489cfa</color>
@@ -78,4 +79,7 @@
     <color name="setting_ll_p">#f3f9fd</color>
     <color name="setting_ll_n">#f3f9fd</color>
 
+    <color name="fab_color_pressed">#007787</color>
+    <color name="fab_color_shadow">#44000000</color>
+    <color name="style_color_accent">#01bcd5</color>
 </resources>

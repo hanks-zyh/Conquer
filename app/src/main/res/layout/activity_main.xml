@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:background="@color/main_bg"
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,13 +32,33 @@ android:visibility="gone"                android:id="@+id/lv_friend"
                 android:layout_marginTop="8dp"
                 android:fadingEdge="none">
             </android.support.v4.view.ViewPager>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Today"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"/>
+                <ImageButton
+                    android:background="@drawable/btn_selector"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="40dp"
+                    android:src="@drawable/sweep_g30_24dp"
+                    android:layout_height="40dp"/>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:background="@color/white"
                 android:id="@+id/lv_my"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/card_bg"
                 android:fadingEdge="none"
                 android:scrollbars="none">
             </android.support.v7.widget.RecyclerView>
@@ -55,8 +76,9 @@ android:visibility="gone"                android:id="@+id/lv_friend"
 
         <include
             android:id="@+id/title"
+            android:layout_marginBottom="@dimen/title_shadow_height_3"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
+            android:layout_height="@dimen/title_height_with_shadow"
             android:layout_alignParentTop="true"
             layout="@layout/layout_title"/>
 

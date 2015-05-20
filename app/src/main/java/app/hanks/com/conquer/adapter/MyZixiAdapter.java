@@ -35,46 +35,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
         this.list = list;
     }
 
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_myzix, parent, false);
-        }
-        TextView tv_time = ViewHolder.get(convertView, R.id.tv_time);
-        TextView tv_name = ViewHolder.get(convertView, R.id.tv_name);
-        RoundProgressBar pb = ViewHolder.get(convertView, R.id.pb);// pd最大值为60*24*3，3天以后的为最大值
-        Task task = list.get(position);
-        if (tv_name == null) {
-            L.d("tv_name空了空空了空空了空空了空空了空空了空空了空");
-        }
-        if (task == null) {
-            L.d("zixi空了空空了空空了空空了空空了空空了空空了空");
-        }
-        if (ZixiUtil.getZixiTimeS(task) == null) {
-            L.d("getZixiTimeS空了空空了空空了空空了空空了空空了空空了空");
-        }
-        tv_time.setText(ZixiUtil.getZixiTimeS(task.getTime()));
-        tv_name.setText(task.getName());
-        int p = 4320 - ZixiUtil.getDurationFromNow(task.getTime());
-		if (p <= 0) p = 1;
-		L.d("自习进度:" + p);
-		pb.setText(ZixiUtil.getDescriptionTimeFromTimestamp(task.getTime()));
-		if (task.getTime() <= System.currentTimeMillis()) {
-			pb.setRoundWidth(0);
-			pb.setText(ZixiUtil.getZixiDateS(task.getTime()));
-		}else{
-			pb.setRoundWidth(PixelUtil.dp2px(6));
-		}
-		if (p < 100) p = 100;// 防止太小了
-		pb.setProgress(p);
-		convertView.setOnLongClickListener(new OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				deleteZixi(position);
-				return false;
-			}
-		});
-		return convertView;
-	}
+
 
 	/**
 	 * 删除我的自习
