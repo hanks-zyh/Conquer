@@ -8,15 +8,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import app.hanks.com.conquer.bean.Zixi;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.fragment.FriendZixiFragment;
 
 
 public class FriendZixiFragAapter extends FragmentPagerAdapter {
-	private ArrayList<Zixi> list;
+	private ArrayList<Task> list;
 	private HashMap<Integer, Fragment> mPageReferenceMap = new HashMap<Integer, Fragment>();
 
-	public FriendZixiFragAapter(FragmentManager fm, ArrayList<Zixi> list) {
+	public FriendZixiFragAapter(FragmentManager fm, ArrayList<Task> list) {
 		super(fm);
 		this.list = list;
 	}
@@ -35,7 +35,7 @@ public class FriendZixiFragAapter extends FragmentPagerAdapter {
 	public int getCount() {
 		return list.size();
 	}
-	
+
 	public Fragment getFragment(int index){
 		return mPageReferenceMap.get(index);
 	}

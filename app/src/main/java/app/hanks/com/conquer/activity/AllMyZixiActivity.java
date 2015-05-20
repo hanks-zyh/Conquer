@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,7 +20,7 @@ import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.adapter.DayAdapter;
 import app.hanks.com.conquer.adapter.MyZixiAdapter;
 import app.hanks.com.conquer.bean.Day;
-import app.hanks.com.conquer.bean.Zixi;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.ZixiUtil;
 import app.hanks.com.conquer.view.xlist.XListView.IXListViewListener;
@@ -30,26 +33,29 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 		init();
 	}
 
-	private ListView lv_all_zixi;
-	private ArrayList<Zixi> listZixi;
-	private ArrayList<Day> listDay;
-	private MyZixiAdapter adapter;
-	private DayAdapter adapterDay;
-	private ListView lv_day;
-	private TextView tv_day;
+	private RecyclerView    lv_all_zixi;
+	private ArrayList<Task> listTask;
+	private ArrayList<Day>  listDay;
+	private MyZixiAdapter   adapter;
+	private DayAdapter      adapterDay;
+	private ListView        lv_day;
+	private TextView        tv_day;
 
 	/**
 	 * 初始化
 	 */
 	private void init() {
-		listZixi = new ArrayList<Zixi>();
+		listTask = new ArrayList<Task>();
 		listDay = new ArrayList<Day>();
-		adapter = new MyZixiAdapter(context, listZixi);
+		adapter = new MyZixiAdapter(context, listTask);
 		adapterDay = new DayAdapter(context, listDay);
 
-		lv_all_zixi = (ListView) findViewById(R.id.lv_all_zixi);
+		lv_all_zixi = (RecyclerView) findViewById(R.id.lv_all_zixi);
 		lv_day = (ListView) findViewById(R.id.lv_day);
 		tv_day = (TextView) findViewById(R.id.tv_day);
+
+		lv_all_zixi.setLayoutManager(new LinearLayoutManager(context));
+		lv_all_zixi.setItemAnimator(new DefaultItemAnimator());
 		lv_all_zixi.setAdapter(adapter);
 		lv_day.setAdapter(adapterDay);
 
@@ -75,23 +81,23 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 		initData();
 	}
 
-	private List<Zixi> allZixi;
+	private List<Task> allTask;
 	private int posotion = 0;
 
 	private void initData() {
 		new Thread() {
 			public void run() {
-				allZixi = ZixiUtil.getAllZixi(context);
+				allTask = ZixiUtil.getAllZixi(context);
 				Calendar c = Calendar.getInstance();
 				Calendar c1 = Calendar.getInstance();
 				final long curTime = System.currentTimeMillis();
-				int len = allZixi.size();
+				int len = allTask.size();
 
 				L.d("查询到自习个数：" + len);
 				// 循环每个自习
 				for (int i = 0; i < len; i++) {
 					int j = listDay.size();
-					long zixiTime = allZixi.get(i).getTime();
+					long zixiTime = allTask.get(i).getTime();
 					if (j > 0) {
 						// 得到上一天
 						Day d = listDay.get(j - 1);
@@ -111,9 +117,9 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 					}
 				}
 
-				listZixi.clear();
-				listZixi.addAll(ZixiUtil.getZixiByDay(context, curTime));
-				L.d("今天自习：" + listZixi.size());
+				listTask.clear();
+				listTask.addAll(ZixiUtil.getZixiByDay(context, curTime));
+				L.d("今天自习：" + listTask.size());
 				runOnUiThread(new Runnable() {
 					public void run() {
 						L.d("更新日期，自习");
@@ -126,16 +132,18 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 						}
 					}
 				});
-			};
+			}
+
+			;
 		}.start();
 	}
 
 	private void getZixiByDay(final Calendar c) {
 		new Thread() {
 			public void run() {
-				listZixi.clear();
-				listZixi.addAll((ArrayList<Zixi>) ZixiUtil.getZixiByDay(context, c.getTimeInMillis()));
-				L.d(c.get(5) + "的自习：" + listZixi.size());
+				listTask.clear();
+				listTask.addAll((ArrayList<Task>) ZixiUtil.getZixiByDay(context, c.getTimeInMillis()));
+				L.d(c.get(5) + "的自习：" + listTask.size());
 				runOnUiThread(new Runnable() {
 					public void run() {
 						adapter.notifyDataSetChanged();

@@ -24,6 +24,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,7 +35,6 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -46,7 +48,7 @@ import java.util.List;
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.adapter.FriendZixiFragAapter;
 import app.hanks.com.conquer.adapter.MyZixiAdapter;
-import app.hanks.com.conquer.bean.Zixi;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.fragment.FriendZixiFragment;
 import app.hanks.com.conquer.fragment.MenuFragment;
@@ -68,9 +70,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout     drawerLayout;
     private MaterialMenuView materialMenu;
     private ViewPager        lv_friend;
-    private ListView         lv_my;
+    private RecyclerView     mRecyclerView;
     private MyZixiAdapter    myAdapter;
-    private ArrayList<Zixi>  listZixi, listZixi2;
+    private ArrayList<Task>  listTask, listTask2;
     private MenuFragment         menuFragment;// 侧滑菜单Fragment
     private FriendZixiFragAapter friendAdapter;
     private ImageView            iv_arraw;
@@ -84,16 +86,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             @SuppressWarnings("unchecked")
-            List<Zixi> list = (List<Zixi>) msg.obj;
+            List<Task> list = (List<Task>) msg.obj;
             switch (msg.what) {
                 case NOTIFY_MY:
-                    listZixi.clear();
-                    listZixi.addAll(list);
+                    listTask.clear();
+                    listTask.addAll(list);
                     myAdapter.notifyDataSetChanged();
                     break;
                 case NOTIFY_FRIEND:
-                    listZixi2.clear();
-                    listZixi2.addAll(list);
+                    listTask2.clear();
+                    listTask2.addAll(list);
                     friendAdapter.notifyDataSetChanged();
                     break;
             }
@@ -141,20 +143,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         // 主视图
         lv_friend = (ViewPager) findViewById(R.id.lv_friend);
-        lv_my = (ListView) findViewById(R.id.lv_my);
-        View footerView = View.inflate(context, R.layout.layout_myzix_footer, null);
-        footerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                A.goOtherActivity(context, AllMyZixiActivity.class);
-            }
-        });
-        lv_my.addFooterView(footerView);
-        listZixi = new ArrayList<Zixi>();
-        myAdapter = new MyZixiAdapter(this, listZixi);
-        lv_my.setAdapter(myAdapter);
-        listZixi2 = new ArrayList<Zixi>();
-        friendAdapter = new FriendZixiFragAapter(getSupportFragmentManager(), listZixi2);
+        mRecyclerView = (RecyclerView) findViewById(R.id.lv_my);
+//        View footerView = View.inflate(context, R.layout.layout_myzix_footer, null);
+//        footerView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                A.goOtherActivity(context, AllMyZixiActivity.class);
+//            }
+//        });
+//        lv_my.addFooterView(footerView);
+
+        listTask = new ArrayList<Task>();
+        myAdapter = new MyZixiAdapter(this, listTask);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(myAdapter);
+
+        listTask2 = new ArrayList<Task>();
+        friendAdapter = new FriendZixiFragAapter(getSupportFragmentManager(), listTask2);
         lv_friend.setAdapter(friendAdapter);
         iv_arraw.setOnTouchListener(new ArrowTouch());
     }
@@ -190,7 +196,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void getOtherZixi() {
         ZixiUtil.getNetZixiNotUser(context, currentUser, new ZixiUtil.GetZixiCallBack() {
             @Override
-            public void onSuccess(List<Zixi> list) {
+            public void onSuccess(List<Task> list) {
                 if (CollectionUtils.isNotNull(list)) {
                     iv_arraw.setVisibility(View.VISIBLE);
                     Message.obtain(handler, NOTIFY_FRIEND, list).sendToTarget();
@@ -205,9 +211,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     public void animToOther() {
-        final Zixi zixi = listZixi2.get(lv_friend.getCurrentItem());
-        L.d("lv_friend大小：" + lv_friend.getChildCount() + "，listZixi2大小：" + listZixi2.size() + "当前item：" + lv_friend.getCurrentItem() + ","
-                + zixi.toString());
+        final Task task = listTask2.get(lv_friend.getCurrentItem());
+        L.d("lv_friend大小：" + lv_friend.getChildCount() + "，listZixi2大小：" + listTask2.size() + "当前item：" + lv_friend.getCurrentItem() + ","
+                + task.toString());
         View fragment = ((FriendZixiFragment) friendAdapter.getFragment(lv_friend.getCurrentItem())).getRootView();
         if (fragment == null) L.d("	View fragment 获取ViewPager当前视图为空");
         ImageView iv_card_bg = (ImageView) fragment.findViewById(R.id.iv_card_bg);
@@ -215,7 +221,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         fragment.findViewById(R.id.iv_del).setVisibility(View.GONE);
         ViewGroup rl_1 = (ViewGroup) fragment.findViewById(R.id.rl_1);
         ViewGroup rl_2 = (ViewGroup) fragment.findViewById(R.id.rl_2);
-        if (null != zixi.getAudioUrl()) {
+        if (null != task.getAudioUrl()) {
             ImageButton ib_play = (ImageButton) ll_audio.findViewById(R.id.ib_play);
             // 播放按钮
             ib_play.setImageResource(R.drawable.play_audio);
@@ -223,12 +229,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             ib_play.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    aUtils.play(context, ll_audio, zixi.getAudioUrl());
+                    aUtils.play(context, ll_audio, task.getAudioUrl());
                 }
             });
         }
-        if (null != zixi.getCardBgUrl()) {
-            loader.displayImage(zixi.getCardBgUrl(), iv_card_bg, option_pic);
+        if (null != task.getCardBgUrl()) {
+            loader.displayImage(task.getCardBgUrl(), iv_card_bg, option_pic);
         }
 
         final ViewGroup visibleList;
@@ -278,16 +284,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         new Thread() {
             public void run() {
                 // 1.获取本地数据库
-                List<Zixi> list = ZixiUtil.getAfterZixi(context);
+                List<Task> list = ZixiUtil.getAfterZixi(context);
                 if (CollectionUtils.isNotNull(list)) {
                     Message.obtain(handler, NOTIFY_MY, list).sendToTarget();
                 }
-                L.i("我的本地自习长度" + listZixi.size());
+                L.i("我的本地自习长度" + listTask.size());
                 // 2.获取网络，可能是换手机了，或者是没有添加过自习，或者是当前时间以后没有自习
-                if (listZixi.size() <= 0) {
+                if (listTask.size() <= 0) {
                     ZixiUtil.getNetAfterZixi(context, currentUser, Constants.MAIN_MYZIXI_LIMIT, new ZixiUtil.GetZixiCallBack() {
                         @Override
-                        public void onSuccess(List<Zixi> list) {
+                        public void onSuccess(List<Task> list) {
                             if (CollectionUtils.isNotNull(list)) {
                                 Message.obtain(handler, NOTIFY_MY, list).sendToTarget();
                             }

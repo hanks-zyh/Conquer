@@ -17,7 +17,7 @@ import java.util.List;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.bean.Card;
-import app.hanks.com.conquer.bean.Zixi;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.NotifyUtils;
 import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.util.ZixiUtil;
@@ -58,7 +58,7 @@ public class AlertService extends Service {
         User user = BmobUserManager.getInstance(this).getCurrentUser(User.class);
         if (user != null) {
             // 获取今天为被提醒自习
-            List<Zixi> list = ZixiUtil.getTodayAfterZixi(this);
+            List<Task> list = ZixiUtil.getTodayAfterZixi(this);
             int defaultAlertTime = (Integer) SP.get(this, "alert_time", 0);
             long alertTime = 1000 * 60 * 10;
             if (defaultAlertTime == 1) {
@@ -68,23 +68,23 @@ public class AlertService extends Service {
             } else if (defaultAlertTime == 3) {
                 alertTime = 1000 * 60 * 60;
             }
-            for (Zixi zixi : list) {
-                L.d("今天未被提醒的自习:" + zixi.getId() + zixi.getName() + "," + zixi.getTime() + "提醒间隔：" + alertTime);
+            for (Task task : list) {
+                L.d("今天未被提醒的自习:" + task.getId() + task.getName() + "," + task.getTime() + "提醒间隔：" + alertTime);
                 // 10分钟提前提醒
-                if (zixi.getTime() - System.currentTimeMillis() < alertTime) {
+                if (task.getTime() - System.currentTimeMillis() < alertTime) {
                     Card card = new Card();
                     card.setType(0);// 0。提醒卡
                     card.setFid("1234567");
                     card.setFusername("12345678");
                     card.setFnick("自习君");
-                    card.setZixiName(zixi.getName());
-                    card.setTime(zixi.getTime());
+                    card.setZixiName(task.getName());
+                    card.setTime(task.getTime());
                     card.settId(user.getUid());
-                    card.setZixiId(zixi.getId());
+                    card.setZixiId(task.getId());
                     card.setFavatar("http://file.bmob.cn/M00/D7/E0/oYYBAFSER8OAM-OhAAAC5aqrGKs048.png");
                     int streamID = pool.play(id, 1, 1, 0, 0, 1);
                     pool.setVolume(streamID, 1, 1);
-                    ZixiUtil.setZixiHasAlerted(this, zixi.getId());
+                    ZixiUtil.setZixiHasAlerted(this, task.getId());
                     // 提醒用户
                     NotifyUtils.showZixiAlertToast(this, card);
                 }

@@ -29,7 +29,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 import com.google.gson.Gson;
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.bean.Card;
-import app.hanks.com.conquer.bean.Zixi;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.MsgUtils;
@@ -40,21 +40,21 @@ import app.hanks.com.conquer.view.RippleBackground;
 
 public class AlertActivity extends BaseActivity implements OnClickListener {
 
-	private Zixi zixi;
-	private EditText et;
-	private RadioGroup rg;
-	private AlertDialog dialog;
-	private ImageButton ib_recoder;
-	private TextView tv_second;
-	private ViewGroup ll_bottom;
+	private Task              task;
+	private EditText          et;
+	private RadioGroup        rg;
+	private AlertDialog       dialog;
+	private ImageButton       ib_recoder;
+	private TextView          tv_second;
+	private ViewGroup         ll_bottom;
 	private BmobRecordManager recordManager;
-	private ViewGroup ll_audio;
-	private ProgressBar loading;
+	private ViewGroup         ll_audio;
+	private ProgressBar       loading;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		zixi = (Zixi) getIntent().getSerializableExtra("zixi");
+		task = (Task) getIntent().getSerializableExtra("task");
 		init();
 	}
 
@@ -70,12 +70,12 @@ public class AlertActivity extends BaseActivity implements OnClickListener {
 		TextView tv_name = (TextView) findViewById(R.id.tv_name);
 		TextView tv_time = (TextView) findViewById(R.id.tv_time);
 		TextView tv_dis = (TextView) findViewById(R.id.tv_dis);
-		tv_time.setText(ZixiUtil.getZixiTimeS(zixi));
-		tv_name.setText(zixi.getName());
-		tv_Nick.setText(zixi.getUser().getNick());
-		tv_dis.setText(ZixiUtil.getDistance(currentUser, zixi.getUser().getLocation()));
-		loader.displayImage(zixi.getUser().getAvatar(), iv_photo);
-		iv_gender.setImageResource(zixi.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
+		tv_time.setText(ZixiUtil.getZixiTimeS(task));
+		tv_name.setText(task.getName());
+		tv_Nick.setText(task.getUser().getNick());
+		tv_dis.setText(ZixiUtil.getDistance(currentUser, task.getUser().getLocation()));
+		loader.displayImage(task.getUser().getAvatar(), iv_photo);
+		iv_gender.setImageResource(task.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
 		rg = (RadioGroup) findViewById(R.id.rg);
 		// 语音按钮
 		findViewById(R.id.bt_audio).setOnClickListener(this);
@@ -417,17 +417,17 @@ public class AlertActivity extends BaseActivity implements OnClickListener {
 		card.setFid(currentUser.getObjectId());
 		card.setFusername(currentUser.getUsername());
 		card.setFnick(currentUser.getNick());
-		card.setZixiId(zixi.getId());
-		card.setZixiName(zixi.getName());
-		card.setTime(zixi.getTime());
+		card.setZixiId(task.getId());
+		card.setZixiName(task.getName());
+		card.setTime(task.getTime());
 
-		card.settId(zixi.getUser().getObjectId());
+		card.settId(task.getUser().getObjectId());
 		card.setFavatar(currentUser.getAvatar());
 		if (audioUrl != null) card.setAudioUrl(audioUrl);
 		card.setContent(text);
 		L.e(card.toString());
 		String json = new Gson().toJson(card);
-		MsgUtils.sendMsg(context, BmobChatManager.getInstance(context), zixi.getUser(), json);
+		MsgUtils.sendMsg(context, BmobChatManager.getInstance(context), task.getUser(), json);
 		T.show(context, "信息已发送，等待对方回应");
 		A.finishSelf(context);
 	}

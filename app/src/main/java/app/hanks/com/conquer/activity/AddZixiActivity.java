@@ -31,8 +31,8 @@ import java.util.Locale;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.bean.Card;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.bean.User;
-import app.hanks.com.conquer.bean.Zixi;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.AlertDialogUtils;
@@ -288,46 +288,46 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 			return;
 		}
 
-		final Zixi zixi = new Zixi();
-		zixi.setUser(currentUser);
-		zixi.setName(name);
+		final Task task = new Task();
+		task.setUser(currentUser);
+		task.setName(name);
 		try {
 			Date time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(tv_date.getText().toString().trim()
 					.substring(0, 10)
 					+ " " + tv_time.getText().toString().trim() + ":00");
-			zixi.setTime(time.getTime());
+			task.setTime(time.getTime());
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		if (zixi.getTime() < System.currentTimeMillis()) {
+		if (task.getTime() < System.currentTimeMillis()) {
 			T.show(context, "时间已经过去了 T_T ");
 			return;
 		}
-		zixi.setShare(true);
-		zixi.setHasAlerted(false);
-		zixi.setCardBgUrl("http://file.bmob.cn/M00/D6/51/oYYBAFR9b8WAFsBlAAAqS_L5sFI605.jpg");
-		zixi.setAudioUrl("http://file.bmob.cn/M00/D6/50/oYYBAFR9bguAMz02AACdR5Xly68154.amr");
-		zixi.setNote("单身*一只，求自习陪同 ● v ● ");
+		task.setShare(true);
+		task.setHasAlerted(false);
+		task.setCardBgUrl("http://file.bmob.cn/M00/D6/51/oYYBAFR9b8WAFsBlAAAqS_L5sFI605.jpg");
+		task.setAudioUrl("http://file.bmob.cn/M00/D6/50/oYYBAFR9bguAMz02AACdR5Xly68154.amr");
+		task.setNote("单身*一只，求自习陪同 ● v ● ");
 		if (imgUrl != null)
-			zixi.setCardBgUrl(imgUrl);
+			task.setCardBgUrl(imgUrl);
 		if (audioUrl != null)
-			zixi.setAudioUrl(audioUrl);
+			task.setAudioUrl(audioUrl);
 		if (note != null)
-			zixi.setNote(note);
+			task.setNote(note);
 		if (atFriends.size() > 0) {
-			zixi.setAtFriends(atFriends);
+			task.setAtFriends(atFriends);
 		}
-		zixi.save(context, new SaveListener() {
+		task.save(context, new SaveListener() {
 			@Override
 			public void onSuccess() {
 				// 1.本地数据库存储
 				try {
-					dbUtils.save(zixi);
+					dbUtils.save(task);
 				} catch (DbException e) {
 					e.printStackTrace();
 				}
 				if (CollectionUtils.isNotNull(at)) {
-					sendInvite(zixi);
+					sendInvite(task);
 				}
 				// 2.finish
 				A.finishSelf(context);
@@ -335,7 +335,7 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onFailure(int arg0, String arg1) {
-				L.i(arg0 + "，zixi.save，" + arg1);
+				L.i(arg0 + "，task.save，" + arg1);
 			}
 		});
 	}
@@ -343,7 +343,7 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 	/**
 	 * 发送好友邀请
 	 */
-	private void sendInvite(Zixi zixi) {
+	private void sendInvite(Task task) {
 		for (User user : at) {
 			Card card = new Card();
 			card.setType(1);// 0。提醒卡
@@ -351,8 +351,8 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 			card.setFusername(currentUser.getUsername());
 			card.setFnick(currentUser.getNick());
 			card.setFavatar(currentUser.getAvatar());
-			card.setZixiName(zixi.getName());
-			card.setTime(zixi.getTime());
+			card.setZixiName(task.getName());
+			card.setTime(task.getTime());
 			card.settId(user.getObjectId());
 			if (audioUrl != null)
 				card.setAudioUrl(audioUrl);

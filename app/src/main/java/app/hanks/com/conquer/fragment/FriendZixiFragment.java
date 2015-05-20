@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.activity.AlertActivity;
 import app.hanks.com.conquer.activity.FriendDataActivity;
-import app.hanks.com.conquer.bean.Zixi;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.TimeUtil;
 import app.hanks.com.conquer.util.ZixiUtil;
@@ -25,7 +25,7 @@ import app.hanks.com.conquer.view.CircularImageView;
 
 public class FriendZixiFragment extends BaseFragment {
 
-    private Zixi        zixi;
+    private Task        task;
     private ImageLoader loader;
 
     private View root;
@@ -38,7 +38,7 @@ public class FriendZixiFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.item_friendzixi, container, false);
         Bundle bundle = getArguments();
-        zixi = (Zixi) bundle.getSerializable("zixi");
+        task = (Task) bundle.getSerializable("task");
         loader = ImageLoader.getInstance();
         root = v;
         init(v);
@@ -62,32 +62,32 @@ public class FriendZixiFragment extends BaseFragment {
         TextView tv_note = (TextView) view.findViewById(R.id.tv_note);
         try {
             tv_created_time.setText("("
-                    + TimeUtil.getDescriptionTimeFromTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(zixi.getCreatedAt())
+                    + TimeUtil.getDescriptionTimeFromTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(task.getCreatedAt())
                     .getTime()) + ")");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        tv_note.setText(zixi.getNote());
-        tv_zixitime.setText(ZixiUtil.getDescriptionTimeFromTimestamp(zixi.getTime()));
-        tv_time.setText(ZixiUtil.getZixiTimeS(zixi));
-        tv_name.setText(zixi.getName());
-        tv_Nick.setText(zixi.getUser().getNick());
-        tv_dis.setText(ZixiUtil.getDistance(currentUser, zixi.getUser().getLocation()));
-        loader.displayImage(zixi.getUser().getAvatar(), iv_photo);
+        tv_note.setText(task.getNote());
+        tv_zixitime.setText(ZixiUtil.getDescriptionTimeFromTimestamp(task.getTime()));
+        tv_time.setText(ZixiUtil.getZixiTimeS(task));
+        tv_name.setText(task.getName());
+        tv_Nick.setText(task.getUser().getNick());
+        tv_dis.setText(ZixiUtil.getDistance(currentUser, task.getUser().getLocation()));
+        loader.displayImage(task.getUser().getAvatar(), iv_photo);
         iv_photo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, FriendDataActivity.class);
-                i.putExtra("friendName", zixi.getUser().getUsername());
+                i.putExtra("friendName", task.getUser().getUsername());
                 A.goOtherActivity(context, i);
             }
         });
-        iv_gender.setImageResource(zixi.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
+        iv_gender.setImageResource(task.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
         // 陪她按钮
         view.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, AlertActivity.class);
-                intent.putExtra("zixi", zixi);
+                intent.putExtra("task", task);
                 A.goOtherActivity(context, intent);
             }
         });

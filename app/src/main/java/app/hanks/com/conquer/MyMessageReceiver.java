@@ -100,14 +100,6 @@ public class MyMessageReceiver extends BroadcastReceiver {
 
 	/**
 	 * 解析Json字符串
-	 * 
-	 * @Title: parseMessage
-	 * 
-	 * @Description: TODO
-	 * @param @param context
-	 * @param @param json
-	 * @return void
-	 * @throws
 	 */
 	private void parseMessage(final Context context, String json) {
 		JSONObject jo;

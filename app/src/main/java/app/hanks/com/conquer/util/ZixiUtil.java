@@ -14,8 +14,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import app.hanks.com.conquer.bean.Card;
+import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.bean.User;
-import app.hanks.com.conquer.bean.Zixi;
 import app.hanks.com.conquer.config.Constants;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
@@ -52,28 +52,28 @@ public class ZixiUtil {
      * @return
      * @throws Exception
      */
-    public static List<Zixi> getAfterZixi(Context context) {
-        List<Zixi> listZixi = new ArrayList<Zixi>();
+    public static List<Task> getAfterZixi(Context context) {
+        List<Task> listTask = new ArrayList<Task>();
         DbUtils dbUtils = DbUtils.create(context);
-        List<Zixi> temp = new ArrayList<Zixi>();
+        List<Task> temp = new ArrayList<Task>();
         try {
-            // temp = dbUtils.findAll(Zixi.class);
-            List<Zixi> findAll = dbUtils.findAll(Selector.from(Zixi.class).orderBy("time"));
+            // temp = dbUtils.findAll(Task.class);
+            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
                 long curTime = System.currentTimeMillis();
                 L.i("大小" + temp.size());
-                for (Zixi zixi : temp) {
-                    if (zixi.getTime() >= curTime) {
-                        listZixi.add(zixi);
-                        if (listZixi.size() > Constants.MAIN_MYZIXI_LIMIT) break;
+                for (Task task : temp) {
+                    if (task.getTime() >= curTime) {
+                        listTask.add(task);
+                        if (listTask.size() > Constants.MAIN_MYZIXI_LIMIT) break;
                     }
                 }
             }
         } catch (Exception e) {
             // if (debugDB) e.printStackTrace();
         }
-        return listZixi;
+        return listTask;
     }
 
     /**
@@ -83,30 +83,30 @@ public class ZixiUtil {
      * @return
      * @throws Exception
      */
-    public static List<Zixi> getTodayAfterZixi(Context context) {
-        List<Zixi> listZixi = new ArrayList<Zixi>();
+    public static List<Task> getTodayAfterZixi(Context context) {
+        List<Task> listTask = new ArrayList<Task>();
         DbUtils dbUtils = DbUtils.create(context);
         Calendar cur = Calendar.getInstance();
         cur.setTimeInMillis(System.currentTimeMillis());
         Calendar c = Calendar.getInstance();
         try {
             // 获取没有提醒的
-            List<Zixi> findAll = dbUtils.findAll(Selector.from(Zixi.class).where("hasAlerted", "=", false).orderBy("time"));
+            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).where("hasAlerted", "=", false).orderBy("time"));
             if (findAll != null && findAll.size() > 0) {
                 long curTime = System.currentTimeMillis();
                 L.i("大小" + findAll.size());
-                for (Zixi zixi : findAll) {
-                    c.setTimeInMillis(zixi.getTime());
+                for (Task task : findAll) {
+                    c.setTimeInMillis(task.getTime());
                     // 今天，大于当前时间的
-                    if (zixi.getTime() >= curTime && c.get(Calendar.DAY_OF_YEAR) == cur.get(Calendar.DAY_OF_YEAR)) {
-                        listZixi.add(zixi);
+                    if (task.getTime() >= curTime && c.get(Calendar.DAY_OF_YEAR) == cur.get(Calendar.DAY_OF_YEAR)) {
+                        listTask.add(task);
                     }
                 }
             }
         } catch (Exception e) {
             // if (debugDB) e.printStackTrace();
         }
-        return listZixi;
+        return listTask;
     }
 
     /**
@@ -116,12 +116,12 @@ public class ZixiUtil {
      * @return
      * @throws Exception
      */
-    public static List<Zixi> getAllZixi(Context context) {
+    public static List<Task> getAllZixi(Context context) {
         DbUtils dbUtils = DbUtils.create(context);
-        List<Zixi> temp = new ArrayList<Zixi>();
+        List<Task> temp = new ArrayList<Task>();
         try {
-            // temp = dbUtils.findAll(Zixi.class);
-            List<Zixi> findAll = dbUtils.findAll(Selector.from(Zixi.class).orderBy("time"));
+            // temp = dbUtils.findAll(Task.class);
+            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
                 L.i("大小" + temp.size());
@@ -139,14 +139,14 @@ public class ZixiUtil {
      * @return
      * @throws Exception
      */
-    public static List<Zixi> getZixiByDay(Context context, long time) {
+    public static List<Task> getZixiByDay(Context context, long time) {
         DbUtils dbUtils = DbUtils.create(context);
-        List<Zixi> temp = new ArrayList<Zixi>();
+        List<Task> temp = new ArrayList<Task>();
         try {
-            List<Zixi> findAll = dbUtils.findAll(Selector.from(Zixi.class).orderBy("time"));
+            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
             if (CollectionUtils.isNotNull(findAll)) {
-                for (Zixi zixi : findAll) {
-                    if (isToday(zixi.getTime(), time)) temp.add(zixi);
+                for (Task task : findAll) {
+                    if (isToday(task.getTime(), time)) temp.add(task);
                 }
                 L.i("大小" + temp.size());
             }
@@ -183,33 +183,33 @@ public class ZixiUtil {
      */
     public static void getNetAfterZixi(Context context, User currentUser, final int limit, final GetZixiCallBack getZixiCallBack) {
         final DbUtils dbUtils = DbUtils.create(context);
-        BmobQuery<Zixi> query = new BmobQuery<Zixi>();
+        BmobQuery<Task> query = new BmobQuery<Task>();
         // 设置查询条数
         query.setLimit(1000);
         query.addWhereEqualTo("user", currentUser);
         // 这个查询也包括了用户的已经过时的自习
-        query.findObjects(context, new FindListener<Zixi>() {
+        query.findObjects(context, new FindListener<Task>() {
             @Override
-            public void onSuccess(List<Zixi> arg0) {
+            public void onSuccess(List<Task> arg0) {
                 try {
                     // 1.更新本地数据库
                     if (arg0.size() > 0) {
-                        dbUtils.deleteAll(Zixi.class);
+                        dbUtils.deleteAll(Task.class);
                         dbUtils.saveAll(arg0);
                     }
                 } catch (DbException e) {
                     // if (debugDB) e.printStackTrace();
                 }
                 // 2.筛选大于当后时间的
-                List<Zixi> listZixi = new ArrayList<Zixi>();
+                List<Task> listTask = new ArrayList<Task>();
                 long curTime = System.currentTimeMillis();
-                for (Zixi zixi : arg0) {
-                    if (zixi.getTime() >= curTime) {
-                        listZixi.add(zixi);
+                for (Task task : arg0) {
+                    if (task.getTime() >= curTime) {
+                        listTask.add(task);
                     }
-                    if (listZixi.size() > limit) break;
+                    if (listTask.size() > limit) break;
                 }
-                getZixiCallBack.onSuccess(listZixi);
+                getZixiCallBack.onSuccess(listTask);
             }
 
             @Override
@@ -229,30 +229,30 @@ public class ZixiUtil {
      */
     public static void getNetAllZixi(Context context, User currentUser, final GetZixiCallBack getZixiCallBack) {
         final DbUtils dbUtils = DbUtils.create(context);
-        BmobQuery<Zixi> query = new BmobQuery<Zixi>();
+        BmobQuery<Task> query = new BmobQuery<Task>();
         query.addWhereEqualTo("user", currentUser);
         // 这个查询也包括了用户的已经过时的自习
-        query.findObjects(context, new FindListener<Zixi>() {
+        query.findObjects(context, new FindListener<Task>() {
             @Override
-            public void onSuccess(List<Zixi> arg0) {
+            public void onSuccess(List<Task> arg0) {
                 try {
                     // 1.更新本地数据库
                     if (arg0.size() > 0) {
-                        dbUtils.deleteAll(Zixi.class);
+                        dbUtils.deleteAll(Task.class);
                         dbUtils.saveAll(arg0);
                     }
                 } catch (DbException e) {
                     // if (debugDB) e.printStackTrace();
                 }
                 // 2.筛选大于当后时间的
-                List<Zixi> listZixi = new ArrayList<Zixi>();
+                List<Task> listTask = new ArrayList<Task>();
                 long curTime = System.currentTimeMillis();
-                for (Zixi zixi : arg0) {
-                    if (zixi.getTime() >= curTime) {
-                        listZixi.add(zixi);
+                for (Task task : arg0) {
+                    if (task.getTime() >= curTime) {
+                        listTask.add(task);
                     }
                 }
-                getZixiCallBack.onSuccess(listZixi);
+                getZixiCallBack.onSuccess(listTask);
             }
 
             @Override
@@ -274,18 +274,18 @@ public class ZixiUtil {
 
         // 这个先不用缓存
         // final DbUtils dbUtils = DbUtils.create(context);
-        BmobQuery<Zixi> query = new BmobQuery<Zixi>();
+        BmobQuery<Task> query = new BmobQuery<Task>();
         query.include("user");
         query.addWhereNotEqualTo("user", currentUser);
         query.addWhereGreaterThanOrEqualTo("time", System.currentTimeMillis()); // 设置大于当后系统时间的
-        query.findObjects(context, new FindListener<Zixi>() {
+        query.findObjects(context, new FindListener<Task>() {
             @Override
-            public void onSuccess(List<Zixi> arg0) {
+            public void onSuccess(List<Task> arg0) {
                 L.i("getNetZixiNotUser,查询成功" + arg0.size());
                 // try {
                 // // 1.更新本地数据库
                 // if (arg0.size() > 0) {
-                // dbUtils.deleteAll(Zixi.class);
+                // dbUtils.deleteAll(Task.class);
                 // dbUtils.saveAll(arg0);
                 // }
                 // } catch (DbException e) {
@@ -306,12 +306,12 @@ public class ZixiUtil {
     /**
      * 返回自习的时间字符串 如 14:12
      *
-     * @param zixi
+     * @param task
      * @return
      */
-    public static String getZixiTimeS(Zixi zixi) {
+    public static String getZixiTimeS(Task task) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(zixi.getTime());
+        calendar.setTimeInMillis(task.getTime());
         DecimalFormat df = new DecimalFormat("00");
         return df.format(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + df.format(calendar.get(Calendar.MINUTE));
     }
@@ -342,12 +342,12 @@ public class ZixiUtil {
     /**
      * 返回自习的时间字符串 如 2014-11-20
      *
-     * @param zixi
+     * @param task
      * @return
      */
-    public static String getZixiDateS(Zixi zixi) {
+    public static String getZixiDateS(Task task) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(zixi.getTime());
+        calendar.setTimeInMillis(task.getTime());
         DecimalFormat df = new DecimalFormat("00");
         return calendar.get(Calendar.YEAR) + "-" + df.format(calendar.get(Calendar.MONTH)) + "-"
                 + df.format(calendar.get(Calendar.DAY_OF_MONTH));
@@ -364,7 +364,7 @@ public class ZixiUtil {
     }
 
     public interface GetZixiCallBack {
-        void onSuccess(List<Zixi> list);
+        void onSuccess(List<Task> list);
 
         void onError(int errorCode, String msg);
     }
@@ -499,17 +499,17 @@ public class ZixiUtil {
      * 删除自习
      *
      * @param context
-     * @param zixi
+     * @param task
      * @param deleteZixiListener
      */
-    public static void DeleteZixi(Context context, Zixi zixi, final DeleteZixiListener deleteZixiListener) {
+    public static void DeleteZixi(Context context, Task task, final DeleteZixiListener deleteZixiListener) {
         final DbUtils dbUtils = DbUtils.create(context);
         try {
-            dbUtils.delete(zixi);
+            dbUtils.delete(task);
         } catch (DbException e) {
             // if (debugDB) e.printStackTrace();
         }
-        zixi.delete(context, new DeleteListener() {
+        task.delete(context, new DeleteListener() {
             @Override
             public void onSuccess() {
                 L.i("删除自习成功");
@@ -608,10 +608,10 @@ public class ZixiUtil {
         final DbUtils dbUtils = DbUtils.create(context);
         try {
             L.e("设置自习为已提醒" + zixiId);
-            Zixi zixi = dbUtils.findFirst(Selector.from(Zixi.class).where("id", "=", zixiId));
-            if (zixi != null) {
-                zixi.setHasAlerted(true);
-                dbUtils.update(zixi, "hasAlerted");
+            Task task = dbUtils.findFirst(Selector.from(Task.class).where("id", "=", zixiId));
+            if (task != null) {
+                task.setHasAlerted(true);
+                dbUtils.update(task, "hasAlerted");
             }
         } catch (DbException e) {
             // if (debugDB) e.printStackTrace();
