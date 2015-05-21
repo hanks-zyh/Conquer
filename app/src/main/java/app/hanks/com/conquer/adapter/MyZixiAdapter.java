@@ -74,7 +74,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
         final SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, v.findViewById(R.id.bottom_right));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, v.findViewById(R.id.bottom_left));
-        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         return new ZixiViewHolder(v);
 	}
 

@@ -25,13 +25,14 @@ import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.TaskUtil;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 /**
  * Created by Hanks on 2015/5/22.
  */
 public class MyTaskFragment extends BaseFragment {
 
-    private RecyclerView        mRecylerView;
+    private RecyclerView        mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout  refreshLayout;
     private List<Task>          list = new ArrayList<>();
@@ -46,12 +47,23 @@ public class MyTaskFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecylerView = (RecyclerView) getView().findViewById(R.id.recylerView);
+        mRecyclerView = (RecyclerView) getView().findViewById(R.id.recylerView);
         mLayoutManager = new LinearLayoutManager(context);
-        mRecylerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MyZixiAdapter(context, list);
-        mRecylerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
+        mRecyclerView.getItemAnimator().setAddDuration(1000);
+        mRecyclerView.setAdapter(mAdapter);
         initRefreshLayout();
+        //        View footerView = View.inflate(context, R.layout.layout_myzix_footer, null);
+//        footerView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                A.goOtherActivity(context, AllMyZixiActivity.class);
+//            }
+//        });
+//        lv_my.addFooterView(footerView);
     }
 
 
@@ -105,6 +117,7 @@ public class MyTaskFragment extends BaseFragment {
         list.clear();
         list.addAll(newList);
         mAdapter.notifyDataSetChanged();
+        refreshLayout.setRefreshing(false);
     }
 
 }

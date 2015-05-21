@@ -15,6 +15,15 @@
         android:textColor="@color/base_color_text_black"
         android:textSize="16sp"
         android:text="刷新"/>
+    <TextView
+        android:id="@+id/change"
+        android:layout_width="155dp"
+        android:minWidth="155dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:textColor="@color/base_color_text_black"
+        android:textSize="16sp"
+        android:text="切换"/>
 
     <RadioGroup
         android:visibility="gone"
