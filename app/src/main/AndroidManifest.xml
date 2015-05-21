@@ -68,13 +68,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity"></activity>
-        <activity android:name=".activity.DialogActivity"></activity>
+        <activity android:name=".activity.DialogActivity" android:theme="@style/MyDialog"></activity>
         <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.SchoolActivity"></activity>
         <activity android:name=".activity.SchoolInfoActivity"></activity>
         <activity android:name=".activity.DepartmentActivity"></activity>
         <activity android:name=".activity.AddFriendActivity"></activity>
-        <activity android:name=".activity.AddZixiActivity"></activity>
+        <activity android:name=".activity.AddTaskActivity"></activity>
         <activity android:name=".activity.UserDataActivity"></activity>
         <activity android:name=".activity.AllMyZixiActivity"></activity>
         <activity android:name=".activity.ChatActivity"></activity>

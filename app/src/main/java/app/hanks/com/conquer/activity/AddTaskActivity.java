@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -59,7 +61,7 @@ import app.hanks.com.conquer.view.datetime.timepicker.TimePickerDialog.OnTimeSet
 import cn.bmob.im.BmobChatManager;
 import cn.bmob.v3.listener.SaveListener;
 
-public class AddZixiActivity extends BaseActivity implements OnClickListener {
+public class AddTaskActivity extends BaseActivity implements OnClickListener {
 
 	private static final int REQUES_IMG = 0;
 	private static final int REQUES_FRIEND = 1;
@@ -172,6 +174,7 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 				}
 			}
 		});
+		et_name.setOnEditorActionListener(new SaveEditActionListener());
 
 	}
 
@@ -183,26 +186,26 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 		Calendar tmp = Calendar.getInstance(Locale.CHINA);
 		tmp.setTimeInMillis(c.getTimeInMillis());
 
-		wk_0.setText(TimeUtil.getWeekDayD(tmp.get(7)));
-		day_0.setText(tmp.get(5) + "");
-		tmp.add(6, 1);
-		wk_1.setText(TimeUtil.getWeekDayD(tmp.get(7)));
-		day_1.setText(tmp.get(5) + "");
-		tmp.add(6, 1);
-		wk_2.setText(TimeUtil.getWeekDayD(tmp.get(7)));
-		day_2.setText(tmp.get(5) + "");
-		tmp.add(6, 1);
-		wk_3.setText(TimeUtil.getWeekDayD(tmp.get(7)));
-		day_3.setText(tmp.get(5) + "");
-		tmp.add(6, 1);
-		wk_4.setText(TimeUtil.getWeekDayD(tmp.get(7)));
-		day_4.setText(tmp.get(5) + "");
-		tmp.add(6, 1);
-		wk_5.setText(TimeUtil.getWeekDayD(tmp.get(7)));
-		day_5.setText(tmp.get(5) + "");
-		tmp.add(6, 1);
-		wk_6.setText(TimeUtil.getWeekDayD(tmp.get(7)));
-		day_6.setText(tmp.get(5) + "");
+		wk_0.setText(TimeUtil.getWeekDayD(tmp.get(Calendar.DAY_OF_WEEK)));
+		day_0.setText(tmp.get(Calendar.DAY_OF_MONTH) + "");
+		tmp.add(Calendar.DAY_OF_YEAR, 1);
+		wk_1.setText(TimeUtil.getWeekDayD(tmp.get(Calendar.DAY_OF_WEEK)));
+		day_1.setText(tmp.get(Calendar.DAY_OF_MONTH) + "");
+		tmp.add(Calendar.DAY_OF_YEAR, 1);
+		wk_2.setText(TimeUtil.getWeekDayD(tmp.get(Calendar.DAY_OF_WEEK)));
+		day_2.setText(tmp.get(Calendar.DAY_OF_MONTH) + "");
+		tmp.add(Calendar.DAY_OF_YEAR, 1);
+		wk_3.setText(TimeUtil.getWeekDayD(tmp.get(Calendar.DAY_OF_WEEK)));
+		day_3.setText(tmp.get(Calendar.DAY_OF_MONTH) + "");
+		tmp.add(Calendar.DAY_OF_YEAR, 1);
+		wk_4.setText(TimeUtil.getWeekDayD(tmp.get(Calendar.DAY_OF_WEEK)));
+		day_4.setText(tmp.get(Calendar.DAY_OF_MONTH) + "");
+		tmp.add(Calendar.DAY_OF_YEAR, 1);
+		wk_5.setText(TimeUtil.getWeekDayD(tmp.get(Calendar.DAY_OF_WEEK)));
+		day_5.setText(tmp.get(Calendar.DAY_OF_MONTH) + "");
+		tmp.add(Calendar.DAY_OF_YEAR, 1);
+		wk_6.setText(TimeUtil.getWeekDayD(tmp.get(Calendar.DAY_OF_WEEK)));
+		day_6.setText(tmp.get(Calendar.DAY_OF_MONTH) + "");
 
 		int t = (Integer) SP.get(context, "theme", 0);
 		int color = getResources().getColor(R.color.theme_0);
@@ -212,7 +215,7 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 			color = getResources().getColor(R.color.theme_2);
 		else if (t == 3)
 			color = getResources().getColor(R.color.theme_3);
-		day_0.setBackgroundColor(getResources().getColor(R.color.red_button));
+		day_0.setBackgroundDrawable(getResources().getDrawable(R.drawable.red_bg));
 		day_1.setBackgroundColor(color);
 		day_2.setBackgroundColor(color);
 		day_3.setBackgroundColor(color);
@@ -507,7 +510,7 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 					return;
 				final File f = new File(path);
 				if (f.exists()) {
-					ll_audio.setVisibility(0);
+					ll_audio.setVisibility(View.VISIBLE);
 					// 为播放按钮设置点击事件
 					final ImageButton ib_play = (ImageButton) ll_audio.findViewById(R.id.ib_play);
 					ProgressBar pb = (ProgressBar) ll_audio.findViewById(R.id.pb);
@@ -580,16 +583,16 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 		day_4.setBackgroundColor(color);
 		day_5.setBackgroundColor(color);
 		day_6.setBackgroundColor(color);
-		day.setBackgroundColor(getResources().getColor(R.color.red_button));
+//		day.setBackgroundColor(getResources().getColor(R.color.red_button));
+        day.setBackgroundDrawable(getResources().getDrawable(R.drawable.red_bg));
 		Calendar c = Calendar.getInstance();
 		c.setTimeInMillis(headTime);
 		c.add(Calendar.DAY_OF_YEAR, gap);
-		c.set(5, Integer.parseInt(day.getText().toString()));
+		c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day.getText().toString()));
 		tv_date.setText(new StringBuilder().append(pad(c.get(Calendar.YEAR))).append("/")
 				.append(pad(c.get(Calendar.MONTH) + 1)).append("/").append(pad(c.get(Calendar.DAY_OF_MONTH))));
 		setTimeAndTip(tv_date.getText() + " " + tv_time.getText());
 	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		L.d(requestCode + "," + resultCode + "," + data);
@@ -598,7 +601,7 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 				File f = new File(data.getStringExtra("photo_path"));
 				L.e("照片路径：" + f.getAbsolutePath());
 				if (f.exists()) {
-					iv.setVisibility(0);
+					iv.setVisibility(View.VISIBLE);
 					loader.displayImage("file://" + f.getAbsolutePath(), iv, option_pic);
 					uploadPic(f);
 				}
@@ -651,4 +654,17 @@ public class AddZixiActivity extends BaseActivity implements OnClickListener {
 		return View.inflate(context, R.layout.activity_add_zixi, null);
 	}
 
+
+	/**
+	 * 回车保存
+	 */
+	private class SaveEditActionListener implements TextView.OnEditorActionListener {
+		@Override
+		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+			if(actionId ==  EditorInfo.IME_ACTION_DONE){
+				saveZixi();
+			}
+			return true;
+		}
+	}
 }

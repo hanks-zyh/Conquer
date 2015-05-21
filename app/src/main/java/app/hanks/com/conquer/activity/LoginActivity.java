@@ -249,6 +249,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         i.putExtra("gender", gender);
         i.putExtra("photoUrl", photoUrl);
         i.putExtra("city", city);
-        A.goOtherActivity(context, i);
+        A.goOtherActivityNoAnim(context, i);
     }
 }

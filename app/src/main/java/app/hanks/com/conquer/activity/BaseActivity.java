@@ -126,14 +126,14 @@ public abstract class BaseActivity extends FragmentActivity {
      */
     private void initLayout() {
         View v = getContentView();
-        ViewGroup rl_title = (ViewGroup) findViewById(R.id.rl_title);// 标题总布局
-        TextView tv_title = (TextView) findViewById(R.id.tv_title);// 标题文字
-        ImageButton ib_back = (ImageButton) findViewById(R.id.ib_back);// 左边返回图标
-        ImageButton ib_right = (ImageButton) findViewById(R.id.ib_right);// 右边图标
-        View shadow = findViewById(R.id.shadow);// 标题阴影
-        if (rl_title != null && tv_title == null && ib_back == null && ib_right == null && shadow != null) {
+        ViewGroup rl_title = (ViewGroup) v.findViewById(R.id.rl_title);// 标题总布局
+        TextView tv_title = (TextView) v.findViewById(R.id.tv_title);// 标题文字
+        ImageButton ib_back = (ImageButton) v.findViewById(R.id.ib_back);// 左边返回图标
+        ImageButton ib_right = (ImageButton) v.findViewById(R.id.ib_right);// 右边图标
+        View shadow = v.findViewById(R.id.shadow);// 标题阴影
+//        if (rl_title != null && tv_title == null && ib_back == null && ib_right == null && shadow != null) {
             initTitleBar(rl_title, tv_title, ib_back, ib_right, shadow);
-        }
+//        }
         setContentView(v);
     }
 

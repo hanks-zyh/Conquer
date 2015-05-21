@@ -340,7 +340,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 toggle();
                 break;
             case R.id.iv_add:
-                A.goOtherActivity(context, AddZixiActivity.class);
+                A.goOtherActivity(context, AddTaskActivity.class);
                 break;
             case R.id.iv_sort:
                 showSelectSort();

@@ -6,7 +6,7 @@
               android:orientation="vertical">
 
     <include
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/common_title"/>
 
@@ -60,9 +60,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:orientation="horizontal"
-            android:padding="4dp">
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
 
             <TextView
                 android:id="@+id/day_0"
@@ -113,11 +114,13 @@
             android:layout_alignParentLeft="true"
             android:drawableLeft="@drawable/ic_alarm_black_24dp"
             android:drawablePadding="8dp"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:text="10:50"
             android:textSize="18sp"/>
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/tv_time_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,13 +140,20 @@
         android:background="#22666666"/>
 
     <AutoCompleteTextView
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:imeOptions="actionDone"
         android:id="@+id/et_name"
         style="@style/MyET"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_marginBottom="8dp"
         android:hint="添加科目"
+        android:gravity="left|bottom"
         android:minHeight="48dp"
+        android:textSize="18sp"
+        android:textColorHint="@color/gray"
+        android:paddingBottom="4dp"
         android:paddingLeft="8dp"/>
 
     <app.hanks.com.conquer.view.FlowLayout
@@ -155,6 +165,8 @@
 
     <include
         android:id="@+id/ll_audio"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/layout_audio"
@@ -163,7 +175,7 @@
     <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:src="@drawable/home_bg"
         android:visibility="gone"/>
