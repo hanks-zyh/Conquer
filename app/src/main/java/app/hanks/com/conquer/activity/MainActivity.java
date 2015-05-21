@@ -52,6 +52,7 @@ import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.fragment.FriendZixiFragment;
 import app.hanks.com.conquer.fragment.MenuFragment;
+import app.hanks.com.conquer.fragment.MyTaskFragment;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.AudioUtils;
 import app.hanks.com.conquer.util.CollectionUtils;
@@ -172,6 +173,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         friendAdapter = new FriendZixiFragAapter(getSupportFragmentManager(), listTask2);
         lv_friend.setAdapter(friendAdapter);
         iv_arraw.setOnTouchListener(new ArrowTouch());
+
+        getSupportFragmentManager().beginTransaction().add(R.id.layout_content,new MyTaskFragment()).addToBackStack(null).commit();
     }
 
     /**

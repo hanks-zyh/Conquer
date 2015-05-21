@@ -62,7 +62,6 @@ public class OtherTaskFragment extends BaseFragment{
                     setListData(list);
                 }
             }
-
             @Override
             public void onError(int errorCode, String msg) {
             }

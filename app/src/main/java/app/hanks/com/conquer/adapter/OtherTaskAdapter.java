@@ -72,7 +72,7 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
         });
         holder.iv_gender.setImageResource(task.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
         // 陪她按钮
-        holder.view.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, AlertActivity.class);
                 intent.putExtra("task", task);
@@ -97,7 +97,6 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
         TextView          tv_created_time;
         TextView          tv_zixitime;
         TextView          tv_note;
-        View              view;
 
         public TaskViewHolder(View view) {
             super(view);
