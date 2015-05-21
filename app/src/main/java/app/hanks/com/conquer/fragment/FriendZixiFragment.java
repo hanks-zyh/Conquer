@@ -19,8 +19,8 @@ import app.hanks.com.conquer.activity.AlertActivity;
 import app.hanks.com.conquer.activity.FriendDataActivity;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.A;
+import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.TimeUtil;
-import app.hanks.com.conquer.util.ZixiUtil;
 import app.hanks.com.conquer.view.CircularImageView;
 
 public class FriendZixiFragment extends BaseFragment {
@@ -68,11 +68,11 @@ public class FriendZixiFragment extends BaseFragment {
             e.printStackTrace();
         }
         tv_note.setText(task.getNote());
-        tv_zixitime.setText(ZixiUtil.getDescriptionTimeFromTimestamp(task.getTime()));
-        tv_time.setText(ZixiUtil.getZixiTimeS(task));
+        tv_zixitime.setText(TaskUtil.getDescriptionTimeFromTimestamp(task.getTime()));
+        tv_time.setText(TaskUtil.getZixiTimeS(task));
         tv_name.setText(task.getName());
         tv_Nick.setText(task.getUser().getNick());
-        tv_dis.setText(ZixiUtil.getDistance(currentUser, task.getUser().getLocation()));
+        tv_dis.setText(TaskUtil.getDistance(currentUser, task.getUser().getLocation()));
         loader.displayImage(task.getUser().getAvatar(), iv_photo);
         iv_photo.setOnClickListener(new OnClickListener() {
             @Override

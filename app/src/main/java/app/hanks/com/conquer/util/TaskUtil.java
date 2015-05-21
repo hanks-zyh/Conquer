@@ -29,7 +29,7 @@ import cn.bmob.v3.listener.UploadFileListener;
  *
  * @author wmf
  */
-public class ZixiUtil {
+public class TaskUtil {
 
     public final static String FORMAT_YEAR      = "yyyy";
     public final static String FORMAT_MONTH_DAY = "MM月dd日";

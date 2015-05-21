@@ -24,11 +24,11 @@ import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.T;
+import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.UserDataUtils;
 import app.hanks.com.conquer.util.UserDataUtils.QueryUserDataListener;
 import app.hanks.com.conquer.util.UserDataUtils.UpdateUserDataListener;
-import app.hanks.com.conquer.util.ZixiUtil;
-import app.hanks.com.conquer.util.ZixiUtil.UpLoadListener;
+import app.hanks.com.conquer.util.TaskUtil.UpLoadListener;
 import app.hanks.com.conquer.view.CircularImageView;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -263,7 +263,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener {
 	 * @param f
 	 */
 	private void uploadPic(File f) {
-		ZixiUtil.upLoadFile(context, f, new UpLoadListener() {
+		TaskUtil.upLoadFile(context, f, new UpLoadListener() {
 			@Override
 			public void onSuccess(String url) {
 				currentUser.setHomeBg(url);

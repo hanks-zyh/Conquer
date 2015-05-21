@@ -57,7 +57,7 @@ import app.hanks.com.conquer.util.AudioUtils;
 import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.SP;
-import app.hanks.com.conquer.util.ZixiUtil;
+import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
@@ -66,8 +66,9 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
  * Created by Administrator on 2015/5/17.
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private static final int NOTIFY_MY     = 0;
-    private static final int NOTIFY_FRIEND = 1;
+    private static final int NOTIFY_MY      = 0;
+    private static final int NOTIFY_FRIEND  = 1;
+    private static final int DRAG_MINHEIGHT = PixelUtil.dp2px(50);
     private DrawerLayout     drawerLayout;
     private MaterialMenuView materialMenu;
     private ViewPager        lv_friend;
@@ -79,11 +80,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView            iv_arraw;
     private ImageButton          iv_sort;
     private AudioUtils aUtils = AudioUtils.getInstance();
-
     private int downY, dy;
-    private static final int     DRAG_MINHEIGHT = PixelUtil.dp2px(50);
-    private              boolean animing        = false;
-
+    private boolean animing = false;
+    private PopupWindow        popWin;
+    private SwipeRefreshLayout refreshLayout;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             @SuppressWarnings("unchecked")
@@ -106,25 +106,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         ;
     };
-    private PopupWindow        popWin;
-    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         materialMenu = (MaterialMenuView) findViewById(R.id.material_menu);
         materialMenu.setOnClickListener(this);
         findViewById(R.id.iv_add).setOnClickListener(this);
         iv_arraw = (ImageView) findViewById(R.id.iv_arraw);
         iv_sort = (ImageButton) findViewById(R.id.iv_sort);
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMyZixi();
-            }
-        });
+
+        initRefreshLayout();
 
 
         iv_sort.setOnClickListener(this);
@@ -179,36 +174,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         iv_arraw.setOnTouchListener(new ArrowTouch());
     }
 
-    class ArrowTouch implements View.OnTouchListener {
-        @Override
-        public boolean onTouch(View v, MotionEvent ev) {
-            if (animing) return false;
-            switch (ev.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    downY = (int) ev.getRawY();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    dy = (int) ev.getRawY() - downY;
-                    if (dy > 0 && dy < DRAG_MINHEIGHT) ViewHelper.setTranslationY(iv_arraw, dy);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    dy = (int) ev.getRawY() - downY;
-                    if (dy != 0) iv_arraw.animate().translationY(0).setDuration(400).start();
-                    if (dy >= DRAG_MINHEIGHT - 10) {
-                        animing = true;
-                        animToOther();
-                    }
-                    break;
+    /**
+     * 设置RecyclerView
+     */
+    private void initRefreshLayout() {
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_0));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyZixi();
             }
-            return true;
-        }
+        });
     }
 
     /**
      * 获取好友或者其他人的自习，让用户自习设置选择优先级</br> 0.优先时间近 1.优先好友的 2.优先本学院 3.优先本学校的 4.优先位置近的 5.其他
      */
     private void getOtherZixi() {
-        ZixiUtil.getNetZixiNotUser(context, currentUser, new ZixiUtil.GetZixiCallBack() {
+        TaskUtil.getNetZixiNotUser(context, currentUser, new TaskUtil.GetZixiCallBack() {
             @Override
             public void onSuccess(List<Task> list) {
                 if (CollectionUtils.isNotNull(list)) {
@@ -222,7 +206,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
     }
-
 
     public void animToOther() {
         final Task task = listTask2.get(lv_friend.getCurrentItem());
@@ -298,20 +281,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         new Thread() {
             public void run() {
                 // 1.获取本地数据库
-                List<Task> list = ZixiUtil.getAfterZixi(context);
+                List<Task> list = TaskUtil.getAfterZixi(context);
                 if (CollectionUtils.isNotNull(list)) {
                     Message.obtain(handler, NOTIFY_MY, list).sendToTarget();
                 }
                 L.i("我的本地自习长度" + listTask.size());
                 // 2.获取网络，可能是换手机了，或者是没有添加过自习，或者是当前时间以后没有自习
                 if (listTask.size() <= 0) {
-                    ZixiUtil.getNetAfterZixi(context, currentUser, Constants.MAIN_MYZIXI_LIMIT, new ZixiUtil.GetZixiCallBack() {
+                    TaskUtil.getNetAfterZixi(context, currentUser, Constants.MAIN_MYZIXI_LIMIT, new TaskUtil.GetZixiCallBack() {
                         @Override
                         public void onSuccess(List<Task> list) {
                             if (CollectionUtils.isNotNull(list)) {
                                 Message.obtain(handler, NOTIFY_MY, list).sendToTarget();
                             }
                         }
+
                         @Override
                         public void onError(int errorCode, String msg) {
                         }
@@ -398,5 +382,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public View getContentView() {
         return View.inflate(context, R.layout.common_title, null);
+    }
+
+    class ArrowTouch implements View.OnTouchListener {
+        @Override
+        public boolean onTouch(View v, MotionEvent ev) {
+            if (animing) return false;
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    downY = (int) ev.getRawY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    dy = (int) ev.getRawY() - downY;
+                    if (dy > 0 && dy < DRAG_MINHEIGHT) ViewHelper.setTranslationY(iv_arraw, dy);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    dy = (int) ev.getRawY() - downY;
+                    if (dy != 0) iv_arraw.animate().translationY(0).setDuration(400).start();
+                    if (dy >= DRAG_MINHEIGHT - 10) {
+                        animing = true;
+                        animToOther();
+                    }
+                    break;
+            }
+            return true;
+        }
     }
 }

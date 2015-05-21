@@ -1,4 +1,24 @@
+buildscript{
+
+    repositories{
+        mavenCentral()
+        maven(){
+            name 'RoboBinding AspectJPlugin Maven Repository'
+            url "https://github.com/RoboBinding/RoboBinding-aspectj-plugin/raw/master/mavenRepo"
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.+'
+        classpath 'org.robobinding:aspectj-plugin:0.8.4'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.+'
+
+
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'org.robobinding.android-aspectj'
 
 buildscript{
     repositories {
@@ -16,7 +36,12 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
+    android {
+        //这里是禁止xml中使用bind命名空间时报错的
+        lintOptions {
+            disable 'UnusedAttribute', 'ValidFragment', 'GradleDependency', 'OnClick', 'MissingPrefix', 'MenuTitle'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -24,6 +49,16 @@ android {
         }
     }
 }
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven() {
+        name 'SonaType snapshot repository'
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
@@ -43,4 +78,17 @@ dependencies {
 
     //recylerViewItem动画
     compile 'jp.wasabeef:recyclerview-animators:1.2.0@aar'
+
+    compile ("org.robobinding:robobinding:0.8.9:with-aop-and-dependencies") {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    aspectPath ("org.robobinding:robobinding:0.8.9:with-aop-and-dependencies") {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+
+    apt "org.robobinding:codegen:0.8.9"
+
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.2.1'
+
+
 }

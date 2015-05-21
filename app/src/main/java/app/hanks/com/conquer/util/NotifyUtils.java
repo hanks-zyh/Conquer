@@ -63,12 +63,12 @@ public class NotifyUtils {
 		ImageLoader.getInstance().displayImage(card.getFavatar(), iv_photo, ImageLoadOptions.getOptions());
 		tv_type.setText("自习提醒");
 		tv_from.setText("来自：" + card.getFnick());
-		tv_zixitime.setText(ZixiUtil.getZixiTimeS(card.getTime()) + " " + ZixiUtil.getZixiDateS(card.getTime()));
+		tv_zixitime.setText(TaskUtil.getZixiTimeS(card.getTime()) + " " + TaskUtil.getZixiDateS(card.getTime()));
 		tv_zixiname.setText(card.getZixiName());
 		tv_content.setText(card.getContent());
 		ll_audio.setVisibility(card.getAudioUrl() != null ? View.VISIBLE : View.GONE);
 		// 设置自习已提醒，不需要本地系统提醒了
-		ZixiUtil.setZixiHasAlerted(context, card.getZixiId());
+		TaskUtil.setZixiHasAlerted(context, card.getZixiId());
 		ib_play.setTag("play");
 		ib_play.setOnClickListener(new OnClickListener() {
 			@Override
@@ -209,7 +209,7 @@ public class NotifyUtils {
 		TextView tv_content = (TextView) view.findViewById(R.id.tv_content);
 		tv_type.setText("勾搭自习");
 		tv_from.setText(card.getFnick());
-		tv_zixitime.setText(ZixiUtil.getZixiDateS(card.getTime()) + " " + ZixiUtil.getZixiTimeS(card.getTime()));
+		tv_zixitime.setText(TaskUtil.getZixiDateS(card.getTime()) + " " + TaskUtil.getZixiTimeS(card.getTime()));
 		tv_zixiname.setText(card.getZixiName());
 		tv_content.setText(card.getContent());
 

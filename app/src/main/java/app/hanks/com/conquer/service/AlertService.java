@@ -20,7 +20,7 @@ import app.hanks.com.conquer.bean.Card;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.NotifyUtils;
 import app.hanks.com.conquer.util.SP;
-import app.hanks.com.conquer.util.ZixiUtil;
+import app.hanks.com.conquer.util.TaskUtil;
 import cn.bmob.im.BmobUserManager;
 
 public class AlertService extends Service {
@@ -58,7 +58,7 @@ public class AlertService extends Service {
         User user = BmobUserManager.getInstance(this).getCurrentUser(User.class);
         if (user != null) {
             // 获取今天为被提醒自习
-            List<Task> list = ZixiUtil.getTodayAfterZixi(this);
+            List<Task> list = TaskUtil.getTodayAfterZixi(this);
             int defaultAlertTime = (Integer) SP.get(this, "alert_time", 0);
             long alertTime = 1000 * 60 * 10;
             if (defaultAlertTime == 1) {
@@ -84,7 +84,7 @@ public class AlertService extends Service {
                     card.setFavatar("http://file.bmob.cn/M00/D7/E0/oYYBAFSER8OAM-OhAAAC5aqrGKs048.png");
                     int streamID = pool.play(id, 1, 1, 0, 0, 1);
                     pool.setVolume(streamID, 1, 1);
-                    ZixiUtil.setZixiHasAlerted(this, task.getId());
+                    TaskUtil.setZixiHasAlerted(this, task.getId());
                     // 提醒用户
                     NotifyUtils.showZixiAlertToast(this, card);
                 }

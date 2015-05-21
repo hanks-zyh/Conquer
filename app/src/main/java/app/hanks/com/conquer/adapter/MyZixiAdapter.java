@@ -18,8 +18,8 @@ import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.ProgressUtil;
 import app.hanks.com.conquer.util.T;
-import app.hanks.com.conquer.util.ZixiUtil;
-import app.hanks.com.conquer.util.ZixiUtil.DeleteZixiListener;
+import app.hanks.com.conquer.util.TaskUtil;
+import app.hanks.com.conquer.util.TaskUtil.DeleteZixiListener;
 import app.hanks.com.conquer.view.RoundProgressBar;
 
 
@@ -46,23 +46,24 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 //			@Override
 //			public void onClick(DialogInterface dialog, int which) {
 //				ProgressUtil.showWaitting(context);
-				ZixiUtil.DeleteZixi(context, list.get(position), new DeleteZixiListener() {
-					@Override
-					public void onSuccess() {
+				TaskUtil.DeleteZixi(context, list.get(position), new DeleteZixiListener() {
+                    @Override
+                    public void onSuccess() {
 //						ProgressUtil.dismiss();
 
 
-						list.remove(position);
-						MyZixiAdapter.this.notifyDataSetChanged();
+                        list.remove(position);
+                        MyZixiAdapter.this.notifyDataSetChanged();
 
 
-					}
-					@Override
-					public void onError(int errorCord, String msg) {
-						T.show(context, "删除失败，请检查网络");
-						ProgressUtil.dismiss();
-					}
-				});
+                    }
+
+                    @Override
+                    public void onError(int errorCord, String msg) {
+                        T.show(context, "删除失败，请检查网络");
+                        ProgressUtil.dismiss();
+                    }
+                });
 //			}
 //		}).setNegativeButton("算了", null).show();
 	}
@@ -73,7 +74,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
         final SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, v.findViewById(R.id.bottom_right));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, v.findViewById(R.id.bottom_left));
-        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
         return new ZixiViewHolder(v);
 	}
 
@@ -86,18 +87,18 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
         if (task == null) {
             L.d("zixi空了空空了空空了空空了空空了空空了空空了空");
         }
-        if (ZixiUtil.getZixiTimeS(task) == null) {
+        if (TaskUtil.getZixiTimeS(task) == null) {
             L.d("getZixiTimeS空了空空了空空了空空了空空了空空了空空了空");
         }
-        zixiViewHolder. tv_time.setText(ZixiUtil.getZixiTimeS(task.getTime()));
+        zixiViewHolder. tv_time.setText(TaskUtil.getZixiTimeS(task.getTime()));
         zixiViewHolder. tv_name.setText(task.getName());
-        int p = 4320 - ZixiUtil.getDurationFromNow(task.getTime());
+        int p = 4320 - TaskUtil.getDurationFromNow(task.getTime());
         if (p <= 0) p = 1;
         L.d("自习进度:" + p);
-        zixiViewHolder. pb.setText(ZixiUtil.getDescriptionTimeFromTimestamp(task.getTime()));
+        zixiViewHolder. pb.setText(TaskUtil.getDescriptionTimeFromTimestamp(task.getTime()));
         if (task.getTime() <= System.currentTimeMillis()) {
             zixiViewHolder. pb.setRoundWidth(0);
-            zixiViewHolder. pb.setText(ZixiUtil.getZixiDateS(task.getTime()));
+            zixiViewHolder. pb.setText(TaskUtil.getZixiDateS(task.getTime()));
         }else{
             zixiViewHolder.  pb.setRoundWidth(PixelUtil.dp2px(6));
         }

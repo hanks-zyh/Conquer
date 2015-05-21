@@ -282,14 +282,14 @@ public class MyMessageReceiver extends BroadcastReceiver {
 			if (card.getType() == 0) {// 提醒卡
 				NotifyUtils.showZixiAlertToast(context, card);
 				// tickerText = card.getFnick() + "提醒你在" +
-				// ZixiUtil.getZixiDateS(card.getTime()) + " " +
-				// ZixiUtil.getZixiTimeS(card.getTime())
+				// TaskUtil.getZixiDateS(card.getTime()) + " " +
+				// TaskUtil.getZixiTimeS(card.getTime())
 				// + "有自习要上哦";
 			} else {
 				NotifyUtils.showGoudaToast(context, card);
 				// tickerText = card.getFnick() + "想与你在" +
-				// ZixiUtil.getZixiDateS(card.getTime()) + " " +
-				// ZixiUtil.getZixiTimeS(card.getTime())
+				// TaskUtil.getZixiDateS(card.getTime()) + " " +
+				// TaskUtil.getZixiTimeS(card.getTime())
 				// + "上自习";
 			}
 			// String contentTitle = card.getFnick() + "(" + mNewNum + "条新消息)";

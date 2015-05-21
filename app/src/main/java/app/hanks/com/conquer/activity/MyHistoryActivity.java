@@ -21,8 +21,8 @@ import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.util.AlertDialogUtils;
 import app.hanks.com.conquer.util.AlertDialogUtils.OkCallBack;
 import app.hanks.com.conquer.util.CollectionUtils;
-import app.hanks.com.conquer.util.ZixiUtil;
-import app.hanks.com.conquer.util.ZixiUtil.DeleteCardistener;
+import app.hanks.com.conquer.util.TaskUtil;
+import app.hanks.com.conquer.util.TaskUtil.DeleteCardistener;
 
 public class MyHistoryActivity extends BaseActivity {
 
@@ -49,7 +49,7 @@ public class MyHistoryActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialogUtils.show(context, "删除记录", "确认删除吗？", "确定", "取消", new OkCallBack() {
                     public void onOkClick(DialogInterface dialog, int which) {
-                        ZixiUtil.deleteMyCard(context, cardList.get(position).getObjectId(), new DeleteCardistener() {
+                        TaskUtil.deleteMyCard(context, cardList.get(position).getObjectId(), new DeleteCardistener() {
                             @Override
                             public void onSuccess() {
                                 cardList.remove(position);
@@ -73,7 +73,7 @@ public class MyHistoryActivity extends BaseActivity {
      * 获取card
      */
     private void getDate() {
-        ZixiUtil.getAllMyCard(context, currentUser.getObjectId(), new ZixiUtil.GetCardListener() {
+        TaskUtil.getAllMyCard(context, currentUser.getObjectId(), new TaskUtil.GetCardListener() {
             public void onSuccess(List<Card> list) {
                 if (CollectionUtils.isNotNull(list)) {
                     cardList.clear();

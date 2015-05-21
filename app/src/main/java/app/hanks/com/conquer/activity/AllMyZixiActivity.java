@@ -22,7 +22,7 @@ import app.hanks.com.conquer.adapter.MyZixiAdapter;
 import app.hanks.com.conquer.bean.Day;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.L;
-import app.hanks.com.conquer.util.ZixiUtil;
+import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.view.xlist.XListView.IXListViewListener;
 
 public class AllMyZixiActivity extends BaseActivity implements IXListViewListener {
@@ -73,7 +73,7 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 				Day d = listDay.get(position);
 				Calendar tmp = Calendar.getInstance();
 				tmp.set(d.getYear(), d.getMonth(), d.getDay(), 0, 0, 1);
-				tv_day.setText(ZixiUtil.getZixiDateS(tmp.getTimeInMillis()));
+				tv_day.setText(TaskUtil.getZixiDateS(tmp.getTimeInMillis()));
 				getZixiByDay(tmp);
 			}
 		});
@@ -87,7 +87,7 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 	private void initData() {
 		new Thread() {
 			public void run() {
-				allTask = ZixiUtil.getAllZixi(context);
+				allTask = TaskUtil.getAllZixi(context);
 				Calendar c = Calendar.getInstance();
 				Calendar c1 = Calendar.getInstance();
 				final long curTime = System.currentTimeMillis();
@@ -102,28 +102,28 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 						// 得到上一天
 						Day d = listDay.get(j - 1);
 						c.set(d.getYear(), d.getMonth(), d.getDay(), 0, 0, 1);
-						if (!ZixiUtil.isToday(c.getTimeInMillis(), zixiTime)) {
+						if (!TaskUtil.isToday(c.getTimeInMillis(), zixiTime)) {
 							// 不是同一天 ，加到daylist
 							c1.setTimeInMillis(zixiTime);
-							boolean isToday = ZixiUtil.isToday(curTime, zixiTime);
+							boolean isToday = TaskUtil.isToday(curTime, zixiTime);
 							if (isToday) posotion = i;
 							listDay.add(new Day(c1.get(1), c1.get(2), c1.get(5), isToday ? true : false));
 						}
 					} else {
 						c1.setTimeInMillis(zixiTime);
-						boolean isToday = ZixiUtil.isToday(curTime, zixiTime);
+						boolean isToday = TaskUtil.isToday(curTime, zixiTime);
 						if (isToday) posotion = i;
 						listDay.add(new Day(c1.get(1), c1.get(2), c1.get(5), isToday ? true : false));
 					}
 				}
 
 				listTask.clear();
-				listTask.addAll(ZixiUtil.getZixiByDay(context, curTime));
+				listTask.addAll(TaskUtil.getZixiByDay(context, curTime));
 				L.d("今天自习：" + listTask.size());
 				runOnUiThread(new Runnable() {
 					public void run() {
 						L.d("更新日期，自习");
-						tv_day.setText(ZixiUtil.getZixiDateS(curTime));
+						tv_day.setText(TaskUtil.getZixiDateS(curTime));
 						adapter.notifyDataSetChanged();
 						adapterDay.notifyDataSetChanged();
 						if (posotion > 0 && posotion < listDay.size()) {
@@ -142,7 +142,7 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 		new Thread() {
 			public void run() {
 				listTask.clear();
-				listTask.addAll((ArrayList<Task>) ZixiUtil.getZixiByDay(context, c.getTimeInMillis()));
+				listTask.addAll((ArrayList<Task>) TaskUtil.getZixiByDay(context, c.getTimeInMillis()));
 				L.d(c.get(5) + "的自习：" + listTask.size());
 				runOnUiThread(new Runnable() {
 					public void run() {

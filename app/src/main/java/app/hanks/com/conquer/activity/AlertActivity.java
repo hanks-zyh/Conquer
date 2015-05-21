@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import app.hanks.com.conquer.util.TaskUtil;
 import cn.bmob.im.BmobChatManager;
 import cn.bmob.im.BmobRecordManager;
 import cn.bmob.im.inteface.OnRecordChangeListener;
@@ -34,7 +36,6 @@ import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.MsgUtils;
 import app.hanks.com.conquer.util.T;
-import app.hanks.com.conquer.util.ZixiUtil;
 import app.hanks.com.conquer.view.CircularImageView;
 import app.hanks.com.conquer.view.RippleBackground;
 
@@ -70,10 +71,10 @@ public class AlertActivity extends BaseActivity implements OnClickListener {
 		TextView tv_name = (TextView) findViewById(R.id.tv_name);
 		TextView tv_time = (TextView) findViewById(R.id.tv_time);
 		TextView tv_dis = (TextView) findViewById(R.id.tv_dis);
-		tv_time.setText(ZixiUtil.getZixiTimeS(task));
+		tv_time.setText(TaskUtil.getZixiTimeS(task));
 		tv_name.setText(task.getName());
 		tv_Nick.setText(task.getUser().getNick());
-		tv_dis.setText(ZixiUtil.getDistance(currentUser, task.getUser().getLocation()));
+		tv_dis.setText(TaskUtil.getDistance(currentUser, task.getUser().getLocation()));
 		loader.displayImage(task.getUser().getAvatar(), iv_photo);
 		iv_gender.setImageResource(task.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
 		rg = (RadioGroup) findViewById(R.id.rg);
