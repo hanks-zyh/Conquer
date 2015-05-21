@@ -24,7 +24,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -48,6 +47,7 @@ import java.util.List;
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.adapter.FriendZixiFragAapter;
 import app.hanks.com.conquer.adapter.MyZixiAdapter;
+import app.hanks.com.conquer.adapter.ZixiAdapterItemAnimator;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.fragment.FriendZixiFragment;
@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         listTask = new ArrayList<Task>();
         myAdapter = new MyZixiAdapter(this, listTask);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setItemAnimator(new ZixiAdapterItemAnimator());
         mRecyclerView.setAdapter(myAdapter);
 
         listTask2 = new ArrayList<Task>();

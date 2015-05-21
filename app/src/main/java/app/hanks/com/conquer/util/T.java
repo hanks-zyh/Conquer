@@ -1,7 +1,12 @@
 package app.hanks.com.conquer.util;
 
 import android.content.Context;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import app.hanks.com.conquer.R;
 
 /**
  * Toast常用类
@@ -15,7 +20,12 @@ public class T {
 	 * @param content
 	 */
 	public static void show(Context context, String content) {
-		Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
+		View v = View.inflate(context.getApplicationContext(), R.layout.layout_toast, null);
+		((TextView)v.findViewById(R.id.text)).setText(content);
+		Toast t = new Toast(context.getApplicationContext());
+		t.setView(v);
+		t.setGravity(Gravity.TOP,0,0);
+		t.show();
 	}
 
 	/**
