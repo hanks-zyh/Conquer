@@ -24,7 +24,8 @@
             <!-- android.support.v4.view.ViewPager -->
 
             <android.support.v4.view.ViewPager
-android:visibility="gone"                android:id="@+id/lv_friend"
+                android:visibility="gone"
+                android:id="@+id/lv_friend"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginLeft="8dp"
@@ -32,11 +33,13 @@ android:visibility="gone"                android:id="@+id/lv_friend"
                 android:layout_marginTop="8dp"
                 android:fadingEdge="none">
             </android.support.v4.view.ViewPager>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="Today"
@@ -45,6 +48,7 @@ android:visibility="gone"                android:id="@+id/lv_friend"
                     android:textColor="@color/text_gray"
                     android:gravity="center_vertical"
                     android:layout_height="match_parent"/>
+
                 <ImageButton
                     android:background="@drawable/btn_selector"
                     android:layout_alignParentRight="true"
@@ -54,15 +58,21 @@ android:visibility="gone"                android:id="@+id/lv_friend"
 
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:fadingEdge="none"
-                android:fadingEdgeLength="0px"
-                android:overScrollMode="never"
-                android:id="@+id/lv_my"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:fadingEdge="none"
+                    android:fadingEdgeLength="0px"
+                    android:overScrollMode="never"
+                    android:id="@+id/lv_my"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+                </android.support.v7.widget.RecyclerView>
+            </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
 
         <ImageView

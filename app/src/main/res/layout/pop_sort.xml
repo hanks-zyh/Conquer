@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="155dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp" >
+              android:layout_width="155dp"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:minWidth="155dp"
+    >
+
+    <TextView
+        android:id="@+id/refresh"
+        android:layout_width="155dp"
+        android:minWidth="155dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:textColor="@color/base_color_text_black"
+        android:textSize="16sp"
+        android:text="刷新"/>
 
     <RadioGroup
+        android:visibility="gone"
         android:id="@+id/rg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-        <RadioButton
+        android:orientation="vertical">
+
+        <RadioButton
             android:id="@+id/rb_friend"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/pop_tv_height"
             android:gravity="center"
-            android:text="优先显示好友" />
+            android:text="优先显示好友"/>
 
         <RadioButton
             android:id="@+id/rb_near"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/pop_tv_height"
             android:gravity="center"
-            android:text="优先显示附件" />
+            android:text="优先显示附件"/>
 
         <RadioButton
             android:id="@+id/rb_male"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/pop_tv_height"
             android:gravity="center"
-            android:text="优先显示公子" />
+            android:text="优先显示公子"/>
 
         <RadioButton
             android:id="@+id/rb_female"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/pop_tv_height"
             android:gravity="center"
-            android:text="优先显示姑娘" />
+            android:text="优先显示姑娘"/>
     </RadioGroup>
 
 </LinearLayout>

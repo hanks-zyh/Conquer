@@ -39,4 +39,8 @@ dependencies {
 
     //swpie删除
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+
+
+    //recylerViewItem动画
+    compile 'jp.wasabeef:recyclerview-animators:1.2.0@aar'
 }

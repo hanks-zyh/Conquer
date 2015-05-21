@@ -175,7 +175,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 		et_name.setOnEditorActionListener(new SaveEditActionListener());
-
 	}
 
 	/**

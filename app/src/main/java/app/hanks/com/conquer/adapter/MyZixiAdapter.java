@@ -37,13 +37,11 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
 
-
 	/**
 	 * 删除我的自习
 	 * @param position
 	 */
 	private void deleteZixi(final int position) {
-
 //		new AlertDialog.Builder(context).setTitle("是否删除该条自习").setMessage("").setPositiveButton("删除", new DialogInterface.OnClickListener() {
 //			@Override
 //			public void onClick(DialogInterface dialog, int which) {
@@ -51,9 +49,13 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 				ZixiUtil.DeleteZixi(context, list.get(position), new DeleteZixiListener() {
 					@Override
 					public void onSuccess() {
-						ProgressUtil.dismiss();
+//						ProgressUtil.dismiss();
+
+
 						list.remove(position);
 						MyZixiAdapter.this.notifyDataSetChanged();
+
+
 					}
 					@Override
 					public void onError(int errorCord, String msg) {
@@ -127,8 +129,6 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
                     }else {
                         finish = true;
                     }
-                }else {
-
                 }
             }
 

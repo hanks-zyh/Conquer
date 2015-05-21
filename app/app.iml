@@ -92,6 +92,7 @@
     <orderEntry type="library" exported="" name="rebound-core" level="project" />
     <orderEntry type="library" exported="" name="fbcore-0.4.0" level="project" />
     <orderEntry type="library" exported="" name="mta-sdk-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-animators-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="open_sdk" level="project" />
     <orderEntry type="library" exported="" name="locSDK_4.2" level="project" />
     <orderEntry type="library" exported="" name="fresco-0.4.0" level="project" />

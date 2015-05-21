@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -47,7 +48,6 @@ import java.util.List;
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.adapter.FriendZixiFragAapter;
 import app.hanks.com.conquer.adapter.MyZixiAdapter;
-import app.hanks.com.conquer.adapter.ZixiAdapterItemAnimator;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.fragment.FriendZixiFragment;
@@ -60,6 +60,7 @@ import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.util.ZixiUtil;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 /**
  * Created by Administrator on 2015/5/17.
@@ -92,18 +93,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     listTask.clear();
                     listTask.addAll(list);
                     myAdapter.notifyDataSetChanged();
+                    refreshLayout.setRefreshing(false);
                     break;
                 case NOTIFY_FRIEND:
                     listTask2.clear();
                     listTask2.addAll(list);
                     friendAdapter.notifyDataSetChanged();
+                    refreshLayout.setRefreshing(false);
                     break;
             }
         }
 
         ;
     };
-    private PopupWindow popWin;
+    private PopupWindow        popWin;
+    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +118,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.iv_add).setOnClickListener(this);
         iv_arraw = (ImageView) findViewById(R.id.iv_arraw);
         iv_sort = (ImageButton) findViewById(R.id.iv_sort);
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyZixi();
+            }
+        });
+
+
         iv_sort.setOnClickListener(this);
         iv_arraw.setVisibility(View.GONE);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);// 侧滑控件
@@ -156,7 +169,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         listTask = new ArrayList<Task>();
         myAdapter = new MyZixiAdapter(this, listTask);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setItemAnimator(new ZixiAdapterItemAnimator());
+        mRecyclerView.setItemAnimator(new SlideInLeftAnimator());
+        mRecyclerView.getItemAnimator().setAddDuration(1000);
         mRecyclerView.setAdapter(myAdapter);
 
         listTask2 = new ArrayList<Task>();
@@ -298,7 +312,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 Message.obtain(handler, NOTIFY_MY, list).sendToTarget();
                             }
                         }
-
                         @Override
                         public void onError(int errorCode, String msg) {
                         }
@@ -327,7 +340,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * 当MainAtivity恢复时，获取一次更新
      */
     @Override
-    protected void onStart() {
+    protected void onResume() {
         getMyZixi();
         getOtherZixi();
         super.onStart();
