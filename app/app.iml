@@ -99,6 +99,7 @@
     <orderEntry type="library" exported="" name="open_sdk" level="project" />
     <orderEntry type="library" exported="" name="locSDK_4.2" level="project" />
     <orderEntry type="library" exported="" name="fresco-0.4.0" level="project" />
+    <orderEntry type="library" exported="" name="advrecyclerview-0.7.1" level="project" />
     <orderEntry type="library" exported="" name="photoview-library-1.2.2" level="project" />
     <orderEntry type="library" exported="" name="BmobIM_V1.1.8beta_20150408" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />

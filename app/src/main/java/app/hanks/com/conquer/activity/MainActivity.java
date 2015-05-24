@@ -138,13 +138,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * 弹出选择排序的popupWindow
      */
     private void showSelectSort() {
-        int defaultSort = (Integer) SP.get(context, Constants.SP_SORT, 0);
         View v = View.inflate(context, R.layout.pop_sort, null);
         //刷新
          v.findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-
+                 popWin.dismiss();
              }
          });
         //切换

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<LinearLayout
     android:id="@+id/refreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.RecyclerView
-        android:fadingEdge="none"
-        android:fadingEdgeLength="0px"
-        android:overScrollMode="never"
         android:id="@+id/recylerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0px"
+        android:overScrollMode="never"
         android:scrollbars="none">
     </android.support.v7.widget.RecyclerView>
-</android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

@@ -57,7 +57,7 @@ public class TaskUtil {
         DbUtils dbUtils = DbUtils.create(context);
         List<Task> temp = new ArrayList<Task>();
         try {
-            // temp = dbUtils.findAll(Task.class);
+            // temp = dbUtils.findAll(Tasks.class);
             List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
@@ -120,7 +120,7 @@ public class TaskUtil {
         DbUtils dbUtils = DbUtils.create(context);
         List<Task> temp = new ArrayList<Task>();
         try {
-            // temp = dbUtils.findAll(Task.class);
+            // temp = dbUtils.findAll(Tasks.class);
             List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
@@ -285,7 +285,7 @@ public class TaskUtil {
                 // try {
                 // // 1.更新本地数据库
                 // if (arg0.size() > 0) {
-                // dbUtils.deleteAll(Task.class);
+                // dbUtils.deleteAll(Tasks.class);
                 // dbUtils.saveAll(arg0);
                 // }
                 // } catch (DbException e) {

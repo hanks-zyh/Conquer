@@ -83,7 +83,7 @@ public class OtherTaskFragment extends BaseFragment{
     }
 
     public void animToOther() {
-       /* final Task task = list.get(mViewPager.getCurrentItem());
+       /* final Tasks task = list.get(mViewPager.getCurrentItem());
         L.d("lv_friend大小：" + mViewPager.getChildCount() + "，listZixi2大小：" + listTask2.size() + "当前item：" + mViewPager.getCurrentItem() + ","
                 + task.toString());
         View fragment = ((FriendZixiFragment) friendAdapter.getFragment(mViewPager.getCurrentItem())).getRootView();

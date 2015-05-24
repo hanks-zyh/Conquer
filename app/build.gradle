@@ -74,10 +74,13 @@ dependencies {
 
     //swpie删除
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
-
+    //swipe -- from h6ah4i
+    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.7.1'
 
     //recylerViewItem动画
     compile 'jp.wasabeef:recyclerview-animators:1.2.0@aar'
+
+
 
     compile ("org.robobinding:robobinding:0.8.9:with-aop-and-dependencies") {
         exclude group: 'com.google.guava', module: 'guava'

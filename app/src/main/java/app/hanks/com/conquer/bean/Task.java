@@ -11,6 +11,7 @@ import cn.bmob.v3.BmobObject;
 public class Task extends BmobObject {
 
 	private int id;
+	private boolean pinedToSwipeLeft;
 	private User user;
 	/**
 	 * 课程的名字
@@ -141,10 +142,20 @@ public class Task extends BmobObject {
 
 	@Override
 	public String toString() {
-		return "Task [id=" + id + ", user=" + user + ", name=" + name + ", time=" + time + ", label=" + label + ", isShare=" + isShare
+		return "Tasks [id=" + id + ", user=" + user + ", name=" + name + ", time=" + time + ", label=" + label + ", isShare=" + isShare
 				+ ", note=" + note + ", cardBgUrl=" + cardBgUrl + ", atFriends=" + atFriends + ", audioUrl=" + audioUrl + ", hasAlerted="
 				+ hasAlerted + "]";
 	}
 
-	
+	public boolean isPinedToSwipeLeft() {
+		return pinedToSwipeLeft;
+	}
+
+	public void setPinedToSwipeLeft(boolean pinedToSwipeLeft) {
+		this.pinedToSwipeLeft = pinedToSwipeLeft;
+	}
+
+	public void setIsShare(boolean isShare) {
+		this.isShare = isShare;
+	}
 }
