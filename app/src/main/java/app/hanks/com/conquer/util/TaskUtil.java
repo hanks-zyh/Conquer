@@ -122,9 +122,9 @@ public class TaskUtil {
         try {
             // temp = dbUtils.findAll(Tasks.class);
             List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
+            L.i("大小" + findAll.size());
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
-                L.i("大小" + temp.size());
             }
         } catch (Exception e) {
             // if (debugDB) e.printStackTrace();
@@ -192,6 +192,7 @@ public class TaskUtil {
             @Override
             public void onSuccess(List<Task> arg0) {
                 try {
+                    L.d("网络个数:"+arg0.size());
                     // 1.更新本地数据库
                     if (arg0.size() > 0) {
                         dbUtils.deleteAll(Task.class);

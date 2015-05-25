@@ -162,7 +162,15 @@ public abstract class BaseActivity extends FragmentActivity {
     private void initStatusBar() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintColor(getResources().getColor(R.color.title));
+        int theme = (Integer) SP.get(context, "theme", 0);
+        int color = R.color.theme_0;
+        switch (theme){
+            case 0: color = R.color.theme_0; break;
+            case 1: color = R.color.theme_1; break;
+            case 2: color = R.color.theme_2; break;
+            case 3: color = R.color.theme_3; break;
+        }
+        tintManager.setStatusBarTintColor(getResources().getColor(color));
     }
 
     /**

@@ -1,65 +1,22 @@
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:id="@+id/drawer_layout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:background="@color/window_bg">
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- The main content view -->
+    <!-- 主界面 -->
 
-    <RelativeLayout
+    <include layout="@layout/layout_main"/>
 
-        android:fitsSystemWindows="true"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout android:id="@+id/layout_content"
-            android:background="@color/main_bg"
-            android:fitsSystemWindows="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/title"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/iv_arraw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="-32dp"
-            android:src="@drawable/drag_circle"/>
-
-        <include
-            android:id="@+id/title"
-            android:layout_marginBottom="@dimen/title_shadow_height_3"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height_with_shadow"
-            android:layout_alignParentTop="true"
-            layout="@layout/layout_title"/>
-
-        <ImageView
-            android:id="@+id/iv_add"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_add"/>
-    </RelativeLayout>
-    <!-- The navigation drawer -->
-
+    <!-- 滑动菜单 -->
     <FrameLayout
-        android:clipToPadding="false"
-        android:fitsSystemWindows="true"
         android:id="@+id/left_drawer"
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true">
+    </FrameLayout>
 
 </android.support.v4.widget.DrawerLayout>

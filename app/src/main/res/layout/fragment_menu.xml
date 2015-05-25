@@ -7,19 +7,21 @@
             android:background="@color/white"
             android:clipToPadding="false"
             android:fadingEdge="none"
+            android:overScrollMode="never"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
             android:scrollbars="none">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp">
+            android:layout_height="200dp">
 
             <ImageView
                 android:id="@+id/iv_home_bg"
@@ -30,7 +32,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:background="@drawable/shadow_h"/>
 
             <app.hanks.com.conquer.view.CircularImageView
@@ -39,7 +41,7 @@
                 android:layout_height="70dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_margin="20dp"
+                android:layout_margin="40dp"
                 android:clickable="true"
                 android:src="@drawable/default_photo"
                 app:border="false"
@@ -92,7 +94,7 @@
 
             <TextView
                 style="@style/Menu_tv"
-                android:text="我的自习"/>
+                android:text="历史任务"/>
         </LinearLayout>
 
         <LinearLayout

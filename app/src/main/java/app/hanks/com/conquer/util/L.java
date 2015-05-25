@@ -12,8 +12,7 @@ import com.orhanobut.logger.Logger;
  *         2014-9-25
  */
 public class L {
-    public static        boolean isDebug = true;// 是否需要打印bug，可以在application的onCreate函数里面初始化
-    private static final String  TAG     = "ZYH";
+    public static boolean isDebug = true;// 是否需要打印bug，可以在application的onCreate函数里面初始化
 
     // 下面四个是默认tag的函数
     public static void i(String msg) {
@@ -26,21 +25,21 @@ public class L {
     public static void d(String msg) {
         if (isDebug) {
 //			Log.d(TAG, "........................" + msg);
-            Logger.d(TAG, msg);
+            Logger.d(msg);
         }
     }
 
     public static void e(String msg) {
         if (isDebug) {
 //			Log.e(TAG, "........................" + msg);
-            Logger.e(TAG, msg);
+            Logger.e(msg);
         }
     }
 
     public static void v(String msg) {
         if (isDebug) {
 //			Log.v(TAG, "........................" + msg);
-            Logger.v(TAG, msg);
+            Logger.v(msg);
         }
     }
 
@@ -48,14 +47,14 @@ public class L {
     public static void i(String tag, String msg) {
         if (isDebug) {
             //Log.i(tag, "........................" + msg);
-            Logger.i(tag, msg);
+            Logger.i(msg);
         }
     }
 
     public static void d(String tag, String msg) {
         if (isDebug) {
 //			Log.i(tag,"........................" + msg);
-            Logger.d(tag, msg);
+            Logger.d(  msg);
         }
     }
 

@@ -5,10 +5,12 @@
  */
 package app.hanks.com.conquer.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,15 +24,18 @@ import com.h6ah4i.android.widget.advrecyclerview.decoration.SimpleListDividerDec
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
+import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.nostra13.universalimageloader.utils.L;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.hanks.com.conquer.R;
+import app.hanks.com.conquer.activity.AddTaskActivity;
 import app.hanks.com.conquer.adapter.MyZixiAdapter;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
+import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.TaskUtil;
 
@@ -39,18 +44,13 @@ import app.hanks.com.conquer.util.TaskUtil;
  */
 public class MyTaskFragment extends BaseFragment {
 
-/*
-    private RecyclerView        mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private SwipeRefreshLayout  refreshLayout;
-    private List<Tasks>          list = new ArrayList<>();
-    private MyZixiAdapter mAdapter;
-*/
-    private RecyclerView mRecyclerView;
     private List<Task> list = new ArrayList<>();
 
+    private RecyclerView       mRecyclerView;
+    private SwipeRefreshLayout refreshLayout;
+
     private RecyclerView.LayoutManager          mLayoutManager;
-    private RecyclerView.Adapter                mAdapter;
+    private MyZixiAdapter                       mAdapter;
     private RecyclerView.Adapter                mWrappedAdapter;
     private RecyclerViewSwipeManager            mRecyclerViewSwipeManager;
     private RecyclerViewTouchActionGuardManager mRecyclerViewTouchActionGuardManager;
@@ -82,67 +82,8 @@ public class MyTaskFragment extends BaseFragment {
         // swipe manager 滑动item的manager
         mRecyclerViewSwipeManager = new RecyclerViewSwipeManager();
 
-
-        getMyTask();
-    }
-
-
-    /**
-     * 设置RecyclerView
-     */
-    private void initRefreshLayout() {
-//        refreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.refreshLayout);
-//        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_0));
-//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                getMyZixi();
-//            }
-//        });
-    }
-
-
-    /**
-     * 获取我的任务list
-     */
-    private void getMyTask() {
-        // 访问数据库在子线程中进行
-        // 1.首先获取本地数据库
-        List<Task> list = TaskUtil.getAfterZixi(context);
-        if (CollectionUtils.isNotNull(list)) {
-            setListData(list);
-        }
-        L.i("我的本地长度" + list.size());
-        // 2.获取网络，可能是换手机了，或者是没有添加过，或者是当前时间以后没有
-        if (list.size() <= 0) {
-            TaskUtil.getNetAfterZixi(context, currentUser, Constants.MAIN_MYZIXI_LIMIT, new TaskUtil.GetZixiCallBack() {
-                @Override
-                public void onSuccess(List<Task> list) {
-                    if (list != null) {
-                        setListData(list);
-                    }
-                }
-                @Override
-                public void onError(int errorCode, String msg) {
-                }
-            });
-        }
-    }
-
-
-    /**
-     * 设置list数据
-     */
-    private void setListData(List<Task> newList) {
-        list.clear();
-        list.addAll(newList);
-        L.d("任务个数:"+list.size());
-//        mAdapter.notifyDataSetChanged();
-//        refreshLayout.setRefreshing(false);
-
-
         //adapter
-        mAdapter =  new MyZixiAdapter(context,list);
+        mAdapter = new MyZixiAdapter(context, list);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(mAdapter);      // wrap for swiping
         mWrappedAdapter = mRecyclerViewSwipeManager.createWrappedAdapter(mWrappedAdapter);      // wrap for swiping
         final GeneralItemAnimator animator = new SwipeDismissItemAnimator();
@@ -169,8 +110,121 @@ public class MyTaskFragment extends BaseFragment {
         mRecyclerViewTouchActionGuardManager.attachRecyclerView(mRecyclerView);
         mRecyclerViewSwipeManager.attachRecyclerView(mRecyclerView);
         mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
+
+        initRefreshLayout();
+        getMyTask();
+        initListener();
     }
+
+    private void initListener() {
+        mAdapter.setEventListener(new MyZixiAdapter.EventListener() {
+            @Override
+            public void onItemRemoved(int position) {
+
+            }
+
+            @Override
+            public void onItemPinned(int position) {
+
+            }
+
+            @Override
+            public void onItemViewClicked(View v, boolean pinned) {
+                int position = mRecyclerView.getChildPosition(v);
+                L.d("onItemViewClicked:"+position);
+                if (position != RecyclerView.NO_POSITION) {
+                    Intent intent = new Intent(context, AddTaskActivity.class);
+                    intent.putExtra("task", list.get(position));
+                    A.goOtherActivity(context, intent);
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 设置RecyclerView
+     */
+    private void initRefreshLayout() {
+        refreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.refreshLayout);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_0));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyTask();
+            }
+        });
+    }
+
+
+    /**
+     * 获取我的任务list
+     */
+    private void getMyTask() {
+        // 访问数据库在子线程中进行
+        // 1.首先获取本地数据库
+        List<Task> list = TaskUtil.getAfterZixi(context);
+        if (CollectionUtils.isNotNull(list)) {
+            setListData(list);
+        }
+        L.i("我的本地长度" + list.size());
+        // 2.获取网络，可能是换手机了，或者是没有添加过，或者是当前时间以后没有
+        if (list.size() <= 0) {
+            TaskUtil.getNetAfterZixi(context, currentUser, Constants.MAIN_MYZIXI_LIMIT, new TaskUtil.GetZixiCallBack() {
+                @Override
+                public void onSuccess(List<Task> list) {
+                    if (list != null) {
+                        setListData(list);
+                    }
+                }
+
+                @Override
+                public void onError(int errorCode, String msg) {
+                }
+            });
+        }
+    }
+
+
+    /**
+     * 设置list数据
+     */
+    private void setListData(List<Task> newList) {
+        list.clear();
+        list.addAll(newList);
+        L.d("任务个数:" + list.size());
+        mAdapter.notifyDataSetChanged();
+        refreshLayout.setRefreshing(false);
+    }
+
     private boolean supportsViewElevation() {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (mRecyclerViewDragDropManager != null) {
+            mRecyclerViewDragDropManager.release();
+            mRecyclerViewDragDropManager = null;
+        }
+        if (mRecyclerViewSwipeManager != null) {
+            mRecyclerViewSwipeManager.release();
+            mRecyclerViewSwipeManager = null;
+        }
+
+        if (mRecyclerView != null) {
+            mRecyclerView.setItemAnimator(null);
+            mRecyclerView.setAdapter(null);
+            mRecyclerView = null;
+        }
+
+        if (mWrappedAdapter != null) {
+            WrapperAdapterUtils.releaseAll(mWrappedAdapter);
+            mWrappedAdapter = null;
+        }
+        mAdapter = null;
+        mLayoutManager = null;
+
+        super.onDestroyView();
     }
 }

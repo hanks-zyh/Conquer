@@ -155,7 +155,4 @@ public class Task extends BmobObject {
 		this.pinedToSwipeLeft = pinedToSwipeLeft;
 	}
 
-	public void setIsShare(boolean isShare) {
-		this.isShare = isShare;
-	}
 }
