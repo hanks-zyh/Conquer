@@ -55,7 +55,7 @@ public class OtherTaskFragment extends BaseFragment{
 
 
     /**
-     * 获取好友或者其他人的自习，让用户自习设置选择优先级</br> 0.优先时间近 1.优先好友的 2.优先本学院 3.优先本学校的 4.优先位置近的 5.其他
+     * 获取好友或者其他人的任务，让用户任务设置选择优先级</br> 0.优先时间近 1.优先好友的 2.优先本学院 3.优先本学校的 4.优先位置近的 5.其他
      */
     private void getOtherZixi() {
         TaskUtil.getNetZixiNotUser(context, currentUser, new TaskUtil.GetZixiCallBack() {

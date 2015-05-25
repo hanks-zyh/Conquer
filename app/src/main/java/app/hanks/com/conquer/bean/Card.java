@@ -3,7 +3,7 @@ package app.hanks.com.conquer.bean;
 import cn.bmob.v3.BmobObject;
 
 /**
- * 提醒别人自习，或者陪别人上自习的卡片
+ * 提醒别人任务，或者陪别人上任务的卡片
  * @author wmf
  */
 public class Card extends BmobObject {
@@ -15,7 +15,7 @@ public class Card extends BmobObject {
 				+ "]";
 	}
 
-	/** 卡片类型 0.提醒卡 1.请求陪人自习卡（勾搭卡） */
+	/** 卡片类型 0.提醒卡 1.请求陪人任务卡（勾搭卡） */
 	private int type;
 	/** 卡片发起人的Id */
 	private String fid;
@@ -37,11 +37,11 @@ public class Card extends BmobObject {
 	/** 卡片接受人的Id */
 	private String tId;
 
-	/** 自习设置的Id */
+	/** 任务设置的Id */
 	private int zixiId;
-	/** 自习设置的时间 */
+	/** 任务设置的时间 */
 	private String zixiName;
-	/** 自习设置的时间 */
+	/** 任务设置的时间 */
 	private long time;
 	/** 卡片的鼓励的话 */
 	private String content;

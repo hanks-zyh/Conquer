@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/title_shadow_height_3"
-                android:layout_alignParentTop="true">
+<RelativeLayout
+    android:id="@+id/rl_title"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_marginBottom="@dimen/title_shadow_height_3">
 
     <RelativeLayout
-        android:id="@+id/rl_title"
+        android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:layout_alignParentTop="true"
@@ -52,7 +54,7 @@
         android:id="@+id/shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_shadow_height"
-        android:layout_below="@+id/rl_title"
+        android:layout_below="@+id/rl"
         android:background="@drawable/shadow_title"/>
 
 </RelativeLayout>

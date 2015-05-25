@@ -15,7 +15,6 @@
         android:background="@color/main_bg"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
-
     </LinearLayout>
 
     <ImageView
@@ -39,7 +38,7 @@
 
     <ImageView
         android:id="@+id/iv_add"
-        android:layout_width="54dp"
+        android:layout_width="@dimen/btn_fab_size"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

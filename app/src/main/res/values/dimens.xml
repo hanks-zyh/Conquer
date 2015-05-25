@@ -66,7 +66,7 @@
     <dimen name="title_height_with_shadow">57dp</dimen>
     <dimen name="title_bg_height">52dp</dimen>
     <dimen name="title_shadow_height">3dp</dimen>
-    <dimen name="title_shadow_height_3">-3dp</dimen>
+    <dimen name="title_shadow_height_3">-4dp</dimen>
     <dimen name="title_tv_marginleft">16dp</dimen>
     <dimen name="item_myzix_h">85.0dp</dimen>
     <dimen name="photo_top">80dp</dimen>
@@ -77,5 +77,6 @@
     <dimen name="rippleRadius">64dp</dimen>
     <dimen name="title_btn_padding">6dp</dimen>
     <dimen name="pop_tv_height">36dp</dimen>
+    <dimen name="btn_fab_size">54dp</dimen>
 
 </resources>

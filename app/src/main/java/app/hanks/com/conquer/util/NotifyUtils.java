@@ -43,7 +43,7 @@ public class NotifyUtils {
 	private static int curPosition = 0;
 
 	/**
-	 * 有人提醒自习时弹出的卡片
+	 * 有人提醒任务时弹出的卡片
 	 * @param context
 	 * @param card
 	 */
@@ -61,13 +61,13 @@ public class NotifyUtils {
 		final ImageButton ib_play = (ImageButton) view.findViewById(R.id.ib_play);
 		final ProgressBar pb = (ProgressBar) view.findViewById(R.id.pb);
 		ImageLoader.getInstance().displayImage(card.getFavatar(), iv_photo, ImageLoadOptions.getOptions());
-		tv_type.setText("自习提醒");
+		tv_type.setText("任务提醒");
 		tv_from.setText("来自：" + card.getFnick());
 		tv_zixitime.setText(TaskUtil.getZixiTimeS(card.getTime()) + " " + TaskUtil.getZixiDateS(card.getTime()));
 		tv_zixiname.setText(card.getZixiName());
 		tv_content.setText(card.getContent());
 		ll_audio.setVisibility(card.getAudioUrl() != null ? View.VISIBLE : View.GONE);
-		// 设置自习已提醒，不需要本地系统提醒了
+		// 设置任务已提醒，不需要本地系统提醒了
 		TaskUtil.setZixiHasAlerted(context, card.getZixiId());
 		ib_play.setTag("play");
 		ib_play.setOnClickListener(new OnClickListener() {
@@ -192,7 +192,7 @@ public class NotifyUtils {
 	}
 
 	/**
-	 * 有人看到你的自习时，想与你一起上自习是发过来的卡片
+	 * 有人看到你的任务时，想与你一起上任务是发过来的卡片
 	 * @param context
 	 * @param card
 	 */
@@ -207,7 +207,7 @@ public class NotifyUtils {
 		TextView tv_zixitime = (TextView) view.findViewById(R.id.tv_zixitime);
 		TextView tv_zixiname = (TextView) view.findViewById(R.id.tv_zixiname);
 		TextView tv_content = (TextView) view.findViewById(R.id.tv_content);
-		tv_type.setText("勾搭自习");
+		tv_type.setText("勾搭任务");
 		tv_from.setText(card.getFnick());
 		tv_zixitime.setText(TaskUtil.getZixiDateS(card.getTime()) + " " + TaskUtil.getZixiTimeS(card.getTime()));
 		tv_zixiname.setText(card.getZixiName());

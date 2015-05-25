@@ -16,16 +16,22 @@
             android:id="@+id/drag_handle"
             android:layout_width="32dp"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="#20000000" />
+            android:background="#20000000"/>
+
         <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/drag_handle"
-            android:gravity="center"
-            tools:ignore="RtlHardcoded" />
+            android:layout_toLeftOf="@id/drag_handle"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:text="sdasd"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded"/>
     </RelativeLayout>
 
 </FrameLayout>

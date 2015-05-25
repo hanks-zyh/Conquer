@@ -153,7 +153,7 @@ public class MsgUtils {
 	}
 
 	/**
-	 * 发送陪自习消息，沒有回調
+	 * 发送陪任务消息，沒有回調
 	 * @param context
 	 * @param manager
 	 * @param targetUser 目标用户，可以是好友或者陌生人

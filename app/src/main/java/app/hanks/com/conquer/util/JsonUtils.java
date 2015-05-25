@@ -6,7 +6,7 @@ import app.hanks.com.conquer.bean.User;
 public class JsonUtils {
 
 	/**
-	 * 将自习邀请转换成Json串
+	 * 将任务邀请转换成Json串
 	 * 
 	 * @param time
 	 * @param zixiName

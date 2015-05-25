@@ -164,7 +164,7 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:text="亲爱的快来和我一块上自习"
+            android:text="亲爱的快来和我一块上任务"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </RelativeLayout>

@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/tv_time"
         android:layout_alignTop="@+id/tv_from"
-        android:text="自习邀请"
+        android:text="任务邀请"
         android:textColor="#0099CC"
         android:textSize="20sp" />
 

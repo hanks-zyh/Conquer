@@ -91,12 +91,12 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     /**
-     * 删除我的自习
+     * 删除我的任务
      *
      * @param position
      */
     private void deleteZixi(final int position) {
-//		new AlertDialog.Builder(context).setTitle("是否删除该条自习").setMessage("").setPositiveButton("删除", new DialogInterface.OnClickListener() {
+//		new AlertDialog.Builder(context).setTitle("是否删除该条任务").setMessage("").setPositiveButton("删除", new DialogInterface.OnClickListener() {
 //			@Override
 //			public void onClick(DialogInterface dialog, int which) {
 //				ProgressUtil.showWaitting(context);
@@ -150,7 +150,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 //        zixiViewHolder. tv_name.setText(task.getName());
 //        int p = 4320 - TaskUtil.getDurationFromNow(task.getTime());
 //        if (p <= 0) p = 1;
-//        L.d("自习进度:" + p);
+//        L.d("任务进度:" + p);
 //        zixiViewHolder. pb.setText(TaskUtil.getDescriptionTimeFromTimestamp(task.getTime()));
 //        if (task.getTime() <= System.currentTimeMillis()) {
 //            zixiViewHolder. pb.setRoundWidth(0);

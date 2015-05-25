@@ -51,10 +51,10 @@ public class MyHistoryAdapter extends MyBaseAdpter<Card> {
         View loading = ViewHolder.get(convertView, R.id.loading);
         tv_from.setText(card.getFnick());
         if (card.getType() == 0) {
-            tv_type.setText("自习提醒");
+            tv_type.setText("任务提醒");
             tv_type.setTextColor(context.getResources().getColor(R.color.blue_normal));
         } else {
-            tv_type.setText("自习勾搭");
+            tv_type.setText("任务勾搭");
             tv_type.setTextColor(context.getResources().getColor(R.color.red_button));
         }
         tv_time

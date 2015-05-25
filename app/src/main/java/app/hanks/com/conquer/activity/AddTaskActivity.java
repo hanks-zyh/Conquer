@@ -1,9 +1,11 @@
 package app.hanks.com.conquer.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -12,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
@@ -42,30 +45,35 @@ import app.hanks.com.conquer.util.AlertDialogUtils.EtOkCallBack;
 import app.hanks.com.conquer.util.AlertDialogUtils.OkCallBack;
 import app.hanks.com.conquer.util.AudioUtils;
 import app.hanks.com.conquer.util.CollectionUtils;
-import app.hanks.com.conquer.util.Course;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.MsgUtils;
+import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.RecordUtil;
 import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
-import app.hanks.com.conquer.util.TimeUtil;
 import app.hanks.com.conquer.util.TaskUtil.UpLoadListener;
+import app.hanks.com.conquer.util.Tasks;
+import app.hanks.com.conquer.util.TimeUtil;
 import app.hanks.com.conquer.view.AutoCompleteArrayAdapter;
 import app.hanks.com.conquer.view.FlowLayout;
+import app.hanks.com.conquer.view.RevealBackgroundView;
 import app.hanks.com.conquer.view.datetime.datepicker.DatePickerDialog;
 import app.hanks.com.conquer.view.datetime.datepicker.DatePickerDialog.OnDateSetListener;
 import app.hanks.com.conquer.view.datetime.timepicker.RadialPickerLayout;
 import app.hanks.com.conquer.view.datetime.timepicker.TimePickerDialog;
 import app.hanks.com.conquer.view.datetime.timepicker.TimePickerDialog.OnTimeSetListener;
+import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
+import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
 import cn.bmob.im.BmobChatManager;
 import cn.bmob.v3.listener.SaveListener;
 
-public class AddTaskActivity extends BaseActivity implements OnClickListener {
+public class AddTaskActivity extends BaseActivity implements OnClickListener, RevealBackgroundView.OnStateChangeListener {
 
     private static final int      REQUES_IMG    = 0;
     private static final int      REQUES_FRIEND = 1;
     private final        Calendar mCalendar     = Calendar.getInstance();
+    boolean isFirst = true;
     private String               tag;
     private AutoCompleteTextView et_name;
     private TextView             tv_time, tv_time_tip;
@@ -74,20 +82,26 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
     private TextView         tv_date;
     private TextView         wk_0, wk_1, wk_2, wk_3, wk_4, wk_5, wk_6;
     private TextView day_0, day_1, day_2, day_3, day_4, day_5, day_6;
-
     private String imgUrl   = null;
     private String audioUrl = null;
     private ImageView  iv;// 添加的图片
     private View       ll_audio;
     private FlowLayout ll_at_friend;
-
     private List<String> atFriends = new ArrayList<String>();
     private List<User>   at        = new ArrayList<User>();
     private AudioUtils aUtils;
-
     // 标记第一个的时间基准
-    private long headTime;
+    private long       headTime;
     private String note = null;
+    private RevealBackgroundView vRevealBackground;
+
+    private MaterialMenuView material_menu;
+    private View             iv_sort; //title上面的
+
+
+    private View ll_bottom; //底部操作
+    private View layout_date;//日期选择
+    private View currentTime; //显示选择的时间
 
     private static String pad(int c) {
         if (c >= 10)
@@ -96,9 +110,16 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
             return "0" + String.valueOf(c);
     }
 
+    public static void startUserProfileFromLocation(int[] startingLocation, Activity mainActivity) {
+        Intent intent = new Intent(mainActivity, AddTaskActivity.class);
+        intent.putExtra("startingLocation", startingLocation);
+        mainActivity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupRevealBackground(savedInstanceState);
         init();
     }
 
@@ -112,13 +133,22 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
         tv_time = (TextView) findViewById(R.id.tv_time);
         tv_time_tip = (TextView) findViewById(R.id.tv_time_tip);
         tv_date = (TextView) findViewById(R.id.tv_title);
+        material_menu = (MaterialMenuView) findViewById(R.id.material_menu);
+        iv_sort = findViewById(R.id.iv_sort);
         et_name = (AutoCompleteTextView) findViewById(R.id.et_name);
 
         ll_audio = findViewById(R.id.ll_audio);
         ll_audio.setVisibility(View.GONE);
         iv = (ImageView) findViewById(R.id.iv);
         iv.setOnClickListener(this);
+        material_menu.setOnClickListener(this);
         ll_at_friend = (FlowLayout) findViewById(R.id.ll_at_friend);
+
+
+        ll_bottom = findViewById(R.id.ll_bottom);
+        layout_date = findViewById(R.id.layout_date);
+        currentTime = findViewById(R.id.currentTime);
+
         findViewById(R.id.ib_at).setOnClickListener(this);
         findViewById(R.id.ib_img).setOnClickListener(this);
         findViewById(R.id.ib_audio).setOnClickListener(this);
@@ -167,7 +197,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
         initDatePicker();
         tv_date.setOnClickListener(this);
         tv_time.setOnClickListener(this);
-        String[] course = Course.course;
+
+        //自动补全
+        String[] course = Tasks.tasks;
         AutoCompleteArrayAdapter<String> adapter = new AutoCompleteArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, course);
         et_name.setAdapter(adapter);
@@ -183,6 +215,28 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
             }
         });
         et_name.setOnEditorActionListener(new SaveEditActionListener());
+
+        Task task = (Task) getIntent().getSerializableExtra("task");
+        if (task != null) {
+            et_name.setText(task.getName());
+        }
+
+    }
+
+    /**
+     * title的动画
+     */
+    private void titleAnim() {
+        layout_date.setTranslationY(-layout_date.getHeight());
+        currentTime.setAlpha(0);
+        et_name.setVisibility(View.VISIBLE);
+        ll_bottom.setVisibility(View.VISIBLE);
+        layout_date.setVisibility(View.VISIBLE);
+        currentTime.setVisibility(View.VISIBLE);
+        material_menu.animateState(MaterialMenuDrawable.IconState.ARROW);
+        iv_sort.animate().rotation(90).setDuration(300).start();
+        layout_date.animate().translationY(-PixelUtil.dp2px(3)).setDuration(300).start();
+        currentTime.animate().alpha(1).setDuration(300).start();
     }
 
     /**
@@ -281,7 +335,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * 保存自习
+     * 保存任务
      */
     private void saveZixi() {
         /** 1.彈出进度条dialog 或者 设置 保存按钮不可用 */
@@ -293,7 +347,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
         L.i("分享" + true);
         String name = et_name.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            T.show(context, "请添加自习名称");
+            T.show(context, "请添加任务名称");
             return;
         }
 
@@ -316,7 +370,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
         task.setHasAlerted(false);
         task.setCardBgUrl("http://file.bmob.cn/M00/D6/51/oYYBAFR9b8WAFsBlAAAqS_L5sFI605.jpg");
         task.setAudioUrl("http://file.bmob.cn/M00/D6/50/oYYBAFR9bguAMz02AACdR5Xly68154.amr");
-        task.setNote("单身*一只，求自习陪同 ● v ● ");
+        task.setNote("单身*一只，求任务陪同 ● v ● ");
         if (imgUrl != null)
             task.setCardBgUrl(imgUrl);
         if (audioUrl != null)
@@ -367,7 +421,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
                 card.setAudioUrl(audioUrl);
             if (imgUrl != null)
                 card.setImgUrl(imgUrl);
-            card.setContent("来和我一块自习吧!");
+            card.setContent("来和我一块任务吧!");
             L.e(card.toString());
             String json = new Gson().toJson(card);
             L.d("发送邀请：" + user.getNick());
@@ -413,6 +467,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
             case R.id.tv_time:
                 timePickerDialog24h.show(getFragmentManager(), tag);
                 break;
+            case R.id.material_menu:
+                onBackPressed();
+                break;
             case R.id.wk_0:
             case R.id.day_0:
                 setCheckedDay(day_0, 0);
@@ -449,7 +506,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
      */
     private void editNote() {
         AlertDialogUtils.showEditDialog(context, "输入悄悄话", "写好了", "算了", new EtOkCallBack() {
-
             @Override
             public void onOkClick(String s) {
                 note = s;
@@ -642,9 +698,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
     @Override
     public void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back,
                              ImageButton ib_right, View shadow) {
-        tv_title.setText("添加自习");
-        ib_back.setImageResource(R.drawable.ic_arrow_back_white_24dp);
-        shadow.setVisibility(View.GONE);
+        if (shadow != null) shadow.setVisibility(View.GONE);
     }
 
     @Override
@@ -652,6 +706,47 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener {
         return View.inflate(context, R.layout.activity_add_zixi, null);
     }
 
+    private void setupRevealBackground(Bundle savedInstanceState) {
+        vRevealBackground = (RevealBackgroundView) findViewById(R.id.vRevealBackground);
+        vRevealBackground.setOnStateChangeListener(this);
+        if (savedInstanceState == null) {
+            final int[] startingLocation = getIntent().getIntArrayExtra("startingLocation");
+            vRevealBackground.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    vRevealBackground.getViewTreeObserver().removeOnPreDrawListener(this);
+                    vRevealBackground.startFromLocation(startingLocation);
+                    return false;
+                }
+            });
+        } else {
+//            userPhotosAdapter.setLockedAnimations(true);
+            vRevealBackground.setToFinishedFrame();
+        }
+    }
+
+    private void setupUserProfileGrid() {
+        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+//        rvUserProfile.setLayoutManager(layoutManager);
+//        rvUserProfile.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                userPhotosAdapter.setLockedAnimations(true);
+//            }
+//        });
+    }
+
+    @Override
+    public void onStateChange(int state) {
+        if (RevealBackgroundView.STATE_FINISHED == state) {
+//            rvUserProfile.setVisibility(View.VISIBLE);
+//            userPhotosAdapter = new UserProfileAdapter(this);
+//            rvUserProfile.setAdapter(userPhotosAdapter);
+            titleAnim();
+        } else {
+//            rvUserProfile.setVisibility(View.INVISIBLE);
+        }
+    }
 
     /**
      * 回车保存

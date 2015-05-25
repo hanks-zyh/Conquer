@@ -5,7 +5,7 @@ import java.util.List;
 import cn.bmob.v3.BmobObject;
 
 /**
- * 自习的实体类【 2014-11-23 19:59:34】
+ * 任务的实体类【 2014-11-23 19:59:34】
  * @author zyh
  */
 public class Task extends BmobObject {
@@ -19,12 +19,12 @@ public class Task extends BmobObject {
 	private String name;
 
 	/**
-	 * 自习的时间
+	 * 任务的时间
 	 */
 	private long time;
 
 	/**
-	 * 自习的标签
+	 * 任务的标签
 	 */
 	private String label;
 	/**
@@ -32,7 +32,7 @@ public class Task extends BmobObject {
 	 */
 	private boolean isShare;
 	/**
-	 * 自习的笔记
+	 * 任务的笔记
 	 */
 	private String note;
 	/**

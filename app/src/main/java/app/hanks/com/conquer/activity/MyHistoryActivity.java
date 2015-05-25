@@ -95,7 +95,7 @@ public class MyHistoryActivity extends BaseActivity {
 
     @Override
     public void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back, ImageButton ib_right, View shadow) {
-        tv_title.setText("我的自习");
+        tv_title.setText("我的任务");
     }
 
     @Override

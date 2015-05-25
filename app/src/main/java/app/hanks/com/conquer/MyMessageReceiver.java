@@ -245,7 +245,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 		// CharSequence tickerText = msg.getBelongUsername() + ":" + trueMsg;
 		// String contentTitle = msg.getBelongUsername() + " (" + mNewNum +
 		// "条新消息)";
-		// 解析trueMsg是自习提醒卡，或者勾搭卡
+		// 解析trueMsg是任务提醒卡，或者勾搭卡
 		try {
 			parseCard(context, trueMsg);
 		} catch (Exception e) {
@@ -267,7 +267,7 @@ public class MyMessageReceiver extends BroadcastReceiver {
 	}
 
 	/**
-	 * 解析trueMsg是自习提醒卡，或者勾搭卡
+	 * 解析trueMsg是任务提醒卡，或者勾搭卡
 	 * 
 	 * @param json
 	 */
@@ -284,13 +284,13 @@ public class MyMessageReceiver extends BroadcastReceiver {
 				// tickerText = card.getFnick() + "提醒你在" +
 				// TaskUtil.getZixiDateS(card.getTime()) + " " +
 				// TaskUtil.getZixiTimeS(card.getTime())
-				// + "有自习要上哦";
+				// + "有任务要上哦";
 			} else {
 				NotifyUtils.showGoudaToast(context, card);
 				// tickerText = card.getFnick() + "想与你在" +
 				// TaskUtil.getZixiDateS(card.getTime()) + " " +
 				// TaskUtil.getZixiTimeS(card.getTime())
-				// + "上自习";
+				// + "上任务";
 			}
 			// String contentTitle = card.getFnick() + "(" + mNewNum + "条新消息)";
 			// Intent intent = new Intent(context, MainActivity.class);

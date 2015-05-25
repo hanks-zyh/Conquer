@@ -25,7 +25,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 /**
- * 自习的逻辑
+ * 任务的逻辑
  *
  * @author wmf
  */
@@ -46,7 +46,7 @@ public class TaskUtil {
     private static boolean          debugDB = false;
 
     /**
-     * 返回大于当后时间的自习
+     * 返回大于当后时间的任务
      *
      * @param context
      * @return
@@ -77,7 +77,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回今天本地大于当前时间的自习,并且未被提醒的
+     * 返回今天本地大于当前时间的任务,并且未被提醒的
      *
      * @param context
      * @return
@@ -110,7 +110,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回数据库用户所有的自习
+     * 返回数据库用户所有的任务
      *
      * @param context
      * @return
@@ -133,7 +133,7 @@ public class TaskUtil {
     }
 
     /**
-     * 根据日期返回数据库用户某天的自习
+     * 根据日期返回数据库用户某天的任务
      *
      * @param context
      * @return
@@ -174,7 +174,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回网络上大于当后时间的自习
+     * 返回网络上大于当后时间的任务
      *
      * @param context
      * @param currentUser
@@ -187,7 +187,7 @@ public class TaskUtil {
         // 设置查询条数
         query.setLimit(1000);
         query.addWhereEqualTo("user", currentUser);
-        // 这个查询也包括了用户的已经过时的自习
+        // 这个查询也包括了用户的已经过时的任务
         query.findObjects(context, new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> arg0) {
@@ -221,7 +221,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回网络上用户所有的自习
+     * 返回网络上用户所有的任务
      *
      * @param context
      * @param currentUser
@@ -232,7 +232,7 @@ public class TaskUtil {
         final DbUtils dbUtils = DbUtils.create(context);
         BmobQuery<Task> query = new BmobQuery<Task>();
         query.addWhereEqualTo("user", currentUser);
-        // 这个查询也包括了用户的已经过时的自习
+        // 这个查询也包括了用户的已经过时的任务
         query.findObjects(context, new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> arg0) {
@@ -264,7 +264,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回网络上其他人的大于当后时间的自习
+     * 返回网络上其他人的大于当后时间的任务
      *
      * @param context
      * @param currentUser
@@ -305,7 +305,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回自习的时间字符串 如 14:12
+     * 返回任务的时间字符串 如 14:12
      *
      * @param task
      * @return
@@ -318,7 +318,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回自习的时间字符串 如 14:12
+     * 返回任务的时间字符串 如 14:12
      *
      * @return
      */
@@ -330,7 +330,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回自习的时间字符串 如 2014-11-20
+     * 返回任务的时间字符串 如 2014-11-20
      */
     public static String getZixiDateS(long time) {
         Calendar calendar = Calendar.getInstance();
@@ -341,7 +341,7 @@ public class TaskUtil {
     }
 
     /**
-     * 返回自习的时间字符串 如 2014-11-20
+     * 返回任务的时间字符串 如 2014-11-20
      *
      * @param task
      * @return
@@ -497,7 +497,7 @@ public class TaskUtil {
     }
 
     /**
-     * 删除自习
+     * 删除任务
      *
      * @param context
      * @param task
@@ -513,13 +513,13 @@ public class TaskUtil {
         task.delete(context, new DeleteListener() {
             @Override
             public void onSuccess() {
-                L.i("删除自习成功");
+                L.i("删除任务成功");
                 deleteZixiListener.onSuccess();
             }
 
             @Override
             public void onFailure(int arg0, String arg1) {
-                L.i("删除自习失败：" + arg0 + arg1);
+                L.i("删除任务失败：" + arg0 + arg1);
                 deleteZixiListener.onError(arg0, arg1);
             }
         });
@@ -603,12 +603,12 @@ public class TaskUtil {
     }
 
     /**
-     * 将改自习设置为已被提醒
+     * 将改任务设置为已被提醒
      */
     public static void setZixiHasAlerted(Context context, int zixiId) {
         final DbUtils dbUtils = DbUtils.create(context);
         try {
-            L.e("设置自习为已提醒" + zixiId);
+            L.e("设置任务为已提醒" + zixiId);
             Task task = dbUtils.findFirst(Selector.from(Task.class).where("id", "=", zixiId));
             if (task != null) {
                 task.setHasAlerted(true);

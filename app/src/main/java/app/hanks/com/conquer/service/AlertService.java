@@ -57,7 +57,7 @@ public class AlertService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         User user = BmobUserManager.getInstance(this).getCurrentUser(User.class);
         if (user != null) {
-            // 获取今天为被提醒自习
+            // 获取今天为被提醒任务
             List<Task> list = TaskUtil.getTodayAfterZixi(this);
             int defaultAlertTime = (Integer) SP.get(this, "alert_time", 0);
             long alertTime = 1000 * 60 * 10;
@@ -69,14 +69,14 @@ public class AlertService extends Service {
                 alertTime = 1000 * 60 * 60;
             }
             for (Task task : list) {
-                L.d("今天未被提醒的自习:" + task.getId() + task.getName() + "," + task.getTime() + "提醒间隔：" + alertTime);
+                L.d("今天未被提醒的任务:" + task.getId() + task.getName() + "," + task.getTime() + "提醒间隔：" + alertTime);
                 // 10分钟提前提醒
                 if (task.getTime() - System.currentTimeMillis() < alertTime) {
                     Card card = new Card();
                     card.setType(0);// 0。提醒卡
                     card.setFid("1234567");
                     card.setFusername("12345678");
-                    card.setFnick("自习君");
+                    card.setFnick("任务君");
                     card.setZixiName(task.getName());
                     card.setTime(task.getTime());
                     card.settId(user.getUid());

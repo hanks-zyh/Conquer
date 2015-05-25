@@ -83,7 +83,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void startPollService() {
-        // 开启后台自习检测服务,60s
+        // 开启后台任务检测服务,60s
         // PollingUtils.startPollingService(this, 60, AlertService.class, AlertService.ACTION);
     }
 
