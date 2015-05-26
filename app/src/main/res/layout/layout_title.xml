@@ -17,8 +17,8 @@
 
         <app.hanks.com.conquer.view.materialmenu.MaterialMenuView
             android:id="@+id/material_menu"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"

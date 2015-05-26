@@ -20,10 +20,12 @@ import java.util.List;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.bean.Task;
+import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.ProgressUtil;
 import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.TaskUtil.DeleteZixiListener;
+import app.hanks.com.conquer.view.RoundProgressBar;
 
 
 public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHolder>
@@ -34,7 +36,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     private final Context    context;
 
 
-    private EventListener mEventListener;
+    private EventListener        mEventListener;
     private View.OnClickListener mItemViewOnClickListener;
     private View.OnClickListener mSwipeableViewContainerOnClickListener;
 
@@ -77,7 +79,6 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
             mEventListener.onItemViewClicked(RecyclerViewAdapterUtils.getParentViewHolderItemView(v), false);  // false --- not pinned
         }
     }
-
 
 
     @Override
@@ -134,9 +135,21 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
         holder.mContainer.setOnClickListener(mSwipeableViewContainerOnClickListener);
 
 
-
         Task item = list.get(position);
-        holder.mTextView.setText(item.getName());
+        holder.tv_name.setText(item.getName());
+        holder.tv_time.setText(TaskUtil.getZixiTimeS(item.getTime()));
+        int p = 4320 - TaskUtil.getDurationFromNow(item.getTime());
+        if (p <= 0) p = 1;
+        holder.pb.setText(TaskUtil.getDescriptionTimeFromTimestamp(item.getTime()));
+        if (item.getTime() <= System.currentTimeMillis()) {
+            holder.pb.setRoundWidth(0);
+            holder.pb.setText(TaskUtil.getZixiDateS(item.getTime()));
+        } else {
+            holder.pb.setRoundWidth(PixelUtil.dp2px(6));
+        }
+        if (p < 100) p = 100;// 防止太小了
+        holder.pb.setProgress(p);
+
 //        if (zixiViewHolder.tv_name == null) {
 //            L.d("tv_name空了空空了空空了空空了空空了空空了空空了空");
 //        }
@@ -383,16 +396,19 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     class ZixiViewHolder extends AbstractDraggableSwipeableItemViewHolder {
-        public ViewGroup mContainer;
-        public View      mDragHandle;
-        public TextView  mTextView;
+        public ViewGroup        mContainer;
+        public View             mDragHandle;
+        public TextView         tv_time;
+        public TextView         tv_name;
+        public RoundProgressBar pb;
 
         public ZixiViewHolder(View itemView) {
             super(itemView);
-
             mContainer = (ViewGroup) itemView.findViewById(R.id.container);
             mDragHandle = itemView.findViewById(R.id.drag_handle);
-            mTextView = (TextView) itemView.findViewById(R.id.text);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            tv_time = (TextView) itemView.findViewById(R.id.tv_time);
+            pb = (RoundProgressBar) itemView.findViewById(R.id.pb);
         }
 
         @Override

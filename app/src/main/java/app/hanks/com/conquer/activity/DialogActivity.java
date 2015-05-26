@@ -48,7 +48,6 @@ public class DialogActivity extends BaseActivity {
     private   String  photoUrl;
     private   String  gender;
     private   String  city;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +64,9 @@ public class DialogActivity extends BaseActivity {
                 currentUser.setNick(nickName);
                 currentUser.setAvatar(photoUrl);
                 currentUser.setCity(city);
-                currentUser.setHomeBg("http://file.bmob.cn/M00/D6/4C/oYYBAFR9X16AWtxmAABU3gzbPlk642.jpg");
-                currentUser.setSchool("北京第一青年疗养院");
-                currentUser.setDep("二里沟爬山学院");
+                currentUser.setHomeBg("http://file.bmob.cn/M01/BC/D4/oYYBAFVj1TuAXDU6AAA0P-InLD0537.jpg");
+                currentUser.setSchool("北京青年疗养院");
+                currentUser.setDep("二里沟学院");
                 currentUser.setMajor("爬山减肥");
                 currentUser.setYear("2015");
                 currentUser.setLoveStatus("孤家寡人");

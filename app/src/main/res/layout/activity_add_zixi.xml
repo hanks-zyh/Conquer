@@ -129,6 +129,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center"
                 android:text="10:50"
+                android:textColor="@color/black"
                 android:textSize="18sp"/>
 
             <TextView

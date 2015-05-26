@@ -5,7 +5,6 @@
  */
 package app.hanks.com.conquer.fragment;
 
-import android.content.Intent;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,11 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.hanks.com.conquer.R;
-import app.hanks.com.conquer.activity.AddTaskActivity;
 import app.hanks.com.conquer.adapter.MyZixiAdapter;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
-import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.TaskUtil;
 
@@ -130,13 +127,13 @@ public class MyTaskFragment extends BaseFragment {
 
             @Override
             public void onItemViewClicked(View v, boolean pinned) {
-                int position = mRecyclerView.getChildPosition(v);
-                L.d("onItemViewClicked:"+position);
-                if (position != RecyclerView.NO_POSITION) {
-                    Intent intent = new Intent(context, AddTaskActivity.class);
-                    intent.putExtra("task", list.get(position));
-                    A.goOtherActivity(context, intent);
-                }
+//                int position = mRecyclerView.getChildPosition(v);
+//                L.d("onItemViewClicked:"+position);
+//                if (position != RecyclerView.NO_POSITION) {
+//                    Intent intent = new Intent(context, AddTaskActivity.class);
+//                    intent.putExtra("task", list.get(position));
+//                    A.goOtherActivity(context, intent);
+//                }
             }
         });
     }

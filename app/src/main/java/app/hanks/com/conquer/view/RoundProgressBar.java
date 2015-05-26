@@ -9,7 +9,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
@@ -107,6 +106,8 @@ public class RoundProgressBar extends View {
         mTypedArray.recycle();
     }
 
+    private boolean hasShowing = false;
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -121,7 +122,6 @@ public class RoundProgressBar extends View {
         paint.setStrokeWidth(roundWidth); // 设置圆环的宽度
         canvas.drawCircle(centre, centre, radius, paint); // 画出圆环
 
-        Log.e("log", centre + "");
 
         /**
          * 画进度百分比
@@ -142,10 +142,18 @@ public class RoundProgressBar extends View {
         /**
          * 画圆弧 ，画圆环的进度
          */
-
         // 设置进度是实心还是空心
         paint.setStrokeWidth(roundWidth); // 设置圆环的宽度
-        paint.setColor(roundProgressColor); // 设置进度的颜色
+
+
+        float f = progress / (float) max;
+        if (f < 1 / 3f) {
+            paint.setColor(Color.GREEN); // 设置进度的颜色
+        } else if (f < 2 / 3f) {
+            paint.setColor(Color.YELLOW); // 设置进度的颜色
+        } else {
+            paint.setColor(Color.RED); // 设置进度的颜色
+        }
         RectF oval = new RectF(centre - radius, centre - radius, centre + radius, centre + radius); // 用于定义的圆弧的形状和大小的界限
 
         switch (style) {
@@ -162,6 +170,26 @@ public class RoundProgressBar extends View {
             }
         }
 
+    }
+
+
+    private int evaluate(float fraction, int startValue, int endValue) {
+        int startInt = startValue;
+        int startA = (startInt >> 24) & 0xff;
+        int startR = (startInt >> 16) & 0xff;
+        int startG = (startInt >> 8) & 0xff;
+        int startB = startInt & 0xff;
+
+        int endInt = endValue;
+        int endA = (endInt >> 24) & 0xff;
+        int endR = (endInt >> 16) & 0xff;
+        int endG = (endInt >> 8) & 0xff;
+        int endB = endInt & 0xff;
+
+        return ((startA + (int) (fraction * (endA - startA))) << 24)
+                | ((startR + (int) (fraction * (endR - startR))) << 16)
+                | ((startG + (int) (fraction * (endG - startG))) << 8)
+                | ((startB + (int) (fraction * (endB - startB))));
     }
 
     /**
@@ -205,6 +233,11 @@ public class RoundProgressBar extends View {
      * @param progress
      */
     public synchronized void setProgress(int progress) {
+        if (hasShowing) {
+            return;
+        }
+
+        hasShowing = true;
         if (progress < 0) {
 //			throw new IllegalArgumentException("progress not less than 0");
             return;
@@ -222,7 +255,7 @@ public class RoundProgressBar extends View {
                 int value = (Integer) arg0.getAnimatedValue();
                 if (value <= max) {
                     RoundProgressBar.this.progress = value;
-                    postInvalidate();
+                    invalidate();
                 }
             }
         });

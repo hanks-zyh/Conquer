@@ -94,7 +94,7 @@
 
             <TextView
                 style="@style/Menu_tv"
-                android:text="历史任务"/>
+                android:text="全部"/>
         </LinearLayout>
 
         <LinearLayout
@@ -107,7 +107,7 @@
 
             <TextView
                 style="@style/Menu_tv"
-                android:text="我的记录"/>
+                android:text="提醒"/>
         </LinearLayout>
 
         <LinearLayout
