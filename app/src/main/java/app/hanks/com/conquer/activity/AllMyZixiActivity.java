@@ -27,7 +27,7 @@ import java.util.List;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.adapter.DayAdapter;
-import app.hanks.com.conquer.adapter.MyZixiAdapter;
+import app.hanks.com.conquer.adapter.MyTaskAdapter;
 import app.hanks.com.conquer.bean.Day;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.L;
@@ -51,7 +51,7 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
     private RecyclerView    mRecyclerView;
     private ArrayList<Task> listTask;
     private ArrayList<Day>  listDay;
-    private MyZixiAdapter   mAdapter;
+    private MyTaskAdapter   mAdapter;
     private DayAdapter      adapterDay;
     private ListView        lv_day;
     private TextView        tv_day;
@@ -83,7 +83,7 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
         mRecyclerViewSwipeManager = new RecyclerViewSwipeManager();
 
         //adapter
-        mAdapter = new MyZixiAdapter(context, listTask);
+        mAdapter = new MyTaskAdapter(context, listTask);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(mAdapter);      // wrap for swiping
         mWrappedAdapter = mRecyclerViewSwipeManager.createWrappedAdapter(mWrappedAdapter);      // wrap for swiping
         final GeneralItemAnimator animator = new SwipeDismissItemAnimator();

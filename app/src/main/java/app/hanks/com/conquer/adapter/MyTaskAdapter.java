@@ -24,12 +24,12 @@ import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.ProgressUtil;
 import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
-import app.hanks.com.conquer.util.TaskUtil.DeleteZixiListener;
+import app.hanks.com.conquer.util.TaskUtil.DeleteTaskListener;
 import app.hanks.com.conquer.view.RoundProgressBar;
 
 
-public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHolder>
-        implements SwipeableItemAdapter<MyZixiAdapter.ZixiViewHolder>, DraggableItemAdapter<MyZixiAdapter.ZixiViewHolder> {
+public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHolder>
+        implements SwipeableItemAdapter<MyTaskAdapter.TaskViewHolder>, DraggableItemAdapter<MyTaskAdapter.TaskViewHolder> {
 
 
     private final List<Task> list;
@@ -49,7 +49,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
 
-    public MyZixiAdapter(Context context, List<Task> list) {
+    public MyTaskAdapter(Context context, List<Task> list) {
         this.context = context;
         this.list = list;
         setHasStableIds(true);
@@ -96,17 +96,17 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
      *
      * @param position
      */
-    private void deleteZixi(final int position) {
+    private void deleteTask(final int position) {
 //		new AlertDialog.Builder(context).setTitle("是否删除该条任务").setMessage("").setPositiveButton("删除", new DialogInterface.OnClickListener() {
 //			@Override
 //			public void onClick(DialogInterface dialog, int which) {
 //				ProgressUtil.showWaitting(context);
-        TaskUtil.DeleteZixi(context, list.get(position), new DeleteZixiListener() {
+        TaskUtil.deleteTask(context, list.get(position), new DeleteTaskListener() {
             @Override
             public void onSuccess() {
 //						ProgressUtil.dismiss();
 //                list.remove(position);
-//                MyZixiAdapter.this.notifyDataSetChanged();
+//                MyTaskAdapter.this.notifyDataSetChanged();
             }
 
             @Override
@@ -120,13 +120,13 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     @Override
-    public ZixiViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public TaskViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_myzixi, viewGroup, false);
-        return new ZixiViewHolder(v);
+        return new TaskViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ZixiViewHolder holder, final int position) {
+    public void onBindViewHolder(TaskViewHolder holder, final int position) {
 
         // set listeners
         // (if the item is *not pinned*, click event comes to the itemView)
@@ -176,7 +176,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 ////        zixiViewHolder.itemView.setOnLongClickListener(new OnLongClickListener() {
 ////            @Override
 ////            public boolean onLongClick(View v) {
-////                deleteZixi(position);
+////                deleteTask(position);
 ////                return false;
 ////            }
 ////        });
@@ -212,7 +212,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 //                //when the BottomView totally show.
 //                Log.d("SwipeLayout","onOpen:"+layout.getDragDistance());
 //                if(delete){
-//                    deleteZixi(position);
+//                    deleteTask(position);
 //                    L.d("position:"+position);
 //                }
 //                delete = false;
@@ -281,7 +281,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     @Override
-    public int onGetSwipeReactionType(ZixiViewHolder holder, int position, int x, int y) {
+    public int onGetSwipeReactionType(TaskViewHolder holder, int position, int x, int y) {
         if (onCheckCanStartDrag(holder, position, x, y)) {
             return RecyclerViewSwipeManager.REACTION_CAN_NOT_SWIPE_BOTH;
         } else {
@@ -290,7 +290,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     @Override
-    public void onSetSwipeBackground(ZixiViewHolder holder, int position, int type) {
+    public void onSetSwipeBackground(TaskViewHolder holder, int position, int type) {
         int bgRes = 0;
         switch (type) {
             case RecyclerViewSwipeManager.DRAWABLE_SWIPE_NEUTRAL_BACKGROUND:
@@ -307,7 +307,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     @Override
-    public int onSwipeItem(ZixiViewHolder holder, int position, int result) {
+    public int onSwipeItem(TaskViewHolder holder, int position, int result) {
         switch (result) {
             // swipe right
             case RecyclerViewSwipeManager.RESULT_SWIPED_RIGHT:
@@ -316,7 +316,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
                     return RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_DEFAULT;
                 } else {
                     // not pinned --- remove
-                    deleteZixi(position);
+                    deleteTask(position);
                     return RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_REMOVE_ITEM;
                 }
                 // swipe left -- pin
@@ -331,7 +331,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     @Override
-    public void onPerformAfterSwipeReaction(ZixiViewHolder holder, int position, int result, int reaction) {
+    public void onPerformAfterSwipeReaction(TaskViewHolder holder, int position, int result, int reaction) {
         final Task item = list.get(position);
         if (reaction == RecyclerViewSwipeManager.AFTER_SWIPE_REACTION_REMOVE_ITEM) {
             list.remove(position);
@@ -352,7 +352,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
 
 
     @Override
-    public boolean onCheckCanStartDrag(ZixiViewHolder holder, int position, int x, int y) {
+    public boolean onCheckCanStartDrag(TaskViewHolder holder, int position, int x, int y) {
         // x, y --- relative from the itemView's top-left
         final View mContainerView = holder.mContainer;
         final View dragHandleView = holder.mDragHandle;
@@ -364,7 +364,7 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
     }
 
     @Override
-    public ItemDraggableRange onGetItemDraggableRange(ZixiViewHolder holder, int position) {
+    public ItemDraggableRange onGetItemDraggableRange(TaskViewHolder holder, int position) {
         // no drag-sortable range specified
         return null;
     }
@@ -395,14 +395,14 @@ public class MyZixiAdapter extends RecyclerView.Adapter<MyZixiAdapter.ZixiViewHo
         return list == null ? 0 : list.size();
     }
 
-    class ZixiViewHolder extends AbstractDraggableSwipeableItemViewHolder {
+    class TaskViewHolder extends AbstractDraggableSwipeableItemViewHolder {
         public ViewGroup        mContainer;
         public View             mDragHandle;
         public TextView         tv_time;
         public TextView         tv_name;
         public RoundProgressBar pb;
 
-        public ZixiViewHolder(View itemView) {
+        public TaskViewHolder(View itemView) {
             super(itemView);
             mContainer = (ViewGroup) itemView.findViewById(R.id.container);
             mDragHandle = itemView.findViewById(R.id.drag_handle);

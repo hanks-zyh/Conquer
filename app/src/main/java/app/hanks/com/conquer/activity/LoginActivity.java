@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         findViewById(R.id.bt_qq).setOnClickListener(this);
         findViewById(R.id.bt_sina).setOnClickListener(this);
-        BusProvider.getInstance().register(this);
+        BusProvider.getInstance().register(this); //registe Bus
         // findViewById(R.id.bt_weixin).setOnClickListener(this);
     }
 

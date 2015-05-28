@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.hanks.com.conquer.R;
-import app.hanks.com.conquer.adapter.MyZixiAdapter;
+import app.hanks.com.conquer.adapter.MyTaskAdapter;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.util.CollectionUtils;
@@ -47,7 +47,7 @@ public class MyTaskFragment extends BaseFragment {
     private SwipeRefreshLayout refreshLayout;
 
     private RecyclerView.LayoutManager          mLayoutManager;
-    private MyZixiAdapter                       mAdapter;
+    private MyTaskAdapter                       mAdapter;
     private RecyclerView.Adapter                mWrappedAdapter;
     private RecyclerViewSwipeManager            mRecyclerViewSwipeManager;
     private RecyclerViewTouchActionGuardManager mRecyclerViewTouchActionGuardManager;
@@ -80,7 +80,7 @@ public class MyTaskFragment extends BaseFragment {
         mRecyclerViewSwipeManager = new RecyclerViewSwipeManager();
 
         //adapter
-        mAdapter = new MyZixiAdapter(context, list);
+        mAdapter = new MyTaskAdapter(context, list);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(mAdapter);      // wrap for swiping
         mWrappedAdapter = mRecyclerViewSwipeManager.createWrappedAdapter(mWrappedAdapter);      // wrap for swiping
         final GeneralItemAnimator animator = new SwipeDismissItemAnimator();
@@ -114,7 +114,7 @@ public class MyTaskFragment extends BaseFragment {
     }
 
     private void initListener() {
-        mAdapter.setEventListener(new MyZixiAdapter.EventListener() {
+        mAdapter.setEventListener(new MyTaskAdapter.EventListener() {
             @Override
             public void onItemRemoved(int position) {
 

@@ -102,6 +102,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private View ll_bottom; //底部操作
     private View layout_date;//日期选择
     private View currentTime; //显示选择的时间
+    private View ib_audio, ib_theme, ib_img, ib_at, ib_save;
 
     private static String pad(int c) {
         if (c >= 10)
@@ -119,8 +120,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupRevealBackground(savedInstanceState);
         init();
+        setupRevealBackground(savedInstanceState);
     }
 
     private void init() {
@@ -141,6 +142,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         ll_audio.setVisibility(View.GONE);
         iv = (ImageView) findViewById(R.id.iv);
         iv.setOnClickListener(this);
+        material_menu.setState(MaterialMenuDrawable.IconState.BURGER);
         material_menu.setOnClickListener(this);
         ll_at_friend = (FlowLayout) findViewById(R.id.ll_at_friend);
 
@@ -149,11 +151,26 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         layout_date = findViewById(R.id.layout_date);
         currentTime = findViewById(R.id.currentTime);
 
-        findViewById(R.id.ib_at).setOnClickListener(this);
-        findViewById(R.id.ib_img).setOnClickListener(this);
-        findViewById(R.id.ib_audio).setOnClickListener(this);
-        findViewById(R.id.ib_theme).setOnClickListener(this);
-        findViewById(R.id.ib_save).setOnClickListener(this);
+        ib_at = findViewById(R.id.ib_at);
+        ib_img = findViewById(R.id.ib_img);
+        ib_audio = findViewById(R.id.ib_audio);
+        ib_theme = findViewById(R.id.ib_theme);
+        ib_save = findViewById(R.id.ib_save);
+
+        ib_theme.setScaleX(0.8f);
+        ib_theme.setScaleY(0.8f);
+        ib_at.setScaleX(0.8f);
+        ib_at.setScaleY(0.8f);
+        ib_audio.setScaleX(0.8f);
+        ib_audio.setScaleY(0.8f);
+        ib_img.setScaleX(0.8f);
+        ib_img.setScaleY(0.8f);
+
+        ib_at.setOnClickListener(this);
+        ib_img.setOnClickListener(this);
+        ib_audio.setOnClickListener(this);
+        ib_theme.setOnClickListener(this);
+        ib_save.setOnClickListener(this);
 
         wk_0 = (TextView) findViewById(R.id.wk_0);
         wk_1 = (TextView) findViewById(R.id.wk_1);
@@ -228,6 +245,10 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      */
     private void titleAnim() {
         layout_date.setTranslationY(-layout_date.getHeight());
+
+
+
+
         currentTime.setAlpha(0);
         et_name.setVisibility(View.VISIBLE);
         ll_bottom.setVisibility(View.VISIBLE);
@@ -237,6 +258,15 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         iv_sort.animate().rotation(90).setDuration(300).start();
         layout_date.animate().translationY(-PixelUtil.dp2px(3)).setDuration(300).start();
         currentTime.animate().alpha(1).setDuration(300).start();
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int screenWidth = metrics.widthPixels;
+        int w = ib_save.getWidth() * 2;
+        ib_theme.animate().translationY(-w).rotation(360).setDuration(300).setStartDelay(150).start();
+        ib_at.animate().translationY((float) (-w *Math.sqrt(3)/ 2)).translationX(-w /2).rotation(360).setDuration(300).setStartDelay(100).start();
+        ib_audio.animate().translationY(-w / 2).translationX((float) (-w * Math.sqrt(3) / 2)).rotation(360).setDuration(300).setStartDelay(50).start();
+        ib_img.animate().translationX(-w).rotation(360).setDuration(300).start();
     }
 
     /**
@@ -337,7 +367,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     /**
      * 保存任务
      */
-    private void saveZixi() {
+    private void saveTask() {
         /** 1.彈出进度条dialog 或者 设置 保存按钮不可用 */
         /** 2.获取内容 */
         /** 3.提交服务器，成功finish ，失败关闭dialog或者设置保存按钮可以使用 */
@@ -455,7 +485,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 break;
             case R.id.ib_save:
                 if (currentUser != null) {
-                    saveZixi();
+                    saveTask();
                 } else {
                     // 登录对话框
                     T.show(context, "请先登录");
@@ -755,7 +785,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                saveZixi();
+                saveTask();
             }
             return true;
         }

@@ -11,9 +11,9 @@
         android:layout_height="match_parent"/>
 
     <LinearLayout
-        android:layout_below="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title"
         android:orientation="vertical">
 
         <LinearLayout
@@ -111,12 +111,12 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/currentTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:id="@+id/currentTime"
+            android:padding="8dp"
             android:visibility="invisible">
 
             <TextView
@@ -152,108 +152,164 @@
             android:layout_height="0.6dp"
             android:background="#22666666"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/et_name"
-            style="@style/MyET"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_margin="8dp"
-            android:gravity="left|bottom"
-            android:hint="输入内容"
-            android:imeOptions="actionDone"
-            android:minHeight="48dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:singleLine="true"
-            android:textColorHint="@color/gray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:visibility="invisible"/>
-
-        <app.hanks.com.conquer.view.FlowLayout
-            android:id="@+id/ll_at_friend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp">
-        </app.hanks.com.conquer.view.FlowLayout>
-
-        <include
-            android:id="@+id/ll_audio"
-            layout="@layout/layout_audio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/iv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/home_bg"
-            android:visibility="gone"/>
-
-        <RelativeLayout
-            android:id="@+id/ll_bottom"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible">
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:id="@+id/ll"
+                android:animateLayoutChanges="true"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:clipToPadding="false"
+                android:paddingRight="16dp">
 
-                <ImageButton
-                    android:id="@+id/ib_img"
-                    style="@style/WeekTv"
-                    android:background="@null"
-                    android:src="@drawable/icon_pic"/>
+                <AutoCompleteTextView
+                    android:id="@+id/et_name"
+                    style="@style/MyET"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="left|bottom"
+                    android:hint="输入内容"
+                    android:imeOptions="actionDone"
+                    android:minHeight="48dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
 
-                <ImageButton
-                    android:id="@+id/ib_audio"
-                    style="@style/WeekTv"
-                    android:background="@null"
-                    android:src="@drawable/icon_h"/>
+                <app.hanks.com.conquer.view.FlowLayout
+                    android:id="@+id/ll_at_friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+                </app.hanks.com.conquer.view.FlowLayout>
 
-                <ImageButton
-                    android:id="@+id/ib_at"
-                    style="@style/WeekTv"
-                    android:background="@null"
-                    android:src="@drawable/icon_a"/>
+                <include
+                    android:id="@+id/ll_audio"
+                    layout="@layout/layout_audio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone"/>
 
-                <ImageButton
-                    android:id="@+id/ib_theme"
-                    style="@style/WeekTv"
-                    android:background="@null"
-                    android:src="@drawable/icon_jin"/>
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/home_bg"
+                    android:visibility="gone"/>
 
-                <ImageButton
-                    android:id="@+id/ib_save"
-                    style="@style/WeekTv"
-                    android:background="@null"
-                    android:src="@drawable/ic_done_grey600_24dp"/>
+                <RelativeLayout
+                    android:id="@+id/ll_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible">
+
+                    <!--      <LinearLayout
+                              android:id="@+id/ll"
+                              android:layout_width="match_parent"
+                              android:layout_height="48dp"
+                              android:layout_alignParentBottom="true"
+                              android:orientation="horizontal">
+
+                              <ImageButton
+                                  android:id="@+id/ib_img"
+                                  style="@style/WeekTv"
+                                  android:background="@null"
+                                  android:src="@drawable/icon_pic"/>
+
+                              <ImageButton
+                                  android:id="@+id/ib_audio"
+                                  style="@style/WeekTv"
+                                  android:background="@null"
+                                  android:src="@drawable/icon_h"/>
+
+                              <ImageButton
+                                  android:id="@+id/ib_at"
+                                  style="@style/WeekTv"
+                                  android:background="@null"
+                                  android:src="@drawable/icon_a"/>
+
+                              <ImageButton
+                                  android:id="@+id/ib_theme"
+                                  style="@style/WeekTv"
+                                  android:background="@null"
+                                  android:src="@drawable/icon_jin"/>
+
+                              <ImageButton
+                                  android:id="@+id/ib_save"
+                                  style="@style/WeekTv"
+                                  android:background="@null"
+                                  android:src="@drawable/ic_done_grey600_24dp"/>
+                          </LinearLayout>
+
+                          <View
+                              android:layout_width="match_parent"
+                              android:layout_height="0.6dp"
+                              android:layout_above="@+id/ll"
+                              android:background="@color/gray"/>-->
+                </RelativeLayout>
+
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.6dp"
-                android:layout_above="@+id/ll"
-                android:background="@color/gray"/>
-        </RelativeLayout>
-
+        </ScrollView>
     </LinearLayout>
+
     <include
         layout="@layout/layout_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height_with_shadow"
         android:layout_marginBottom="@dimen/title_shadow_height_3"/>
 
+
     <ImageView
-        android:id="@+id/iv_add"
+        android:id="@+id/ib_img"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/add_img"/>
+
+    <ImageView
+        android:id="@+id/ib_audio"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/add_audio"/>
+
+    <ImageView
+        android:id="@+id/ib_at"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/add_at"/>
+
+    <ImageView
+        android:id="@+id/ib_theme"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/add_theme"/>
+
+    <ImageView
+        android:id="@+id/ib_save"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"

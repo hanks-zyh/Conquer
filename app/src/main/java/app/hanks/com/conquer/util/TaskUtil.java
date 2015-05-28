@@ -501,9 +501,9 @@ public class TaskUtil {
      *
      * @param context
      * @param task
-     * @param deleteZixiListener
+     * @param deleteTaskListener
      */
-    public static void DeleteZixi(Context context, Task task, final DeleteZixiListener deleteZixiListener) {
+    public static void deleteTask(Context context, Task task, final DeleteTaskListener deleteTaskListener) {
         final DbUtils dbUtils = DbUtils.create(context);
         try {
             dbUtils.delete(task);
@@ -514,18 +514,18 @@ public class TaskUtil {
             @Override
             public void onSuccess() {
                 L.i("删除任务成功");
-                deleteZixiListener.onSuccess();
+                deleteTaskListener.onSuccess();
             }
 
             @Override
             public void onFailure(int arg0, String arg1) {
                 L.i("删除任务失败：" + arg0 + arg1);
-                deleteZixiListener.onError(arg0, arg1);
+                deleteTaskListener.onError(arg0, arg1);
             }
         });
     }
 
-    public interface DeleteZixiListener {
+    public interface DeleteTaskListener {
           void onSuccess();
 
           void onError(int errorCord, String msg);
