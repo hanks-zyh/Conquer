@@ -17,9 +17,11 @@ import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.location.LocationInfo;
 import app.hanks.com.conquer.location.LocationService;
+import app.hanks.com.conquer.service.AlertService;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.NetUtils;
+import app.hanks.com.conquer.util.PollingUtils;
 import app.hanks.com.conquer.util.T;
 import cn.bmob.im.BmobChat;
 import cn.bmob.v3.Bmob;
@@ -84,7 +86,7 @@ public class SplashActivity extends BaseActivity {
 
     private void startPollService() {
         // 开启后台任务检测服务,60s
-        // PollingUtils.startPollingService(this, 60, AlertService.class, AlertService.ACTION);
+         PollingUtils.startPollingService(this, 60, AlertService.class, AlertService.ACTION);
     }
 
     private void initBmob() {

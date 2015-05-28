@@ -76,7 +76,7 @@ public class AlertService extends Service {
                     card.setType(0);// 0。提醒卡
                     card.setFid("1234567");
                     card.setFusername("12345678");
-                    card.setFnick("任务君");
+                    card.setFnick("Conquer");
                     card.setZixiName(task.getName());
                     card.setTime(task.getTime());
                     card.settId(user.getUid());
