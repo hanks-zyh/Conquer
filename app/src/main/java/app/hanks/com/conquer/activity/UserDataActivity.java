@@ -2,19 +2,18 @@ package app.hanks.com.conquer.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.nineoldandroids.view.ViewHelper;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,21 +32,25 @@ import app.hanks.com.conquer.util.UserDataUtils.QueryUserDataListener;
 import app.hanks.com.conquer.util.UserDataUtils.UpdateUserDataListener;
 import app.hanks.com.conquer.view.CircularImageView;
 
-public class UserDataActivity extends BaseActivity implements OnClickListener {
+public class UserDataActivity extends BaseActivity implements OnClickListener, ObservableScrollViewCallbacks {
 
-    private CircularImageView iv_photo;
-    private ImageView         iv_gender;
-    private TextView          tv_id, tv_nickname;
+    private ObservableScrollView scrollView;
+    private CircularImageView    iv_photo;
+    private ImageView            iv_gender;
+    private TextView             tv_id, tv_nickname;
     private TextView et_school, et_dep, et_year, et_city, et_phone;
     private ViewGroup ll_label, ll_album;
-    private View       title_bg;
-    private ScrollView sv;
+    private View title_bg;
     private int SCROLL_DIS = 180;// 头部滑动检测距离
     private ImageView add_pic;
-    private View      add;
     private ImageView iv_home_bg;
+    private View      add;
     private static String photoUrl = "";
     private static String homeUrl  = "";
+    private float photoScale;
+    private int   home_bg_height;
+    private View  topView;
+    private View  iv_camera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener {
     }
 
     private void init() {
-        sv = (ScrollView) findViewById(R.id.sv);
+        scrollView = (ObservableScrollView) findViewById(R.id.sv);
         title_bg = findViewById(R.id.title_bg);
         iv_photo = (CircularImageView) findViewById(R.id.iv_photo);
         tv_nickname = (TextView) findViewById(R.id.tv_nickname);
@@ -66,12 +69,14 @@ public class UserDataActivity extends BaseActivity implements OnClickListener {
         iv_home_bg = (ImageView) findViewById(R.id.iv_home_bg);
         tv_id = (TextView) findViewById(R.id.tv_id);
         et_city = (TextView) findViewById(R.id.et_city);
-        et_school = (TextView) findViewById(R.id.et_school);
-        et_dep = (TextView) findViewById(R.id.et_dep);
-        et_year = (TextView) findViewById(R.id.et_year);
+//        et_school = (TextView) findViewById(R.id.et_school);
+//        et_dep = (TextView) findViewById(R.id.et_dep);
+//        et_year = (TextView) findViewById(R.id.et_year);
         et_phone = (TextView) findViewById(R.id.et_phone);
+        topView = findViewById(R.id.topView);
         // et_love_status = (EditText) findViewById(R.id.et_love_status);
-        findViewById(R.id.iv_camera).setOnClickListener(this);
+        iv_camera = findViewById(R.id.iv_camera);
+        iv_camera.setOnClickListener(this);
 
         ll_album = (ViewGroup) findViewById(R.id.ll_album);
         ll_label = (ViewGroup) findViewById(R.id.ll_label);
@@ -85,48 +90,20 @@ public class UserDataActivity extends BaseActivity implements OnClickListener {
         SCROLL_DIS = getResources().getDimensionPixelSize(R.dimen.photo_top) - getResources().getDimensionPixelSize(R.dimen.title_height)
                 / 2 + getResources().getDimensionPixelSize(R.dimen.photo_size) / 2;
 
-        final float photoScale = getResources().getDimensionPixelSize(R.dimen.photo_size) * 1.8f;
-        final float home_bg_height = getResources().getDimensionPixelSize(R.dimen.home_bg_height)
+        photoScale = getResources().getDimensionPixelSize(R.dimen.photo_size) * 1.8f;
+        home_bg_height = getResources().getDimensionPixelSize(R.dimen.home_bg_height)
                 - getResources().getDimensionPixelSize(R.dimen.title_height);
-        sv.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int y = sv.getScrollY();
-                if (y <= home_bg_height) {
-                    ViewHelper.setAlpha(title_bg, (float) (y * 1.0 / home_bg_height));
-//                    ViewHelper.setTranslationY(iv_home_bg, y * 0.2f);
-                    if (y < SCROLL_DIS) {
-                        ViewHelper.setTranslationY(iv_photo, -y);
-                        ViewHelper.setScaleX(iv_photo, (photoScale - y) / photoScale);
-                        ViewHelper.setScaleY(iv_photo, (photoScale - y) / photoScale);
-                    }
-                    //手指抬起时
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        if (y <= home_bg_height / 2) {
-                            title_bg.animate().alpha(0).setDuration(300).start();
-//                            iv_home_bg.animate().translationY(0).setDuration(300).start();
-                            iv_photo.animate().translationY(0).scaleX(1f).scaleY(1f).setDuration(300).withEndAction(new Runnable() {
-                                @Override
-                                public void run() {
-                                    sv.scrollTo(0, 0);
-                                }
-                            }).start();
-                        } else if (y <= home_bg_height) {
 
-                            title_bg.animate().alpha(1).setDuration(300).withEndAction(new Runnable() {
-                                @Override
-                                public void run() {
-                                    sv.scrollTo(0, (int) home_bg_height);
-                                }
-                            }).start();
-//                            iv_home_bg.animate().translationY(SCROLL_DIS * 0.2f).setDuration(300).start();
-                            iv_photo.animate().translationY(-SCROLL_DIS).scaleX((photoScale - SCROLL_DIS) / photoScale).scaleY((photoScale - SCROLL_DIS) / photoScale).setDuration(300).start();
-                        }
-                    }
-                }
-                return false;
-            }
-        });
+
+        setScrollListen();
+
+    }
+
+    /**
+     * 监听ScrollView滚动
+     */
+    private void setScrollListen() {
+        scrollView.setScrollViewCallbacks(this);
     }
 
     /**
@@ -150,13 +127,9 @@ public class UserDataActivity extends BaseActivity implements OnClickListener {
             tv_id.setText(currentUser.getUsername());
             et_city.setText(currentUser.getCity());
             et_phone.setText(currentUser.getPhoneNum());
-            et_school.setText(currentUser.getSchool());
-            et_dep.setText(currentUser.getDep());
-            et_year.setText(currentUser.getYear());
             et_city.setText(currentUser.getCity());
             // et_love_status.setText(currentUser.getLoveStatus());
             initAlbum(currentUser.getAlbum());
-            initLabel(currentUser.getLabel());
             add_pic.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -165,7 +138,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener {
                     A.goOtherActivity(context, intent);
                 }
             });
-            ;
+
         }
 
     }
@@ -323,4 +296,63 @@ public class UserDataActivity extends BaseActivity implements OnClickListener {
     public View getContentView() {
         return View.inflate(context, R.layout.common_title, null);
     }
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+//        if (scrollY <= home_bg_height) {
+//            ViewHelper.setAlpha(title_bg, (float) (scrollY * 1.0 / home_bg_height));
+//            ViewHelper.setTranslationY(iv_home_bg, scrollY * 0.2f);
+//            if (scrollY <= SCROLL_DIS) {
+//                ViewHelper.setTranslationY(iv_photo, -scrollY);
+//                ViewHelper.setScaleX(iv_photo, (photoScale - scrollY) / photoScale);
+//                ViewHelper.setScaleY(iv_photo, (photoScale - scrollY) / photoScale);
+//            }
+//        }
+
+        int height = iv_home_bg.getHeight() - title_bg.getHeight();
+        if (scrollY > height) {
+            scrollY = height;
+        }
+        float f = scrollY * 1.0f / height; //当前滚动的距离占目标距离的百分比
+        topView.setAlpha(f);
+        topView.setTranslationY(-scrollY);
+        iv_photo.setTranslationY(-SCROLL_DIS * f);
+        iv_photo.setScaleX(1 - 0.65f * f);
+        iv_photo.setScaleY(1 - 0.65f * f);
+        if (scrollY >= 5) {
+            hideFabAnimate();
+        } else {
+            showFabAnimate();
+        }
+    }
+
+    private boolean isHide = false;
+
+    private void hideFabAnimate() {
+        if (isHide) {
+            return;
+        }
+        isHide = true;
+        iv_camera.animate().scaleX(0).scaleY(0).setDuration(200).start();
+    }
+
+    private void showFabAnimate() {
+        if (!isHide) {
+            return;
+        }
+        isHide = false;
+        iv_camera.animate().scaleX(1).scaleY(1).setDuration(200).start();
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+    }
+
+
 }

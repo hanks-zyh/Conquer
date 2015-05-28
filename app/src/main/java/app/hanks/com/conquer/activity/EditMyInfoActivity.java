@@ -68,9 +68,9 @@ public class EditMyInfoActivity extends BaseActivity implements OnClickListener 
             tv_gender.setText(currentUser.isMale() ? "男" : "女");
             tv_city.setText(currentUser.getCity());
             tv_phone.setText(currentUser.getPhoneNum());
-            tv_school.setText(currentUser.getSchool());
-            tv_dep.setText(currentUser.getDep());
-            tv_year.setText(currentUser.getYear());
+//            tv_school.setText(currentUser.getSchool());
+//            tv_dep.setText(currentUser.getDep());
+//            tv_year.setText(currentUser.getYear());
             tv_city.setText(currentUser.getCity());
         }
     }
@@ -99,36 +99,36 @@ public class EditMyInfoActivity extends BaseActivity implements OnClickListener 
                     }
                 });
                 break;
-            case R.id.rl_school:
-                final String[] school = new String[] { "河南理工大学" };
-                AlertDialogUtils.showChiceGender(context, school, 0, new OkCallBack() {
-                    @Override
-                    public void onOkClick(DialogInterface dialog, int which) {
-                        currentUser.setSchool(school[which]);
-                        tv_school.setText(school[which]);
-                    }
-                });
-                break;
-            case R.id.rl_dep:
-                final String[] dep = new String[] { "计算机科学与技术", "能源学院", "材料学院" };
-                AlertDialogUtils.showChiceGender(context, dep, 0, new OkCallBack() {
-                    @Override
-                    public void onOkClick(DialogInterface dialog, int which) {
-                        currentUser.setDep(dep[which]);
-                        tv_dep.setText(dep[which]);
-                    }
-                });
-                break;
-            case R.id.rl_year:
-                final String[] year = new String[] { "2011年", "2012年", "2013年", "2014年" };
-                AlertDialogUtils.showChiceGender(context, year, 0, new OkCallBack() {
-                    @Override
-                    public void onOkClick(DialogInterface dialog, int which) {
-                        currentUser.setYear(year[which]);
-                        tv_year.setText(year[which]);
-                    }
-                });
-                break;
+//            case R.id.rl_school:
+//                final String[] school = new String[] { "河南理工大学" };
+//                AlertDialogUtils.showChiceGender(context, school, 0, new OkCallBack() {
+//                    @Override
+//                    public void onOkClick(DialogInterface dialog, int which) {
+//                        currentUser.setSchool(school[which]);
+//                        tv_school.setText(school[which]);
+//                    }
+//                });
+//                break;
+//            case R.id.rl_dep:
+//                final String[] dep = new String[] { "计算机科学与技术", "能源学院", "材料学院" };
+//                AlertDialogUtils.showChiceGender(context, dep, 0, new OkCallBack() {
+//                    @Override
+//                    public void onOkClick(DialogInterface dialog, int which) {
+//                        currentUser.setDep(dep[which]);
+//                        tv_dep.setText(dep[which]);
+//                    }
+//                });
+//                break;
+//            case R.id.rl_year:
+//                final String[] year = new String[] { "2011年", "2012年", "2013年", "2014年" };
+//                AlertDialogUtils.showChiceGender(context, year, 0, new OkCallBack() {
+//                    @Override
+//                    public void onOkClick(DialogInterface dialog, int which) {
+//                        currentUser.setYear(year[which]);
+//                        tv_year.setText(year[which]);
+//                    }
+//                });
+//                break;
             case R.id.rl_city:
                 AlertDialogUtils.showEditDialog(context, "输入所在城市", "确定", "取消", new EtOkCallBack() {
                     @Override

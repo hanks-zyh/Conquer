@@ -62,6 +62,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_school"
                 style="@style/EditDataRL" >
 
@@ -76,6 +77,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_dep"
                 style="@style/EditDataRL" >
 
@@ -90,6 +92,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_year"
                 style="@style/EditDataRL" >
 

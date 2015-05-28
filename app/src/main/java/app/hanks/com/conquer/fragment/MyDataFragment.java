@@ -47,9 +47,9 @@ public class MyDataFragment extends BaseFragment {
 			tv_id.setText(currentUser.getUsername());
 			et_city.setText(currentUser.getCity());
 			et_phone.setText(currentUser.getPhoneNum());
-			et_school.setText(currentUser.getSchool());
-			et_dep.setText(currentUser.getDep());
-			et_year.setText(currentUser.getYear());
+//			et_school.setText(currentUser.getSchool());
+//			et_dep.setText(currentUser.getDep());
+//			et_year.setText(currentUser.getYear());
 			et_city.setText(currentUser.getCity());
 			// et_love_status.setText(currentUser.getLoveStatus());
 		}
@@ -59,16 +59,16 @@ public class MyDataFragment extends BaseFragment {
 	 * 保存个人基本信息
 	 */
 	public void saveMyData() {
-		String school = et_school.getText().toString().trim();
-		String dep = et_dep.getText().toString().trim();
-		String year = et_year.getText().toString().trim();
+//		String school = et_school.getText().toString().trim();
+//		String dep = et_dep.getText().toString().trim();
+//		String year = et_year.getText().toString().trim();
 		String city = et_city.getText().toString().trim();
 		String phoneNum = et_phone.getText().toString().trim();
 		// String loveStatus = et_love_status.getText().toString().trim();
 		if (currentUser != null) {
-			currentUser.setSchool(school);
-			currentUser.setDep(dep);
-			currentUser.setYear(year);
+//			currentUser.setSchool(school);
+//			currentUser.setDep(dep);
+//			currentUser.setYear(year);
 			currentUser.setPhoneNum(phoneNum);
 			currentUser.setCity(city);
 			// currentUser.setLoveStatus(loveStatus);

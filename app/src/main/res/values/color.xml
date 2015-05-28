@@ -82,4 +82,7 @@
     <color name="fab_color_pressed">#007787</color>
     <color name="fab_color_shadow">#44000000</color>
     <color name="style_color_accent">#01bcd5</color>
+
+    <color name="text1">#4D4D4D</color>
+    <color name="text2">#999999</color>
 </resources>

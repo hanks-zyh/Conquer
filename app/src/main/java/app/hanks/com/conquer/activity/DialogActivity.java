@@ -48,6 +48,7 @@ public class DialogActivity extends BaseActivity {
     private   String  photoUrl;
     private   String  gender;
     private   String  city;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,21 +66,11 @@ public class DialogActivity extends BaseActivity {
                 currentUser.setAvatar(photoUrl);
                 currentUser.setCity(city);
                 currentUser.setHomeBg("http://file.bmob.cn/M01/BC/D4/oYYBAFVj1TuAXDU6AAA0P-InLD0537.jpg");
-                currentUser.setSchool("北京青年疗养院");
-                currentUser.setDep("二里沟学院");
-                currentUser.setMajor("爬山减肥");
-                currentUser.setYear("2015");
-                currentUser.setLoveStatus("孤家寡人");
                 currentUser.setPhoneNum("57575777");
-                currentUser.setSign("树下斑驳的光影,那是那年盛夏我们零碎的流年.");
                 ArrayList<String> list = new ArrayList<String>();
                 list.add("http://file.bmob.cn/M00/D6/4E/oYYBAFR9ZMuAI5HVAAAG8DKoaHY038.png");
                 currentUser.setAlbum(list);
-                ArrayList<String> list2 = new ArrayList<String>();
-                list2.add("单身贵族");
-                currentUser.setLabel(list2);
                 currentUser.setMale((gender.equals("男") || gender.equals("m")) ? true : false);
-
                 L.i("用户绑定id");
                 bindUserName();
             } else {
@@ -90,13 +81,8 @@ public class DialogActivity extends BaseActivity {
                 currentUser.update(context, new UpdateListener() {
                     @Override
                     public void onSuccess() {
-                        userManager.bindInstallationForRegister(currentUser.getUsername());
-                        updateUserInfos();
-//                      sendBroadcast(new Intent(Constants.ACTION_REGISTER_SUCCESS_FINISH));
-                        BusProvider.getInstance().post(new FinishActivityEvent());
-                        A.goOtherActivityFinishNoAnim(context, MainActivity.class);
+                        goMainActivity();
                     }
-
                     @Override
                     public void onFailure(int arg0, String arg1) {
                         L.i(arg0 + "更新用户信息去主界面失败" + arg1);
@@ -106,10 +92,20 @@ public class DialogActivity extends BaseActivity {
                 });
             }
         } else {
-            L.i("用户为空");
             finish();
-            T.show(context, "授权失败");
+            T.show(context, "用户为空,授权失败");
         }
+    }
+
+    /**
+     * 去主界面
+     */
+    private void goMainActivity() {
+        // 将设备与username进行绑定
+        userManager.bindInstallationForRegister(currentUser.getUsername());
+        updateUserInfos();
+        BusProvider.getInstance().post(new FinishActivityEvent());
+        A.goOtherActivityFinishNoAnim(context, MainActivity.class);
     }
 
 
@@ -134,17 +130,8 @@ public class DialogActivity extends BaseActivity {
                         currentUser.update(DialogActivity.this, new UpdateListener() {
                             @Override
                             public void onSuccess() {
-                                // 将设备与username进行绑定
-                                userManager.bindInstallationForRegister(currentUser.getUsername());
-                                // 更新用户信息
-                                updateUserInfos();
-                                // 发广播通知登陆页面退出
-//                                sendBroadcast(new Intent(Constants.ACTION_REGISTER_SUCCESS_FINISH));
-                                BusProvider.getInstance().post(new FinishActivityEvent());
-                                // 去主界面
-                                L.e(currentUser.toString());
-                                // 去学校信息
-                                A.goOtherActivityFinishNoAnim(context, SchoolInfoActivity.class);
+
+                                goMainActivity();
                             }
 
                             @Override

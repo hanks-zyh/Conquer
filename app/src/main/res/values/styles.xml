@@ -81,13 +81,15 @@
     <style name="MyDataTv" parent="WW">
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text1</item>
     </style>
 
     <style name="MyDataET" parent="WW">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text2</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>

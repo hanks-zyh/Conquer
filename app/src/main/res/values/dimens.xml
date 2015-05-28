@@ -72,7 +72,8 @@
     <dimen name="photo_top">80dp</dimen>
     <dimen name="photo_size">80dp</dimen>
     <dimen name="photo_size_small">50dp</dimen>
-    <dimen name="home_bg_height">240dp</dimen>
+    <dimen name="photo_size_s">18dp</dimen>
+    <dimen name="home_bg_height">220dp</dimen>
     <dimen name="rippleStrokeWidth">2dp</dimen>
     <dimen name="rippleRadius">64dp</dimen>
     <dimen name="title_btn_padding">6dp</dimen>

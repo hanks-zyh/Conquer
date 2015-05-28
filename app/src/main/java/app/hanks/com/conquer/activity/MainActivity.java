@@ -48,12 +48,12 @@ import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int ANIM_DURATION_TOOLBAR = 300;
-    private DrawerLayout     drawerLayout;
-    private MaterialMenuView materialMenu;
-    private MenuFragment     menuFragment;// 侧滑菜单Fragment
-    private ImageButton      iv_sort;
-    private View             toolbar;
-    private TextView         mTitle;
+    private DrawerLayout       drawerLayout;
+    private MaterialMenuView   materialMenu;
+    private MenuFragment       menuFragment;// 侧滑菜单Fragment
+    private ImageButton        iv_sort;
+    private View               toolbar;
+    private TextView           mTitle;
     private PopupWindow        popWin;
     private SwipeRefreshLayout refreshLayout;
     private ImageView          addButtom;
@@ -184,7 +184,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         // popWin.showAtLocation(iv_sort, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置在屏幕中的显示位置
         popWin.showAsDropDown(iv_sort, 0, -iv_sort.getHeight() + 10);
     }
-
 
 
     private void startIntroAnimation() {

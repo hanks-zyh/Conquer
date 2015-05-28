@@ -59,12 +59,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.bt_qq).setOnClickListener(this);
         findViewById(R.id.bt_sina).setOnClickListener(this);
         BusProvider.getInstance().register(this); //registe Bus
-        // findViewById(R.id.bt_weixin).setOnClickListener(this);
     }
 
     @Override
     protected View getContentView() {
-        return View.inflate(context,R.layout.activity_login,null);
+        return View.inflate(context, R.layout.activity_login, null);
     }
 
     @Override
@@ -93,9 +92,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.bt_sina:
                 LoginSina();
                 break;
-            // case R.id.bt_weixin:
-            // LoginWeiXin();
-            // break;
         }
     }
 
@@ -149,17 +145,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
     }
 
-    /**
-     * 微信授权登录
-     */
-    private void LoginWeiXin() {
-
-    }
 
     /**
      * 获取微博的资料
-     *
-     * @Title: getWeiboInfo
      */
     public void getWeiboInfo(final JSONObject obj) {
         // 根据http://open.weibo.com/wiki/2/users/show提供的API文档
@@ -190,12 +178,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     /**
      * 获取QQ的信息
-     *
-     * @param
-     * @return void
-     * @throws
-     * @Title: getQQInfo
-     * @Description: TODO
      */
     public void getQQInfo(final JSONObject obj) {
         // 若更换为自己的APPID后，仍然获取不到自己的用户信息，则需要
