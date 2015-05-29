@@ -114,16 +114,18 @@
         <RelativeLayout
             android:id="@+id/currentTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:padding="8dp"
-            android:visibility="invisible">
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:drawableLeft="@drawable/ic_alarm_black_24dp"
@@ -136,7 +138,7 @@
             <TextView
                 android:id="@+id/tv_time_tip"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_alignBaseline="@+id/tv_time"
                 android:layout_alignBottom="@+id/tv_time"
                 android:layout_centerVertical="true"
@@ -146,12 +148,26 @@
                 android:text="(10分钟后)"
                 android:textColor="@color/gray"
                 android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_tag"
+                android:textColor="@color/text2"
+                android:textSize="14sp"
+                android:text="全部"
+                android:gravity="center"
+                android:layout_width="50dp"
+                android:layout_centerVertical="true"
+                android:layout_height="30dp"
+                android:background="@drawable/spinner_bg"
+                android:layout_alignParentRight="true"/>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#22666666"/>
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.6dp"
-            android:background="#22666666"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -171,11 +187,12 @@
                 android:paddingTop="8dp">
 
                 <AutoCompleteTextView
+                    android:layout_weight="1"
                     android:id="@+id/et_name"
-                    style="@style/MyET"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="0dp"
                     android:gravity="left|bottom"
+                    android:background="@null"
                     android:hint="输入内容"
                     android:imeOptions="actionDone"
                     android:minHeight="48dp"
@@ -263,34 +280,27 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_gravity="bottom"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
+
                     <View
                         android:layout_alignParentTop="true"
                         android:layout_width="match_parent"
-                        android:layout_height="0.8dp"
+                        android:layout_height="0.6dp"
                         android:background="#44666666"/>
 
                     <TextView
                         android:id="@+id/tv_repeat"
                         android:layout_width="90dp"
                         android:layout_height="50dp"
-                        android:textColor="#88666666"
+                        android:textColor="@color/text2"
                         android:textSize="14sp"
                         android:gravity="center_vertical|left"
                         android:text="单次"
                         android:background="@drawable/btn_selector"
                         android:layout_alignParentLeft="true"/>
 
-                    <TextView
-                        android:id="@+id/tv_tag"
-                        android:textColor="#88666666"
-                        android:textSize="14sp"
-                        android:text="全部"
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/spinner_bg"
-                        android:layout_alignParentRight="true"/>
                 </RelativeLayout>
 
             </LinearLayout>

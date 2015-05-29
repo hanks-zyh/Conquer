@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,8 +15,8 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,7 +38,9 @@ import java.util.List;
 import java.util.Locale;
 
 import app.hanks.com.conquer.R;
+import app.hanks.com.conquer.adapter.TagAdapter;
 import app.hanks.com.conquer.bean.Card;
+import app.hanks.com.conquer.bean.Tag;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.bean.User;
 import app.hanks.com.conquer.config.Constants;
@@ -109,7 +110,11 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private View currentTime; //显示选择的时间
     private View ib_audio, ib_theme, ib_img, ib_at;
     private OpAnimationView ib_save;
-    private View            tv_repeat, tv_tag;
+    private TextView        tv_repeat, tv_tag;
+
+
+    final Task task = new Task();
+
 
     private static String pad(int c) {
         if (c >= 10)
@@ -143,6 +148,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         tv_date = (TextView) findViewById(R.id.tv_title);
         material_menu = (MaterialMenuView) findViewById(R.id.material_menu);
         iv_sort = findViewById(R.id.iv_sort);
+        iv_sort.setOnClickListener(this);
         et_name = (AutoCompleteTextView) findViewById(R.id.et_name);
 
         ll_audio = findViewById(R.id.ll_audio);
@@ -162,8 +168,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         ib_img = findViewById(R.id.ib_img);
         ib_audio = findViewById(R.id.ib_audio);
         ib_theme = findViewById(R.id.ib_theme);
-        tv_tag = findViewById(R.id.tv_tag);
-        tv_repeat = findViewById(R.id.tv_repeat);
+        tv_tag = (TextView) findViewById(R.id.tv_tag);
+        tv_repeat = (TextView) findViewById(R.id.tv_repeat);
         ib_save = (OpAnimationView) findViewById(R.id.ib_save);
 
         ib_theme.setScaleX(0.8f);
@@ -273,6 +279,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         ib_audio.animate().translationY(-w / 2).translationX((float) (-w * Math.sqrt(3) / 2)).rotation(360).setDuration(300).setStartDelay(50).start();
         ib_img.animate().translationX(-w).rotation(360).setDuration(300).start();
         ib_save.add2right();
+
+        task.setNeedAlerted(true);
     }
 
     /**
@@ -387,7 +395,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             return;
         }
 
-        final Task task = new Task();
+
         task.setUser(currentUser);
         task.setName(name);
         try {
@@ -402,7 +410,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             T.show(context, "时间已经过去了 T_T ");
             return;
         }
-        task.setShare(true);
+//        task.setShare(true);
         task.setHasAlerted(false);
         task.setCardBgUrl("http://file.bmob.cn/M00/D6/51/oYYBAFR9b8WAFsBlAAAqS_L5sFI605.jpg");
         task.setAudioUrl("http://file.bmob.cn/M00/D6/50/oYYBAFR9bguAMz02AACdR5Xly68154.amr");
@@ -480,6 +488,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             case R.id.ib_at:
                 goSelectFriends();
                 break;
+            case R.id.iv_sort:
+                setAlert();
+                break;
             case R.id.ib_audio:
                 showRecoder();
                 break;
@@ -544,21 +555,95 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     }
 
     /**
+     * 修改是否提醒
+     */
+    private void setAlert() {
+        if(task.isNeedAlerted()){
+            iv_sort.animate().rotation(0).setDuration(300).start();
+            task.setNeedAlerted(false);
+            layout_date.animate().translationY(-layout_date.getHeight()).setDuration(300).start();
+            currentTime.animate().alpha(0).setDuration(300).start();
+        }else{
+            iv_sort.animate().rotation(90).setDuration(300).start();
+            task.setNeedAlerted(true);
+            layout_date.animate().translationY(-PixelUtil.dp2px(3)).setDuration(300).start();
+            currentTime.animate().alpha(1).setDuration(300).start();
+        }
+    }
+
+    /**
      * 添加修改标签
      */
     private void showTagSelect() {
 
-
-        View v = new ListView(context);
-        PopupWindow popupWindow = new PopupWindow(v, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        ListView v = new ListView(context);
+        final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
         popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true); // 点击popWin
         popupWindow.setOutsideTouchable(true);        // 以处的区域，自动关闭
+        popupWindow.showAsDropDown(v);
+        try {
+            List<Tag> tags = dbUtils.findAll(Tag.class);
+            if (tags == null) {
+                tags = new ArrayList<>();
+            }
+            Tag tag1 = new Tag();
+            tag1.setName("生活");
+            Tag tag2 = new Tag();
+            tag2.setName("工作");
+            Tag tag3 = new Tag();
+            tag3.setName("临时");
+            Tag tag4 = new Tag();
+            tag4.setName("新建分组");
 
-        int[] location = new int[2];
-        tv_tag.getLocationOnScreen(location);
-        popupWindow.showAtLocation(tv_tag, Gravity.NO_GRAVITY, location[0], location[1] - popupWindow.getHeight());
+            tags.add(tag1);
+            tags.add(tag2);
+            tags.add(tag3);
+            tags.add(tag4);
+            v.setAdapter(new TagAdapter(context, tags));
+
+            final List<Tag> finalTags = tags;
+            v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == finalTags.size() - 1) { //新建
+                        createNewTag();
+                    } else {
+                        tv_tag.setText(finalTags.get(position).getName());
+                        task.setTag(finalTags.get(position));
+                    }
+                    if (popupWindow != null) {
+                        popupWindow.dismiss();
+                    }
+                }
+            });
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 创建标签
+     */
+    private void createNewTag() {
+        AlertDialogUtils.showEditDialog(context, "创建分组", "确定", "取消",
+                new AlertDialogUtils.EtOkCallBack() {
+                    @Override
+                    public void onOkClick(String s) {
+                        if (s != null) {
+                            try {
+                                Tag tag = new Tag();
+                                tag.setName(s);
+                                dbUtils.save(tag);
+                                tv_tag.setText(s);
+                                task.setTag(tag);
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
     }
 
     /**
