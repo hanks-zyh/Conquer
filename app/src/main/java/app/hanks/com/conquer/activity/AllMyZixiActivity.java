@@ -219,7 +219,7 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 
     @Override
     public View getContentView() {
-        return View.inflate(context, R.layout.activity_all_myzixi, null);
+        return View.inflate(context, R.layout.activity_all_mytask, null);
     }
 
     private boolean supportsViewElevation() {

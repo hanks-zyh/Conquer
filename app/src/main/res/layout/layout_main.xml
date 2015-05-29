@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hanks="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
@@ -36,12 +37,15 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/title_shadow_height_3"/>
 
-    <ImageView
+    <app.hanks.com.conquer.view.OpAnimationView
         android:id="@+id/iv_add"
+        hanks:shapeRadius="6dp"
+        hanks:backgroundColor="@color/red_button"
+        hanks:shapeWidth="2dp"
         android:layout_width="@dimen/btn_fab_size"
-        android:layout_height="54dp"
+        android:layout_height="@dimen/btn_fab_size"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add"/>
+       />
 </RelativeLayout>

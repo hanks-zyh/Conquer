@@ -29,7 +29,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -39,6 +38,7 @@ import app.hanks.com.conquer.fragment.MenuFragment;
 import app.hanks.com.conquer.fragment.MyTaskFragment;
 import app.hanks.com.conquer.fragment.OtherTaskFragment;
 import app.hanks.com.conquer.util.PixelUtil;
+import app.hanks.com.conquer.view.OpAnimationView;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
 
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView           mTitle;
     private PopupWindow        popWin;
     private SwipeRefreshLayout refreshLayout;
-    private ImageView          addButtom;
+    private OpAnimationView          addButtom;
     private MyTaskFragment     myTaskFragment;
     private OtherTaskFragment  otherTaskFragment;
     private Fragment           currentFragment;
@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         toolbar = findViewById(R.id.title);
         mTitle = (TextView) findViewById(R.id.tv_title);
         iv_sort = (ImageButton) findViewById(R.id.iv_sort);
-        addButtom = (ImageView) findViewById(R.id.iv_add);
+        addButtom = (OpAnimationView) findViewById(R.id.iv_add);
         materialMenu.setOnClickListener(this);
         iv_sort.setOnClickListener(this);
         addButtom.setOnClickListener(this);

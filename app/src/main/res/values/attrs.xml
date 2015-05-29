@@ -102,4 +102,10 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="OpAnimationView">
+        <attr name="backgroundColor" format="color"></attr>
+        <attr name="shapeColor" format="color"></attr>
+        <attr name="shapeWidth" format="dimension"></attr>
+        <attr name="shapeRadius" format="dimension"></attr>
+    </declare-styleable>
 </resources>

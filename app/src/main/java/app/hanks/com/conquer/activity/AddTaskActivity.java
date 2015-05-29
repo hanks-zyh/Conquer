@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,10 +16,13 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -57,6 +61,7 @@ import app.hanks.com.conquer.util.Tasks;
 import app.hanks.com.conquer.util.TimeUtil;
 import app.hanks.com.conquer.view.AutoCompleteArrayAdapter;
 import app.hanks.com.conquer.view.FlowLayout;
+import app.hanks.com.conquer.view.OpAnimationView;
 import app.hanks.com.conquer.view.RevealBackgroundView;
 import app.hanks.com.conquer.view.datetime.datepicker.DatePickerDialog;
 import app.hanks.com.conquer.view.datetime.datepicker.DatePickerDialog.OnDateSetListener;
@@ -102,7 +107,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private View ll_bottom; //底部操作
     private View layout_date;//日期选择
     private View currentTime; //显示选择的时间
-    private View ib_audio, ib_theme, ib_img, ib_at, ib_save;
+    private View ib_audio, ib_theme, ib_img, ib_at;
+    private OpAnimationView ib_save;
+    private View            tv_repeat, tv_tag;
 
     private static String pad(int c) {
         if (c >= 10)
@@ -155,7 +162,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         ib_img = findViewById(R.id.ib_img);
         ib_audio = findViewById(R.id.ib_audio);
         ib_theme = findViewById(R.id.ib_theme);
-        ib_save = findViewById(R.id.ib_save);
+        tv_tag = findViewById(R.id.tv_tag);
+        tv_repeat = findViewById(R.id.tv_repeat);
+        ib_save = (OpAnimationView) findViewById(R.id.ib_save);
 
         ib_theme.setScaleX(0.8f);
         ib_theme.setScaleY(0.8f);
@@ -171,6 +180,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         ib_audio.setOnClickListener(this);
         ib_theme.setOnClickListener(this);
         ib_save.setOnClickListener(this);
+        tv_tag.setOnClickListener(this);
+        tv_repeat.setOnClickListener(this);
 
         wk_0 = (TextView) findViewById(R.id.wk_0);
         wk_1 = (TextView) findViewById(R.id.wk_1);
@@ -246,9 +257,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private void titleAnim() {
         layout_date.setTranslationY(-layout_date.getHeight());
 
-
-
-
         currentTime.setAlpha(0);
         et_name.setVisibility(View.VISIBLE);
         ll_bottom.setVisibility(View.VISIBLE);
@@ -259,14 +267,12 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         layout_date.animate().translationY(-PixelUtil.dp2px(3)).setDuration(300).start();
         currentTime.animate().alpha(1).setDuration(300).start();
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int screenWidth = metrics.widthPixels;
-        int w = ib_save.getWidth() * 2;
+        int w = (int) (ib_save.getWidth() * 1.8f);
         ib_theme.animate().translationY(-w).rotation(360).setDuration(300).setStartDelay(150).start();
-        ib_at.animate().translationY((float) (-w *Math.sqrt(3)/ 2)).translationX(-w /2).rotation(360).setDuration(300).setStartDelay(100).start();
+        ib_at.animate().translationY((float) (-w * Math.sqrt(3) / 2)).translationX(-w / 2).rotation(360).setDuration(300).setStartDelay(100).start();
         ib_audio.animate().translationY(-w / 2).translationX((float) (-w * Math.sqrt(3) / 2)).rotation(360).setDuration(300).setStartDelay(50).start();
         ib_img.animate().translationX(-w).rotation(360).setDuration(300).start();
+        ib_save.add2right();
     }
 
     /**
@@ -500,6 +506,12 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             case R.id.material_menu:
                 onBackPressed();
                 break;
+            case R.id.tv_tag:
+                showTagSelect();
+                break;
+            case R.id.tv_repeat:
+                showRepeat();
+                break;
             case R.id.wk_0:
             case R.id.day_0:
                 setCheckedDay(day_0, 0);
@@ -529,6 +541,31 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 setCheckedDay(day_6, 6);
                 break;
         }
+    }
+
+    /**
+     * 添加修改标签
+     */
+    private void showTagSelect() {
+
+
+        View v = new ListView(context);
+        PopupWindow popupWindow = new PopupWindow(v, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true); // 点击popWin
+        popupWindow.setOutsideTouchable(true);        // 以处的区域，自动关闭
+
+        int[] location = new int[2];
+        tv_tag.getLocationOnScreen(location);
+        popupWindow.showAtLocation(tv_tag, Gravity.NO_GRAVITY, location[0], location[1] - popupWindow.getHeight());
+    }
+
+    /**
+     * 添加修改重复
+     */
+    private void showRepeat() {
+
     }
 
     /**
@@ -733,7 +770,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
 
     @Override
     public View getContentView() {
-        return View.inflate(context, R.layout.activity_add_zixi, null);
+        return View.inflate(context, R.layout.activity_add_task, null);
     }
 
     private void setupRevealBackground(Bundle savedInstanceState) {
