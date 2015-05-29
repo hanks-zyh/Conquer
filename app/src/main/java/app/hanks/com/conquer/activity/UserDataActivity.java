@@ -138,7 +138,6 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
                     A.goOtherActivity(context, intent);
                 }
             });
-
         }
 
     }
