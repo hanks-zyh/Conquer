@@ -83,7 +83,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
 
     @Override
     public long getItemId(int position) {
-        return list.get(position).getObjectId().hashCode();
+        return list.get(position).getId();
     }
 
     @Override

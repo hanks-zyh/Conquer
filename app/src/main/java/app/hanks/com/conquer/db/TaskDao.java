@@ -11,6 +11,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.nostra13.universalimageloader.utils.L;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +44,7 @@ public class TaskDao {
 
 
     public TaskDao(Context context) {
-        dbHelper = new DBHelper(context);
+        dbHelper = new DBHelper(context.getApplicationContext());
     }
 
     public void open() throws SQLException {
@@ -128,8 +130,10 @@ public class TaskDao {
             taskList.add(task);
         }
         // make sure to close the cursor
+
         cursor.close();
         close();
+        L.i("查询到本地的任务个数：" + taskList.size());
         return taskList;
     }
 
@@ -192,8 +196,10 @@ public class TaskDao {
         task.setHasAlerted(cursor.getInt(7) > 0);
         task.setNeedAlerted(cursor.getInt(8) > 0);
         task.setRepeat(cursor.getInt(9));
-        List<String> atFriends = Arrays.asList(cursor.getString(10).split(","));
-        task.setAtFriends(atFriends);
+        if (cursor.getString(10) != null) {
+            List<String> atFriends = Arrays.asList(cursor.getString(10).split(","));
+            task.setAtFriends(atFriends);
+        }
         return task;
     }
 
@@ -215,5 +221,25 @@ public class TaskDao {
         cursor.close();
         close();
         return taskList;
+    }
+
+    /**
+     * 删除所有
+     */
+    public void deleteAll() {
+        open();
+        database.delete(DBConstants.TaskColum.TABLE_NAME, null, null);
+        close();
+    }
+
+    /**
+     * 保存多个
+     *
+     * @param tasks
+     */
+    public void saveAll(List<Task> tasks) {
+        for (Task task : tasks) {
+            create(task);
+        }
     }
 }

@@ -141,7 +141,6 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
 
     private void initData() {
 
-
         allTask = TaskUtil.getAllZixi(context);
         Calendar c = Calendar.getInstance();
         Calendar c1 = Calendar.getInstance();
@@ -152,21 +151,21 @@ public class AllMyZixiActivity extends BaseActivity implements IXListViewListene
         // 循环每个任务
         for (int i = 0; i < len; i++) {
             int j = listDay.size();
-            long zixiTime = allTask.get(i).getTime();
+            long taskTime = allTask.get(i).getTime();
             if (j > 0) {
                 // 得到上一天
                 Day d = listDay.get(j - 1);
                 c.set(d.getYear(), d.getMonth(), d.getDay(), 0, 0, 1);
-                if (!TaskUtil.isToday(c.getTimeInMillis(), zixiTime)) {
+                if (!TaskUtil.isToday(c.getTimeInMillis(), taskTime)) {
                     // 不是同一天 ，加到daylist
-                    c1.setTimeInMillis(zixiTime);
-                    boolean isToday = TaskUtil.isToday(curTime, zixiTime);
+                    c1.setTimeInMillis(taskTime);
+                    boolean isToday = TaskUtil.isToday(curTime, taskTime);
                     if (isToday) posotion = i;
                     listDay.add(new Day(c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH), isToday ? true : false));
                 }
             } else {
-                c1.setTimeInMillis(zixiTime);
-                boolean isToday = TaskUtil.isToday(curTime, zixiTime);
+                c1.setTimeInMillis(taskTime);
+                boolean isToday = TaskUtil.isToday(curTime, taskTime);
                 if (isToday) posotion = i;
                 listDay.add(new Day(c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH), isToday ? true : false));
             }

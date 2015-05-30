@@ -3,8 +3,6 @@ package app.hanks.com.conquer.util;
 import android.content.Context;
 
 import com.lidroid.xutils.DbUtils;
-import com.lidroid.xutils.db.sqlite.Selector;
-import com.lidroid.xutils.exception.DbException;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -39,10 +37,10 @@ public class TaskUtil {
     public final static String FORMAT_TIME           = "HH:mm";
     public final static String FORMAT_MONTH_DAY_TIME = "MM月dd日  hh:mm";
 
-    public final static String FORMAT_DATE_TIME        = "yyyy-MM-dd HH:mm";
-    public final static String FORMAT_DATE1_TIME       = "yyyy/MM/dd HH:mm";
-    public final static String FORMAT_DATE_TIME_SECOND = "yyyy/MM/dd HH:mm:ss";
-    private static boolean          debugDB = false;
+    public final static String  FORMAT_DATE_TIME        = "yyyy-MM-dd HH:mm";
+    public final static String  FORMAT_DATE1_TIME       = "yyyy/MM/dd HH:mm";
+    public final static String  FORMAT_DATE_TIME_SECOND = "yyyy/MM/dd HH:mm:ss";
+    private static      boolean debugDB                 = false;
 
     /**
      * 返回大于当后时间的任务
@@ -59,7 +57,7 @@ public class TaskUtil {
             // temp = dbUtils.findAll(Tasks.class);
 //            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
 
-            List<Task> findAll = new TaskDao(context).getAllTask() ;
+            List<Task> findAll = new TaskDao(context).getAllTask();
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
                 long curTime = System.currentTimeMillis();
@@ -118,18 +116,19 @@ public class TaskUtil {
      * @throws Exception
      */
     public static List<Task> getAllZixi(Context context) {
-        DbUtils dbUtils = DbUtils.create(context);
+//        DbUtils dbUtils = DbUtils.create(context);
         List<Task> temp = new ArrayList<Task>();
-        try {
+//        try {
             // temp = dbUtils.findAll(Tasks.class);
-            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
+//            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
+            List<Task> findAll = new TaskDao(context).getAllTask();
             L.i("大小" + findAll.size());
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
             }
-        } catch (Exception e) {
+//        } catch (Exception e) {
             // if (debugDB) e.printStackTrace();
-        }
+//        }
         return temp;
     }
 
@@ -144,7 +143,8 @@ public class TaskUtil {
         DbUtils dbUtils = DbUtils.create(context);
         List<Task> temp = new ArrayList<Task>();
         try {
-            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
+//            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
+            List<Task> findAll = new TaskDao(context).getAllTask();
             if (CollectionUtils.isNotNull(findAll)) {
                 for (Task task : findAll) {
                     if (isToday(task.getTime(), time)) temp.add(task);
@@ -182,26 +182,28 @@ public class TaskUtil {
      * @param getZixiCallBack 获取网络数据的回调
      * @throws Exception
      */
-    public static void getNetAfterZixi(Context context, User currentUser, final int limit, final GetZixiCallBack getZixiCallBack) {
-        final DbUtils dbUtils = DbUtils.create(context);
+    public static void getNetAfterZixi(final Context context, User currentUser, final int limit, final GetZixiCallBack getZixiCallBack) {
+//        final DbUtils dbUtils = DbUtils.create(context);
         BmobQuery<Task> query = new BmobQuery<Task>();
         // 设置查询条数
         query.setLimit(1000);
-        query.addWhereEqualTo("user", currentUser);
+        query.addWhereEqualTo("user", currentUser).order("time");
         // 这个查询也包括了用户的已经过时的任务
         query.findObjects(context, new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> arg0) {
-                try {
-                    L.d("网络个数:" + arg0.size());
-                    // 1.更新本地数据库
-                    if (arg0.size() > 0) {
-                        dbUtils.deleteAll(Task.class);
-                        dbUtils.saveAll(arg0);
-                    }
-                } catch (DbException e) {
-                    // if (debugDB) e.printStackTrace();
+//                try {
+                L.d("网络个数:" + arg0.size());
+                // 1.更新本地数据库
+                if (arg0.size() > 0) {
+//                        dbUtils.deleteAll(Task.class);
+//                        dbUtils.saveAll(arg0);
+                    TaskDao taskDao = new TaskDao(context);
+                    taskDao.saveAll(arg0);
                 }
+//                } catch (DbException e) {
+                // if (debugDB) e.printStackTrace();
+//                }
                 // 2.筛选大于当后时间的
                 List<Task> listTask = new ArrayList<Task>();
                 long curTime = System.currentTimeMillis();
@@ -229,7 +231,7 @@ public class TaskUtil {
      * @param getZixiCallBack 获取网络数据的回调
      * @throws Exception
      */
-    public static void getNetAllZixi(Context context, User currentUser, final GetZixiCallBack getZixiCallBack) {
+    public static void getNetAllZixi(final Context context, User currentUser, final GetZixiCallBack getZixiCallBack) {
         final DbUtils dbUtils = DbUtils.create(context);
         BmobQuery<Task> query = new BmobQuery<Task>();
         query.addWhereEqualTo("user", currentUser);
@@ -237,29 +239,33 @@ public class TaskUtil {
         query.findObjects(context, new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> arg0) {
-                try {
-                    // 1.更新本地数据库
-                    if (arg0.size() > 0) {
-                        dbUtils.deleteAll(Task.class);
-                        dbUtils.saveAll(arg0);
-                    }
-                } catch (DbException e) {
+//                try {
+                // 1.更新本地数据库
+                if (arg0.size() > 0) {
+//                        dbUtils.deleteAll(Task.class);
+//                        dbUtils.saveAll(arg0);
+                    TaskDao taskDao = new TaskDao(context);
+                    taskDao.saveAll(arg0);
+//                    }
+//                } catch (DbException e) {
                     // if (debugDB) e.printStackTrace();
-                }
-                // 2.筛选大于当后时间的
-                List<Task> listTask = new ArrayList<Task>();
-                long curTime = System.currentTimeMillis();
-                for (Task task : arg0) {
-                    if (task.getTime() >= curTime) {
-                        listTask.add(task);
+//                }
+                    // 2.筛选大于当后时间的
+                    List<Task> listTask = new ArrayList<Task>();
+                    long curTime = System.currentTimeMillis();
+                    for (Task task : arg0) {
+                        if (task.getTime() >= curTime) {
+                            listTask.add(task);
+                        }
                     }
+                    getZixiCallBack.onSuccess(listTask);
                 }
-                getZixiCallBack.onSuccess(listTask);
+
             }
 
             @Override
-            public void onError(int arg0, String arg1) {
-                getZixiCallBack.onError(arg0, arg1);
+            public void onError(int i, String s) {
+                getZixiCallBack.onError(i, s);
             }
         });
     }
@@ -272,6 +278,7 @@ public class TaskUtil {
      * @param getZixiCallBack 获取网络数据的回调
      * @throws Exception
      */
+
     public static void getNetZixiNotUser(Context context, User currentUser, final GetZixiCallBack getZixiCallBack) {
 
         // 这个先不用缓存
@@ -511,12 +518,13 @@ public class TaskUtil {
      * @param deleteTaskListener
      */
     public static void deleteTask(Context context, Task task, final DeleteTaskListener deleteTaskListener) {
-        final DbUtils dbUtils = DbUtils.create(context);
-        try {
-            dbUtils.delete(task);
-        } catch (DbException e) {
-            // if (debugDB) e.printStackTrace();
-        }
+        new TaskDao(context).deleteTask(task);
+//        final DbUtils dbUtils = DbUtils.create(context);
+//        try {
+//            dbUtils.delete(task);
+//        } catch (DbException e) {
+        // if (debugDB) e.printStackTrace();
+//        }
         task.delete(context, new DeleteListener() {
             @Override
             public void onSuccess() {
@@ -614,17 +622,20 @@ public class TaskUtil {
      * 将改任务设置为已被提醒
      */
     public static void setZixiHasAlerted(Context context, int zixiId) {
-        final DbUtils dbUtils = DbUtils.create(context);
-        try {
-            L.e("设置任务为已提醒" + zixiId);
-            Task task = dbUtils.findFirst(Selector.from(Task.class).where("id", "=", zixiId));
-            if (task != null) {
-                task.setHasAlerted(true);
-                dbUtils.update(task, "hasAlerted");
-            }
-        } catch (DbException e) {
-            // if (debugDB) e.printStackTrace();
+//        final DbUtils dbUtils = DbUtils.create(context);
+//        try {
+        L.e("设置任务为已提醒" + zixiId);
+//            Task task = dbUtils.findFirst(Selector.from(Task.class).where("id", "=", zixiId));
+
+        TaskDao taskDao = new TaskDao(context);
+        Task task = taskDao.getTask(zixiId);
+        if (task != null) {
+            task.setHasAlerted(true);
+            taskDao.update(task);
         }
+//        } catch (DbException e) {
+        // if (debugDB) e.printStackTrace();
+//        }
     }
 
     /**
