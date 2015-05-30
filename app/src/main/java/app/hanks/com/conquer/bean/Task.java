@@ -10,8 +10,8 @@ import cn.bmob.v3.BmobObject;
  * @author zyh
  */
 public class Task extends BmobObject {
-    private int          id;
-    private boolean      pinedToSwipeLeft;
+
+    private int id;
     private User         user;
     /**
      * 名字
@@ -30,17 +30,13 @@ public class Task extends BmobObject {
      */
     private int          repeat;
     /**
-     * 是否提醒
-     */
-    private boolean      isShare;
-    /**
      * 任务的笔记
      */
     private String       note;
     /**
      * 卡片背景网络路径
      */
-    private String       cardBgUrl;
+    private String       imageUrl;
     /**
      * at的好友列表，存放好友
      */
@@ -53,15 +49,14 @@ public class Task extends BmobObject {
      * 是否已经被提醒过
      */
     private boolean      hasAlerted;
+    /**
+     * 是否提醒
+     */
     private boolean      needAlerted;
-
-    public boolean isNeedAlerted() {
-        return needAlerted;
-    }
-
-    public void setNeedAlerted(boolean needAlerted) {
-        this.needAlerted = needAlerted;
-    }
+    /**
+     * 判断是否按压，用于滑动
+     */
+    private boolean      pinedToSwipeLeft;
 
     public int getId() {
         return id;
@@ -69,14 +64,6 @@ public class Task extends BmobObject {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public boolean isPinedToSwipeLeft() {
-        return pinedToSwipeLeft;
-    }
-
-    public void setPinedToSwipeLeft(boolean pinedToSwipeLeft) {
-        this.pinedToSwipeLeft = pinedToSwipeLeft;
     }
 
     public User getUser() {
@@ -119,14 +106,6 @@ public class Task extends BmobObject {
         this.repeat = repeat;
     }
 
-    public boolean isShare() {
-        return isShare;
-    }
-
-    public void setIsShare(boolean isShare) {
-        this.isShare = isShare;
-    }
-
     public String getNote() {
         return note;
     }
@@ -135,12 +114,12 @@ public class Task extends BmobObject {
         this.note = note;
     }
 
-    public String getCardBgUrl() {
-        return cardBgUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setCardBgUrl(String cardBgUrl) {
-        this.cardBgUrl = cardBgUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public List<String> getAtFriends() {
@@ -165,5 +144,21 @@ public class Task extends BmobObject {
 
     public void setHasAlerted(boolean hasAlerted) {
         this.hasAlerted = hasAlerted;
+    }
+
+    public boolean isNeedAlerted() {
+        return needAlerted;
+    }
+
+    public void setNeedAlerted(boolean needAlerted) {
+        this.needAlerted = needAlerted;
+    }
+
+    public boolean isPinedToSwipeLeft() {
+        return pinedToSwipeLeft;
+    }
+
+    public void setPinedToSwipeLeft(boolean pinedToSwipeLeft) {
+        this.pinedToSwipeLeft = pinedToSwipeLeft;
     }
 }
