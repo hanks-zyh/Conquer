@@ -24,7 +24,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TASK =
             "CREATE TABLE " + DBConstants.TaskColum.TABLE_NAME + " (" +
                     DBConstants.TaskColum.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
-                    DBConstants.TaskColum.COLUMN_NAME_ID + TEXT_TYPE + COMMA_SEP +
                     DBConstants.TaskColum.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     DBConstants.TaskColum.COLUMN_NAME_TIME + INTEGER_TYPE + COMMA_SEP +
                     DBConstants.TaskColum.COLUMN_NAME_TAGID + INTEGER_TYPE + COMMA_SEP +
@@ -34,14 +33,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     DBConstants.TaskColum.COLUMN_NAME_IMAGEURL + TEXT_TYPE + COMMA_SEP +
                     DBConstants.TaskColum.COLUMN_NAME_AUDIOURL + TEXT_TYPE + COMMA_SEP +
                     DBConstants.TaskColum.COLUMN_NAME_ATFRIENDS + TEXT_TYPE + COMMA_SEP +
-                    DBConstants.TaskColum.COLUMN_NAME_HASALERTED + INTEGER_TYPE + COMMA_SEP +
+                    DBConstants.TaskColum.COLUMN_NAME_HASALERTED + INTEGER_TYPE  +
                     " )";
 
     private static final String SQL_CREATE_TAG =
-            "CREATE TABLE " + DBConstants.TaskColum.TABLE_NAME + " (" +
+            "CREATE TABLE " + DBConstants.TagColum.TABLE_NAME + " (" +
                     DBConstants.TagColum.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
-                    DBConstants.TagColum.COLUMN_NAME_ID + TEXT_TYPE + COMMA_SEP +
-                    DBConstants.TagColum.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
+                    DBConstants.TagColum.COLUMN_NAME_NAME + TEXT_TYPE +
                     " )";
 
 

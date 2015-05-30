@@ -17,6 +17,7 @@ import app.hanks.com.conquer.bean.Card;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.bean.User;
 import app.hanks.com.conquer.config.Constants;
+import app.hanks.com.conquer.db.TaskDao;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobGeoPoint;
@@ -56,7 +57,9 @@ public class TaskUtil {
         List<Task> temp = new ArrayList<Task>();
         try {
             // temp = dbUtils.findAll(Tasks.class);
-            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
+//            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).orderBy("time"));
+
+            List<Task> findAll = new TaskDao(context).getAllTask() ;
             if (findAll != null && findAll.size() > 0) {
                 temp.addAll(findAll);
                 long curTime = System.currentTimeMillis();
@@ -89,7 +92,7 @@ public class TaskUtil {
         Calendar c = Calendar.getInstance();
         try {
             // 获取没有提醒的
-            List<Task> findAll = dbUtils.findAll(Selector.from(Task.class).where("hasAlerted", "=", false).orderBy("time"));
+            List<Task> findAll = new TaskDao(context).getNotAlertTasks();
             if (findAll != null && findAll.size() > 0) {
                 long curTime = System.currentTimeMillis();
                 L.i("大小" + findAll.size());

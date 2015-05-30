@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +27,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.lidroid.xutils.exception.DbException;
 
 import java.io.File;
 import java.text.ParseException;
@@ -44,6 +44,8 @@ import app.hanks.com.conquer.bean.Tag;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.bean.User;
 import app.hanks.com.conquer.config.Constants;
+import app.hanks.com.conquer.db.TagDao;
+import app.hanks.com.conquer.db.TaskDao;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.AlertDialogUtils;
 import app.hanks.com.conquer.util.AlertDialogUtils.EtOkCallBack;
@@ -137,6 +139,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     }
 
     private void init() {
+
         // 播放音频的
         aUtils = AudioUtils.getInstance();
 
@@ -249,11 +252,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             }
         });
         et_name.setOnEditorActionListener(new SaveEditActionListener());
-
-        Task task = (Task) getIntent().getSerializableExtra("task");
-        if (task != null) {
-            et_name.setText(task.getName());
-        }
 
     }
 
@@ -395,7 +393,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             return;
         }
 
-
         task.setUser(currentUser);
         task.setName(name);
         try {
@@ -412,11 +409,11 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         }
 //        task.setShare(true);
         task.setHasAlerted(false);
-        task.setCardBgUrl("http://file.bmob.cn/M00/D6/51/oYYBAFR9b8WAFsBlAAAqS_L5sFI605.jpg");
-        task.setAudioUrl("http://file.bmob.cn/M00/D6/50/oYYBAFR9bguAMz02AACdR5Xly68154.amr");
-        task.setNote("单身*一只，求任务陪同 ● v ● ");
+//        task.setImageUrl("http://file.bmob.cn/M00/D6/51/oYYBAFR9b8WAFsBlAAAqS_L5sFI605.jpg");
+//        task.setAudioUrl("http://file.bmob.cn/M00/D6/50/oYYBAFR9bguAMz02AACdR5Xly68154.amr");
+//        task.setNote("单身*一只，求任务陪同 ● v ● ");
         if (imgUrl != null)
-            task.setCardBgUrl(imgUrl);
+            task.setImageUrl(imgUrl);
         if (audioUrl != null)
             task.setAudioUrl(audioUrl);
         if (note != null)
@@ -428,11 +425,12 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             @Override
             public void onSuccess() {
                 // 1.本地数据库存储
-                try {
-                    dbUtils.save(task);
-                } catch (DbException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    dbUtils.save(task);
+//                } catch (DbException e) {
+//                    e.printStackTrace();
+//                }
+                new TaskDao(context).create(task);
                 if (CollectionUtils.isNotNull(at)) {
                     sendInvite(task);
                 }
@@ -465,7 +463,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 card.setAudioUrl(audioUrl);
             if (imgUrl != null)
                 card.setImgUrl(imgUrl);
-            card.setContent("来和我一块任务吧!");
+            card.setContent("来和我一块吧!");
             L.e(card.toString());
             String json = new Gson().toJson(card);
             L.d("发送邀请：" + user.getNick());
@@ -558,12 +556,12 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      * 修改是否提醒
      */
     private void setAlert() {
-        if(task.isNeedAlerted()){
+        if (task.isNeedAlerted()) {
             iv_sort.animate().rotation(0).setDuration(300).start();
             task.setNeedAlerted(false);
             layout_date.animate().translationY(-layout_date.getHeight()).setDuration(300).start();
             currentTime.animate().alpha(0).setDuration(300).start();
-        }else{
+        } else {
             iv_sort.animate().rotation(90).setDuration(300).start();
             task.setNeedAlerted(true);
             layout_date.animate().translationY(-PixelUtil.dp2px(3)).setDuration(300).start();
@@ -577,50 +575,82 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private void showTagSelect() {
 
         ListView v = new ListView(context);
+        v.setFooterDividersEnabled(false);
+
         final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
         popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true); // 点击popWin
         popupWindow.setOutsideTouchable(true);        // 以处的区域，自动关闭
-        popupWindow.showAsDropDown(v);
-        try {
-            List<Tag> tags = dbUtils.findAll(Tag.class);
-            if (tags == null) {
-                tags = new ArrayList<>();
-            }
-            Tag tag1 = new Tag();
-            tag1.setName("生活");
-            Tag tag2 = new Tag();
-            tag2.setName("工作");
-            Tag tag3 = new Tag();
-            tag3.setName("临时");
-            Tag tag4 = new Tag();
-            tag4.setName("新建分组");
 
-            tags.add(tag1);
-            tags.add(tag2);
-            tags.add(tag3);
-            tags.add(tag4);
-            v.setAdapter(new TagAdapter(context, tags));
+        int[] location = new int[2];
+        tv_tag.getLocationOnScreen(location);
 
-            final List<Tag> finalTags = tags;
-            v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == finalTags.size() - 1) { //新建
-                        createNewTag();
-                    } else {
-                        tv_tag.setText(finalTags.get(position).getName());
-                        task.setTag(finalTags.get(position));
-                    }
-                    if (popupWindow != null) {
-                        popupWindow.dismiss();
-                    }
-                }
-            });
-        } catch (DbException e) {
-            e.printStackTrace();
+        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] + tv_tag.getHeight());
+
+        TagDao tagDao = new TagDao(context);
+        List<Tag> tags = tagDao.getAllTag();
+        if (tags == null) {
+            tags = new ArrayList<>();
         }
+        Tag tag0= new Tag();
+        tag0.setName("全部");
+        Tag tag1 = new Tag();
+        tag1.setName("生活");
+        Tag tag2 = new Tag();
+        tag2.setName("工作");
+        Tag tag3 = new Tag();
+        tag3.setName("临时");
+        Tag tag4 = new Tag();
+        tag4.setName("新建分组");
+
+        tags.add(tag0);
+        tags.add(tag1);
+        tags.add(tag2);
+        tags.add(tag3);
+        tags.add(tag4);
+        v.setAdapter(new TagAdapter(context, tags));
+
+        final List<Tag> finalTags = tags;
+        v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == finalTags.size() - 1) { //新建
+                    createNewTag();
+                } else {
+                    tv_tag.setText(finalTags.get(position).getName());
+                    task.setTag(finalTags.get(position));
+                }
+                if (popupWindow != null) {
+                    popupWindow.dismiss();
+                }
+            }
+        });
+        v.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position<finalTags.size()-5){
+                    deleteTag(finalTags.get(position),popupWindow);
+                }
+                return true;
+            }
+        });
+
+    }
+
+    /**
+     * 删除分组
+     * @param tag
+     * @param popupWindow
+     */
+    private void deleteTag(final Tag tag, final PopupWindow popupWindow) {
+        AlertDialogUtils.show(context, "删除分组", "确定删除分组吗？", "确定", "取消", new OkCallBack() {
+            @Override
+            public void onOkClick(DialogInterface dialog, int which) {
+                new TagDao(context).deleteTag(tag);
+                popupWindow.dismiss();
+            }
+        },null);
     }
 
     /**
@@ -632,15 +662,11 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                     @Override
                     public void onOkClick(String s) {
                         if (s != null) {
-                            try {
-                                Tag tag = new Tag();
-                                tag.setName(s);
-                                dbUtils.save(tag);
-                                tv_tag.setText(s);
-                                task.setTag(tag);
-                            } catch (DbException e) {
-                                e.printStackTrace();
-                            }
+                            Tag tag = new Tag();
+                            tag.setName(s);
+                            new TagDao(context).create(tag);
+                            tv_tag.setText(s);
+                            task.setTag(tag);
                         }
                     }
                 });
@@ -657,7 +683,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      * 备注
      */
     private void editNote() {
-        AlertDialogUtils.showEditDialog(context, "输入悄悄话", "写好了", "算了", new EtOkCallBack() {
+        AlertDialogUtils.showEditDialog(context, "输入附加信息", "写好了", "算了", new EtOkCallBack() {
             @Override
             public void onOkClick(String s) {
                 note = s;

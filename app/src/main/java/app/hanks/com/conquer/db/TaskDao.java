@@ -68,24 +68,31 @@ public class TaskDao {
         values.put(DBConstants.TaskColum.COLUMN_NAME_NEEDALERT, task.isNeedAlerted());
         values.put(DBConstants.TaskColum.COLUMN_NAME_HASALERTED, task.isHasAlerted());
         values.put(DBConstants.TaskColum.COLUMN_NAME_TIME, task.getTime());
-        values.put(DBConstants.TaskColum.COLUMN_NAME_AUDIOURL, task.getAudioUrl());
-        values.put(DBConstants.TaskColum.COLUMN_NAME_IMAGEURL, task.getImageUrl());
-        values.put(DBConstants.TaskColum.COLUMN_NAME_NOTE, task.getNote());
+        if (task.getAudioUrl() != null) {
+            values.put(DBConstants.TaskColum.COLUMN_NAME_AUDIOURL, task.getAudioUrl());
+        }
+        if (task.getImageUrl() != null) {
+            values.put(DBConstants.TaskColum.COLUMN_NAME_IMAGEURL, task.getImageUrl());
+        }
+        if (task.getNote() != null) {
+            values.put(DBConstants.TaskColum.COLUMN_NAME_NOTE, task.getNote());
+        }
         values.put(DBConstants.TaskColum.COLUMN_NAME_REPEAT, task.getRepeat());
-        values.put(DBConstants.TaskColum.COLUMN_NAME_TAGID, task.getTag().getId());
-        values.put(DBConstants.TaskColum.COLUMN_NAME_NOTE, task.getNote());
-
-        StringBuilder atFriends = new StringBuilder();
-        for (String at : task.getAtFriends()) {
-            atFriends.append(at);
-            atFriends.append(",");
+        if (task.getTag() != null) {
+            values.put(DBConstants.TaskColum.COLUMN_NAME_TAGID, task.getTag().getId());
         }
-        if (atFriends.toString().endsWith(",")) {
-            atFriends.deleteCharAt(atFriends.length() - 1);
+        if (task.getAtFriends() != null) {
+            StringBuilder atFriends = new StringBuilder();
+            for (String at : task.getAtFriends()) {
+                atFriends.append(at);
+                atFriends.append(",");
+            }
+            if (atFriends.toString().endsWith(",")) {
+                atFriends.deleteCharAt(atFriends.length() - 1);
+            }
+            values.put(DBConstants.TaskColum.COLUMN_NAME_ATFRIENDS, atFriends.toString());
         }
-        values.put(DBConstants.TaskColum.COLUMN_NAME_ATFRIENDS, atFriends.toString());
         long id = database.insert(DBConstants.TaskColum.TABLE_NAME, null, values);
-
         close();
         return id;
     }
@@ -190,4 +197,23 @@ public class TaskDao {
         return task;
     }
 
+    /**
+     * 获取没有提醒过的task
+     *
+     * @return
+     */
+    public List<Task> getNotAlertTasks() {
+        open();
+        List<Task> taskList = new ArrayList<Task>();
+        Cursor cursor = database.query(DBConstants.TaskColum.TABLE_NAME,
+                columns, DBConstants.TaskColum.COLUMN_NAME_HASALERTED + " = ?", new String[] { "false" }, null, null, DBConstants.TaskColum.COLUMN_NAME_TIME);
+        while (cursor.moveToNext()) {
+            Task task = cursorToTask(cursor);
+            taskList.add(task);
+        }
+        // make sure to close the cursor
+        cursor.close();
+        close();
+        return taskList;
+    }
 }
