@@ -7,11 +7,14 @@ package app.hanks.com.conquer.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,10 +24,11 @@ import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.activity.AlertActivity;
 import app.hanks.com.conquer.activity.FriendDataActivity;
 import app.hanks.com.conquer.bean.Task;
+import app.hanks.com.conquer.bean.User;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.TimeUtil;
-import app.hanks.com.conquer.view.CircularImageView;
+import cn.bmob.im.bean.BmobChatUser;
 
 /**
  * Created by Hanks on 2015/5/21.
@@ -33,10 +37,12 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
 
     private final List<Task> list;
     private final Context    context;
+    private       User       currentUser;
 
     public OtherTaskAdapter(Context context, List<Task> list) {
         this.list = list;
         this.context = context;
+        currentUser = BmobChatUser.getCurrentUser(context, User.class);
     }
 
     @Override
@@ -60,8 +66,8 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
         holder.tv_time.setText(TaskUtil.getZixiTimeS(task));
         holder.tv_name.setText(task.getName());
         holder.tv_Nick.setText(task.getUser().getNick());
-//        holder.tv_dis.setText(TaskUtil.getDistance(currentUser, task.getUser().getLocation()));
-//        loader.displayImage(task.getUser().getAvatar(), iv_photo);
+        holder.tv_dis.setText(TaskUtil.getDistance(currentUser, task.getUser().getLocation()));
+        holder.iv_photo.setImageURI(Uri.parse(task.getUser().getAvatar()));
         holder.iv_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,20 +94,19 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
 
 
     class TaskViewHolder extends RecyclerView.ViewHolder {
-        CircularImageView iv_photo;
-        ImageView         iv_gender;
-        TextView          tv_Nick;
-        TextView          tv_name;
-        TextView          tv_time;
-        TextView          tv_dis;
-        TextView          tv_created_time;
-        TextView          tv_zixitime;
-        TextView          tv_note;
+        SimpleDraweeView iv_photo;
+        ImageView        iv_gender;
+        TextView         tv_Nick;
+        TextView         tv_name;
+        TextView         tv_time;
+        TextView         tv_dis;
+        TextView         tv_created_time;
+        TextView         tv_zixitime;
+        TextView         tv_note;
 
         public TaskViewHolder(View view) {
             super(view);
-
-            iv_photo = (CircularImageView) view.findViewById(R.id.iv_photo);
+            iv_photo = (SimpleDraweeView) view.findViewById(R.id.iv_photo);
             iv_gender = (ImageView) view.findViewById(R.id.iv_gender);
             tv_Nick = (TextView) view.findViewById(R.id.tv_nickname);
             tv_name = (TextView) view.findViewById(R.id.tv_name);

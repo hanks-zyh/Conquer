@@ -65,6 +65,7 @@ dependencies {
     compile 'com.orhanobut:logger:1.8'
     //图片加载库
     compile 'com.facebook.fresco:fresco:0.4.0+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     //滚动检测
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
 

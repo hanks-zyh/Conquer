@@ -1,11 +1,5 @@
 package app.hanks.com.conquer.activity;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,12 +14,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import app.hanks.com.conquer.R;
-import app.hanks.com.conquer.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import app.hanks.com.conquer.R;
+import app.hanks.com.conquer.util.T;
 
 public class PhotoGallery extends BaseActivity {
 
@@ -155,7 +156,7 @@ public class PhotoGallery extends BaseActivity {
     @Override
     public void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back,
             ImageButton ib_right, View shadow) {
-
+        shadow.setVisibility(View.VISIBLE);
     }
 
     @Override

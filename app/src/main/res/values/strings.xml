@@ -70,5 +70,6 @@
     <string name="item_is_selected" msgid="2674929164900463786">"已选择 <xliff:g id="ITEM">%1$s</xliff:g>"</string>
     <string name="deleted_key" msgid="6908431551612331381">"已删除 <xliff:g id="KEY">%1$s</xliff:g>"</string>
     <string name="login">登录</string>
+    <string name="finish">完成</string>
 
 </resources>

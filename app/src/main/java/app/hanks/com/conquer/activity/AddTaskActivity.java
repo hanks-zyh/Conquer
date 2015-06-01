@@ -264,7 +264,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      */
     private void titleAnim() {
         layout_date.setTranslationY(-layout_date.getHeight());
-
+        tv_tag.setTranslationY(tv_tag.getHeight());
         currentTime.setAlpha(0);
         et_name.setVisibility(View.VISIBLE);
         layout_date.setVisibility(View.VISIBLE);
@@ -280,6 +280,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         ib_audio.animate().translationY(-w / 2).translationX((float) (-w * Math.sqrt(3) / 2)).rotation(360).setDuration(300).setStartDelay(50).start();
         ib_img.animate().translationX(-w).rotation(360).setDuration(300).start();
         ib_save.add2right();
+        tv_tag.animate().translationY(0).setDuration(300).alpha(1).setStartDelay(300).start();
 
         task.setNeedAlerted(true);
     }
@@ -666,7 +667,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private void showRepeat() {
         ListView v = new ListView(context);
         v.setFooterDividersEnabled(false);
-        final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
+        final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(80), PixelUtil.dp2px(192));
         popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true); // 点击popWin
@@ -806,8 +807,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      * 添加图片
      */
     private void selectPic() {
-        Intent intent = new Intent(context, SelectPicActivity.class);
-        intent.putExtra("noCut", true);
+        Intent intent = new Intent(context, AlbumActivity.class);
         startActivityForResult(intent, REQUES_IMG);
     }
 
@@ -844,7 +844,11 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         L.d(requestCode + "," + resultCode + "," + data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUES_IMG) {
-                File f = new File(data.getStringExtra("photo_path"));
+                List<String> imagePathList = data.getStringArrayListExtra(AlbumActivity.INTENT_SELECTED_PICTURE);
+                if (imagePathList.size() <= 0) {
+                    return;
+                }
+                File f = new File(imagePathList.get(0));
                 L.e("照片路径：" + f.getAbsolutePath());
                 if (f.exists()) {
                     iv.setVisibility(View.VISIBLE);

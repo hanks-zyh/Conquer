@@ -9,6 +9,8 @@
     <android.support.v7.widget.RecyclerView
         android:fadingEdge="none"
         android:overScrollMode="never"
+        android:paddingTop="24dp"
+        android:clipToPadding="false"
         android:id="@+id/recylerView"
         android:orientation="vertical"
         android:layout_width="match_parent"

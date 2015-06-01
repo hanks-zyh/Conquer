@@ -198,7 +198,7 @@
                     android:textColorHint="@color/gray"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:visibility="visible"/>
+                    android:visibility="invisible"/>
 
                 <app.hanks.com.conquer.view.FlowLayout
                     android:id="@+id/ll_at_friend"
@@ -233,6 +233,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/spinner_bg"
                     android:gravity="center"
+                    android:alpha="0"
                     android:text="全部"
                     android:textColor="@color/text2"
                     android:textSize="14sp"/>

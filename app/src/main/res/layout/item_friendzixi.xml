@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+             xmlns:fresco="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_margin="8dp"
+             android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl_1"
@@ -61,7 +62,7 @@
             android:layout_marginTop="8dp"
             android:background="@color/gray" />
 
-        <app.hanks.com.conquer.view.CircularImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -69,13 +70,9 @@
             android:layout_below="@+id/line"
             android:layout_marginLeft="16dp"
             android:clickable="true"
-            android:src="@drawable/default_photo"
-            app:border="false"
-            app:selector="true"
-            app:selector_color="#44FFBB33"
-            app:selector_stroke_color="#66FF8800"
-            app:selector_stroke_width="2dp"
-            app:shadow="false" />
+            fresco:placeholderImage="@drawable/default_photo"
+            fresco:roundAsCircle="true"
+             />
 
         <TextView
             android:id="@+id/tv_created_time"

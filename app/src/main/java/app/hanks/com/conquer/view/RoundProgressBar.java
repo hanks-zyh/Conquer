@@ -233,11 +233,11 @@ public class RoundProgressBar extends View {
      * @param progress
      */
     public synchronized void setProgress(int progress) {
-        if (hasShowing) {
+        if (this.progress == progress) {
             return;
         }
 
-        hasShowing = true;
+//        hasShowing = true;
         if (progress < 0) {
 //			throw new IllegalArgumentException("progress not less than 0");
             return;

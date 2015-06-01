@@ -1,9 +1,5 @@
 package app.hanks.com.conquer.activity;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +15,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.util.PhotoUtil;
@@ -155,7 +155,7 @@ public class SelectPicActivity extends Activity implements OnClickListener {
 			case 1:// 相机
 				if (resultCode == RESULT_OK) {
 					if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-						Toast.makeText(this, "SD不可用", 0).show();
+						Toast.makeText(this, "SD不可用", Toast.LENGTH_SHORT).show();
 						return;
 					}
 					File file = new File(filePath);

@@ -8,20 +8,20 @@
         android:id="@+id/alpha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e3e3e3"
-        android:padding="3dp"
+        android:background="#00e3e3e3"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:textColor="@color/guide_color"
         android:textSize="16sp" />
 
     <app.hanks.com.conquer.view.CircularImageView
         android:id="@+id/img_friend_avatar"
-        android:layout_width="50.0dip"
-        android:layout_height="50.0dip"
+        android:layout_width="35.0dip"
+        android:layout_height="35.0dip"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/alpha"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="6.0dip"
-        android:padding="5dp"
+        android:layout_margin="16dp"
         android:src="@drawable/default_photo"
         app:border="false"
         app:selector="true"
@@ -39,6 +39,6 @@
         android:layout_toRightOf="@id/img_friend_avatar"
         android:padding="5dp"
         android:singleLine="true"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
 </RelativeLayout>

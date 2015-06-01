@@ -36,8 +36,8 @@ import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.otto.BusProvider;
 import app.hanks.com.conquer.otto.RefreshEvent;
 import app.hanks.com.conquer.util.CollectionUtils;
-import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.L;
+import app.hanks.com.conquer.util.TaskUtil;
 
 /**
  * Created by Hanks on 2015/5/22.
@@ -56,10 +56,23 @@ public class MyTaskFragment extends BaseFragment {
     private RecyclerViewTouchActionGuardManager mRecyclerViewTouchActionGuardManager;
     private RecyclerViewDragDropManager         mRecyclerViewDragDropManager;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        BusProvider.getInstance().unregister(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_my_task, container, false);
+
     }
 
     @Override
@@ -69,11 +82,11 @@ public class MyTaskFragment extends BaseFragment {
         initRefreshLayout();
         getMyTask();
         initListener();
-        BusProvider.getInstance().register(this);
+
     }
 
     @Subscribe
-    public void onRefreshListener(RefreshEvent event) {
+    public void onRefreshSubscriber(RefreshEvent event) {
         getMyTask();
     }
 
