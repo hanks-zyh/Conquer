@@ -85,10 +85,10 @@ public class AlbumActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         initStatusBar();
         setContentView(R.layout.activity_album);
         MAX_NUM = getIntent().getIntExtra(INTENT_MAX_NUM, 6);
-        context = this;
         mContentResolver = getContentResolver();
 
         initView();

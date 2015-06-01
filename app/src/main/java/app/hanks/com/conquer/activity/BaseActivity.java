@@ -78,8 +78,8 @@ public abstract class BaseActivity extends FragmentActivity {
         initStatusBar();
         initTheme();
         initLayout();
-        userManager = BmobUserManager.getInstance(this);
-        manager = BmobChatManager.getInstance(this);
+        userManager = BmobUserManager.getInstance(getApplicationContext());
+        manager = BmobChatManager.getInstance(getApplicationContext());
         mApplication = CustomApplication.getInstance();
         currentUser = BmobChatUser.getCurrentUser(context, User.class);
         DisplayMetrics metric = new DisplayMetrics();
@@ -132,7 +132,7 @@ public abstract class BaseActivity extends FragmentActivity {
         ImageButton ib_right = (ImageButton) v.findViewById(R.id.ib_right);// 右边图标
         View shadow = v.findViewById(R.id.shadow);// 标题阴影
 //        if (rl_title != null && tv_title == null && ib_back == null && ib_right == null && shadow != null) {
-            initTitleBar(rl_title, tv_title, ib_back, ib_right, shadow);
+        initTitleBar(rl_title, tv_title, ib_back, ib_right, shadow);
 //        }
         setContentView(v);
     }
@@ -164,11 +164,19 @@ public abstract class BaseActivity extends FragmentActivity {
         tintManager.setStatusBarTintEnabled(true);
         int theme = (Integer) SP.get(context, "theme", 0);
         int color = R.color.theme_0;
-        switch (theme){
-            case 0: color = R.color.theme_0; break;
-            case 1: color = R.color.theme_1; break;
-            case 2: color = R.color.theme_2; break;
-            case 3: color = R.color.theme_3; break;
+        switch (theme) {
+            case 0:
+                color = R.color.theme_0;
+                break;
+            case 1:
+                color = R.color.theme_1;
+                break;
+            case 2:
+                color = R.color.theme_2;
+                break;
+            case 3:
+                color = R.color.theme_3;
+                break;
         }
         tintManager.setStatusBarTintColor(getResources().getColor(color));
     }

@@ -5,6 +5,9 @@
  */
 package app.hanks.com.conquer.fragment;
 
+import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.h6ah4i.android.widget.advrecyclerview.decoration.SimpleListDividerDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +55,17 @@ public class OtherTaskFragment extends BaseFragment{
         mRecylerView.setLayoutManager(mLayoutManager);
         adapter = new OtherTaskAdapter(context, list);
         mRecylerView.setAdapter(adapter);
+        mRecylerView.addItemDecoration(new SimpleListDividerDecorator( createRectShape(10,PixelUtil.dp2px(8), Color.TRANSPARENT),false));
         getOtherZixi();
     }
 
+    private static ShapeDrawable createRectShape(int width, int height, int color) {
+        ShapeDrawable shape = new ShapeDrawable(new RectShape());
+        shape.setIntrinsicHeight(height);
+        shape.setIntrinsicWidth(width);
+        shape.getPaint().setColor(color);
+        return shape;
+    }
 
     /**
      * 获取好友或者其他人的任务，让用户任务设置选择优先级</br> 0.优先时间近 1.优先好友的 2.优先本学院 3.优先本学校的 4.优先位置近的 5.其他

@@ -38,9 +38,11 @@ import app.hanks.com.conquer.fragment.MenuFragment;
 import app.hanks.com.conquer.fragment.MyTaskFragment;
 import app.hanks.com.conquer.fragment.OtherTaskFragment;
 import app.hanks.com.conquer.util.PixelUtil;
+import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.view.OpAnimationView;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
+import cn.bmob.v3.datatype.BmobGeoPoint;
 
 /**
  * Created by Administrator on 2015/5/17.
@@ -56,7 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView           mTitle;
     private PopupWindow        popWin;
     private SwipeRefreshLayout refreshLayout;
-    private OpAnimationView          addButtom;
+    private OpAnimationView    addButtom;
     private MyTaskFragment     myTaskFragment;
     private OtherTaskFragment  otherTaskFragment;
     private Fragment           currentFragment;
@@ -66,7 +68,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         materialMenu = (MaterialMenuView) findViewById(R.id.material_menu);
         toolbar = findViewById(R.id.title);
         mTitle = (TextView) findViewById(R.id.tv_title);
@@ -75,8 +76,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         materialMenu.setOnClickListener(this);
         iv_sort.setOnClickListener(this);
         addButtom.setOnClickListener(this);
+        initUserLocation();
         initDrawerMenu();
         initMain();
+    }
+
+    private void initUserLocation() {
+        double longitude = Double.parseDouble((String) SP.get(context.getApplicationContext(), "longitude", "0"));
+        double latitude = Double.parseDouble((String) SP.get(context.getApplicationContext(), "latitude", "0"));
+        currentUser.setLocation(new BmobGeoPoint(longitude, latitude));
+        currentUser.update(context.getApplicationContext());
     }
 
     /**
