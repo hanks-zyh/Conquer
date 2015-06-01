@@ -150,21 +150,21 @@
                 android:textSize="16sp"/>
 
             <TextView
-                android:id="@+id/tv_tag"
-                android:textColor="@color/text2"
-                android:textSize="14sp"
-                android:text="全部"
-                android:gravity="center"
+                android:id="@+id/tv_repeat"
                 android:layout_width="50dp"
-                android:layout_centerVertical="true"
                 android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/spinner_bg"
-                android:layout_alignParentRight="true"/>
+                android:gravity="center"
+                android:text="单次"
+                android:textColor="@color/text2"
+                android:textSize="14sp"/>
 
             <View
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="0.6dp"
+                android:layout_alignParentBottom="true"
                 android:background="#22666666"/>
         </RelativeLayout>
 
@@ -187,22 +187,18 @@
                 android:paddingTop="8dp">
 
                 <AutoCompleteTextView
-                    android:layout_weight="1"
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="left|bottom"
-                    android:background="@null"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_bg"
                     android:hint="输入内容"
                     android:imeOptions="actionDone"
-                    android:minHeight="48dp"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="8dp"
-                    android:singleLine="true"
+                    android:paddingTop="16dp"
                     android:textColorHint="@color/gray"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:visibility="invisible"/>
+                    android:visibility="visible"/>
 
                 <app.hanks.com.conquer.view.FlowLayout
                     android:id="@+id/ll_at_friend"
@@ -224,84 +220,22 @@
                     android:id="@+id/iv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxHeight="320dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/home_bg"
                     android:visibility="gone"/>
 
-                <RelativeLayout
-                    android:id="@+id/ll_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="invisible">
-
-                    <!--      <LinearLayout
-                              android:id="@+id/ll"
-                              android:layout_width="match_parent"
-                              android:layout_height="48dp"
-                              android:layout_alignParentBottom="true"
-                              android:orientation="horizontal">
-
-                              <ImageButton
-                                  android:id="@+id/ib_img"
-                                  style="@style/WeekTv"
-                                  android:background="@null"
-                                  android:src="@drawable/icon_pic"/>
-
-                              <ImageButton
-                                  android:id="@+id/ib_audio"
-                                  style="@style/WeekTv"
-                                  android:background="@null"
-                                  android:src="@drawable/icon_h"/>
-
-                              <ImageButton
-                                  android:id="@+id/ib_at"
-                                  style="@style/WeekTv"
-                                  android:background="@null"
-                                  android:src="@drawable/icon_a"/>
-
-                              <ImageButton
-                                  android:id="@+id/ib_theme"
-                                  style="@style/WeekTv"
-                                  android:background="@null"
-                                  android:src="@drawable/icon_jin"/>
-
-                              <ImageButton
-                                  android:id="@+id/ib_save"
-                                  style="@style/WeekTv"
-                                  android:background="@null"
-                                  android:src="@drawable/ic_done_grey600_24dp"/>
-                          </LinearLayout>
-
-                          <View
-                              android:layout_width="match_parent"
-                              android:layout_height="0.6dp"
-                              android:layout_above="@+id/ll"
-                              android:background="@color/gray"/>-->
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_gravity="bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <View
-                        android:layout_alignParentTop="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:background="#44666666"/>
-
-                    <TextView
-                        android:id="@+id/tv_repeat"
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
-                        android:textColor="@color/text2"
-                        android:textSize="14sp"
-                        android:gravity="center_vertical|left"
-                        android:text="单次"
-                        android:background="@drawable/btn_selector"
-                        android:layout_alignParentLeft="true"/>
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_tag"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/spinner_bg"
+                    android:gravity="center"
+                    android:text="全部"
+                    android:textColor="@color/text2"
+                    android:textSize="14sp"/>
 
             </LinearLayout>
         </ScrollView>

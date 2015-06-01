@@ -86,7 +86,7 @@ public class SplashActivity extends BaseActivity {
 
     private void startPollService() {
         // 开启后台任务检测服务,60s
-         PollingUtils.startPollingService(this, 60, AlertService.class, AlertService.ACTION);
+         PollingUtils.startPollingService(this, 30, AlertService.class, AlertService.ACTION);
     }
 
     private void initBmob() {

@@ -31,7 +31,6 @@ import app.hanks.com.conquer.view.RoundProgressBar;
 public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHolder>
         implements SwipeableItemAdapter<MyTaskAdapter.TaskViewHolder>, DraggableItemAdapter<MyTaskAdapter.TaskViewHolder> {
 
-
     private final List<Task> list;
     private final Context    context;
 
@@ -389,10 +388,10 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
         return (x >= left) && (x <= right) && (y >= top) && (y <= bottom);
     }
 
-
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+//        L.d("item count:" + list.size());
+        return  list.size();
     }
 
     class TaskViewHolder extends AbstractDraggableSwipeableItemViewHolder {

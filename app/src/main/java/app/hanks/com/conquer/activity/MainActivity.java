@@ -75,9 +75,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         materialMenu.setOnClickListener(this);
         iv_sort.setOnClickListener(this);
         addButtom.setOnClickListener(this);
-
         initDrawerMenu();
+        initMain();
+    }
 
+    /**
+     * 主界面
+     */
+    private void initMain() {
         myTaskFragment = new MyTaskFragment();
         otherTaskFragment = new OtherTaskFragment();
         currentFragment = myTaskFragment;
@@ -87,6 +92,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 侧滑抽屉界面
+     */
     private void initDrawerMenu() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);// 侧滑控件
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);

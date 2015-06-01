@@ -102,7 +102,7 @@ public class TagDao {
     public Tag getTag(int id) {
         open();
         Tag Tag = null;
-        String sql = "SELECT * FROM " + DBConstants.TagColum.TABLE_NAME + " WHERE id = (?)";
+        String sql = "SELECT * FROM " + DBConstants.TagColum.TABLE_NAME + " WHERE " + DBConstants.TagColum.COLUMN_NAME_ID + " = (?)";
         Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
         if (cursor.moveToNext()) {
             Tag = cursorToTag(cursor);
@@ -124,6 +124,19 @@ public class TagDao {
         Tag Tag = new Tag();
         Tag.setId(cursor.getInt(0));
         Tag.setName(cursor.getString(1));
+        return Tag;
+    }
+
+    public Tag getTagByName(String name) {
+        open();
+        Tag Tag = null;
+        String sql = "SELECT * FROM " + DBConstants.TagColum.TABLE_NAME + " WHERE  = " + DBConstants.TagColum.COLUMN_NAME_NAME + " (?)";
+        Cursor cursor = database.rawQuery(sql, new String[] { name });
+        if (cursor.moveToNext()) {
+            Tag = cursorToTag(cursor);
+        }
+        cursor.close();
+        close();
         return Tag;
     }
 }

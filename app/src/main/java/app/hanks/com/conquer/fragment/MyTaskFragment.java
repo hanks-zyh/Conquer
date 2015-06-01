@@ -24,7 +24,7 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
-import com.nostra13.universalimageloader.utils.L;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +33,11 @@ import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.adapter.MyTaskAdapter;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
+import app.hanks.com.conquer.otto.BusProvider;
+import app.hanks.com.conquer.otto.RefreshEvent;
 import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.TaskUtil;
+import app.hanks.com.conquer.util.L;
 
 /**
  * Created by Hanks on 2015/5/22.
@@ -62,7 +65,20 @@ public class MyTaskFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initRecyclerView();
+        initRefreshLayout();
+        getMyTask();
+        initListener();
+        BusProvider.getInstance().register(this);
+    }
 
+    @Subscribe
+    public void onRefreshListener(RefreshEvent event) {
+        getMyTask();
+    }
+
+
+    private void initRecyclerView() {
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recylerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -107,10 +123,6 @@ public class MyTaskFragment extends BaseFragment {
         mRecyclerViewTouchActionGuardManager.attachRecyclerView(mRecyclerView);
         mRecyclerViewSwipeManager.attachRecyclerView(mRecyclerView);
         mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
-
-        initRefreshLayout();
-        getMyTask();
-        initListener();
     }
 
     private void initListener() {
@@ -152,7 +164,6 @@ public class MyTaskFragment extends BaseFragment {
             }
         });
     }
-
 
     /**
      * 获取我的任务list

@@ -41,12 +41,14 @@
 
             <ImageButton
                 android:id="@+id/ll_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:background="@null"
                 android:src="@drawable/moment_action_done" />
 
             <TextView
+                android:layout_margin="8dp"
+                android:textColor="@color/text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="马上就去"
@@ -70,6 +72,7 @@
              />
 
         <TextView
+            android:layout_marginTop="4dp"
             android:id="@+id/tv_from"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,6 +91,7 @@
             android:textColor="@color/black" />
 
         <TextView
+            android:textColor="@color/text2"
             android:id="@+id/tv_zixitime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,7 +110,7 @@
         <LinearLayout
             android:id="@+id/ll_audio"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignLeft="@+id/tv_content"
             android:layout_below="@+id/tv_content"
             android:layout_marginTop="23dp"
@@ -124,6 +128,7 @@
                 android:src="@drawable/play_audio" />
 
             <ProgressBar
+                android:layout_marginTop="8dp"
                 android:id="@+id/pb"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"

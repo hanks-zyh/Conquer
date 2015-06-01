@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
-import com.nostra13.universalimageloader.utils.L;
 import com.tencent.stat.common.User;
 
 import java.util.List;
@@ -21,7 +20,9 @@ import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.util.NotifyUtils;
 import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.util.TaskUtil;
+import app.hanks.com.conquer.util.L;
 import cn.bmob.im.BmobUserManager;
+
 
 public class AlertService extends Service {
     public static final String ACTION = "app.hanks.com.conquer.service.AlertService";
@@ -69,7 +70,7 @@ public class AlertService extends Service {
                 alertTime = 1000 * 60 * 60;
             }
             for (Task task : list) {
-                L.d("今天未被提醒的任务:" + task.getId() + task.getName() + "," + task.getTime() + "提醒间隔：" + alertTime);
+//                L.d("今天未被提醒的任务:" + task.getId() + task.getName() + "," + task.getTime() + "提醒间隔：" + alertTime);
                 // 10分钟提前提醒
                 if (task.getTime() - System.currentTimeMillis() < alertTime) {
                     Card card = new Card();

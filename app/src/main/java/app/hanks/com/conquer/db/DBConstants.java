@@ -14,7 +14,8 @@ public class DBConstants {
     /* Inner class that defines the table contents */
     public static abstract class TaskColum{
         public static final String TABLE_NAME             = "Task";
-        public static final String COLUMN_NAME_ID         = "taskId";
+        public static final String COLUMN_NAME_ID         = "id";
+        public static final String COLUMN_NAME_OBJID      = "objectId";
         public static final String COLUMN_NAME_NAME       = "name";
         public static final String COLUMN_NAME_TIME       = "time";
         public static final String COLUMN_NAME_TAGID      = "tagId";
@@ -28,10 +29,10 @@ public class DBConstants {
     }
 
     /* Inner class that defines the table contents */
-    public static abstract class TagColum{
-        public static final String TABLE_NAME             = "Tag";
-        public static final String COLUMN_NAME_ID         = "tagId";
-        public static final String COLUMN_NAME_NAME       = "name";
+    public static abstract class TagColum {
+        public static final String TABLE_NAME       = "Tag";
+        public static final String COLUMN_NAME_ID   = "id";
+        public static final String COLUMN_NAME_NAME = "name";
     }
 
 

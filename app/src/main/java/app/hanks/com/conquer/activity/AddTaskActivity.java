@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -18,6 +17,7 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,6 +46,8 @@ import app.hanks.com.conquer.bean.User;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.db.TagDao;
 import app.hanks.com.conquer.db.TaskDao;
+import app.hanks.com.conquer.otto.BusProvider;
+import app.hanks.com.conquer.otto.RefreshEvent;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.AlertDialogUtils;
 import app.hanks.com.conquer.util.AlertDialogUtils.EtOkCallBack;
@@ -78,36 +80,41 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class AddTaskActivity extends BaseActivity implements OnClickListener, RevealBackgroundView.OnStateChangeListener {
 
-    private static final int      REQUES_IMG    = 0;
-    private static final int      REQUES_FRIEND = 1;
-    private final        Calendar mCalendar     = Calendar.getInstance();
+    private static final int REQUES_IMG    = 0;
+    private static final int REQUES_FRIEND = 1;
+
     boolean isFirst = true;
     private String               tag;
     private AutoCompleteTextView et_name;
     private TextView             tv_time, tv_time_tip;
     private TimePickerDialog timePickerDialog24h;
     private DatePickerDialog datePickerDialog;
-    private TextView         tv_date;
-    private TextView         wk_0, wk_1, wk_2, wk_3, wk_4, wk_5, wk_6;
+
+    private TextView tv_date;
+    private TextView wk_0, wk_1, wk_2, wk_3, wk_4, wk_5, wk_6;
     private TextView day_0, day_1, day_2, day_3, day_4, day_5, day_6;
+    private final Calendar mCalendar = Calendar.getInstance();
+
     private String imgUrl   = null;
     private String audioUrl = null;
+    private String note     = null;
+
     private ImageView  iv;// 添加的图片
     private View       ll_audio;
     private FlowLayout ll_at_friend;
     private List<String> atFriends = new ArrayList<String>();
     private List<User>   at        = new ArrayList<User>();
     private AudioUtils aUtils;
+
     // 标记第一个的时间基准
-    private long       headTime;
-    private String note = null;
+    private long headTime;
+
     private RevealBackgroundView vRevealBackground;
 
     private MaterialMenuView material_menu;
     private View             iv_sort; //title上面的
 
 
-    private View ll_bottom; //底部操作
     private View layout_date;//日期选择
     private View currentTime; //显示选择的时间
     private View ib_audio, ib_theme, ib_img, ib_at;
@@ -139,7 +146,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     }
 
     private void init() {
-
         // 播放音频的
         aUtils = AudioUtils.getInstance();
 
@@ -163,7 +169,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         ll_at_friend = (FlowLayout) findViewById(R.id.ll_at_friend);
 
 
-        ll_bottom = findViewById(R.id.ll_bottom);
         layout_date = findViewById(R.id.layout_date);
         currentTime = findViewById(R.id.currentTime);
 
@@ -238,9 +243,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         //自动补全
         String[] course = Tasks.tasks;
         AutoCompleteArrayAdapter<String> adapter = new AutoCompleteArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, course);
+                R.layout.item_list_simple, course);
         et_name.setAdapter(adapter);
-        et_name.setDropDownHeight(metrics.heightPixels / 2);
+        et_name.setDropDownHeight(metrics.heightPixels / 3);
         et_name.setThreshold(1);
         et_name.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
@@ -252,7 +257,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             }
         });
         et_name.setOnEditorActionListener(new SaveEditActionListener());
-
     }
 
     /**
@@ -263,7 +267,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
 
         currentTime.setAlpha(0);
         et_name.setVisibility(View.VISIBLE);
-        ll_bottom.setVisibility(View.VISIBLE);
         layout_date.setVisibility(View.VISIBLE);
         currentTime.setVisibility(View.VISIBLE);
         material_menu.animateState(MaterialMenuDrawable.IconState.ARROW);
@@ -271,7 +274,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         layout_date.animate().translationY(-PixelUtil.dp2px(3)).setDuration(300).start();
         currentTime.animate().alpha(1).setDuration(300).start();
 
-        int w = (int) (ib_save.getWidth() * 1.8f);
+        int w = (int) (ib_save.getWidth() * 1.7f);
         ib_theme.animate().translationY(-w).rotation(360).setDuration(300).setStartDelay(150).start();
         ib_at.animate().translationY((float) (-w * Math.sqrt(3) / 2)).translationX(-w / 2).rotation(360).setDuration(300).setStartDelay(100).start();
         ib_audio.animate().translationY(-w / 2).translationX((float) (-w * Math.sqrt(3) / 2)).rotation(360).setDuration(300).setStartDelay(50).start();
@@ -331,7 +334,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      * 初始化日历时间的选择控件
      */
     private void initDatePicker() {
-        mCalendar.add(Calendar.MINUTE, 10);// 设成10分钟后
+        mCalendar.add(Calendar.MINUTE, 60);// 设成60分钟后
         setTimeAndTip(new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + " "
                 + pad(mCalendar.get(Calendar.HOUR_OF_DAY)) + ":" + pad(mCalendar.get(Calendar.MINUTE)));
 
@@ -383,10 +386,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         /** 1.彈出进度条dialog 或者 设置 保存按钮不可用 */
         /** 2.获取内容 */
         /** 3.提交服务器，成功finish ，失败关闭dialog或者设置保存按钮可以使用 */
-        L.i("日期" + tv_date.getText());
-        L.i("时间" + tv_time.getText());
-        L.i("科目" + et_name.getText());
-        L.i("分享" + true);
         String name = et_name.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
             T.show(context, "请添加任务名称");
@@ -407,40 +406,30 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             T.show(context, "时间已经过去了 T_T ");
             return;
         }
-//        task.setShare(true);
         task.setHasAlerted(false);
-//        task.setImageUrl("http://file.bmob.cn/M00/D6/51/oYYBAFR9b8WAFsBlAAAqS_L5sFI605.jpg");
-//        task.setAudioUrl("http://file.bmob.cn/M00/D6/50/oYYBAFR9bguAMz02AACdR5Xly68154.amr");
-//        task.setNote("单身*一只，求任务陪同 ● v ● ");
-        if (imgUrl != null)
-            task.setImageUrl(imgUrl);
-        if (audioUrl != null)
-            task.setAudioUrl(audioUrl);
-        if (note != null)
-            task.setNote(note);
         if (atFriends.size() > 0) {
             task.setAtFriends(atFriends);
         }
         task.save(context, new SaveListener() {
             @Override
             public void onSuccess() {
+                L.d("保存的task：" + task.getObjectId());
                 // 1.本地数据库存储
-//                try {
-//                    dbUtils.save(task);
-//                } catch (DbException e) {
-//                    e.printStackTrace();
-//                }
                 new TaskDao(context).create(task);
-                if (CollectionUtils.isNotNull(at)) {
+                if (CollectionUtils.isNotNull(at)) {//发送好友邀请
                     sendInvite(task);
                 }
+
+                //通知刷新list
+                BusProvider.getInstance().post(new RefreshEvent());
+
                 // 2.finish
                 A.finishSelf(context);
             }
 
             @Override
             public void onFailure(int arg0, String arg1) {
-                L.i(arg0 + "，task.save，" + arg1);
+                L.e(arg0 + "，task.save，" + arg1);
             }
         });
     }
@@ -463,7 +452,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 card.setAudioUrl(audioUrl);
             if (imgUrl != null)
                 card.setImgUrl(imgUrl);
-            card.setContent("来和我一块吧!");
+            card.setContent("我在克服拖延症，记得提醒我哟!");
             L.e(card.toString());
             String json = new Gson().toJson(card);
             L.d("发送邀请：" + user.getNick());
@@ -573,10 +562,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      * 添加修改标签
      */
     private void showTagSelect() {
-
         ListView v = new ListView(context);
         v.setFooterDividersEnabled(false);
-
         final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
         popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
         popupWindow.setFocusable(true);
@@ -593,7 +580,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         if (tags == null) {
             tags = new ArrayList<>();
         }
-        Tag tag0= new Tag();
+        Tag tag0 = new Tag();
         tag0.setName("全部");
         Tag tag1 = new Tag();
         tag1.setName("生活");
@@ -629,8 +616,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         v.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position<finalTags.size()-5){
-                    deleteTag(finalTags.get(position),popupWindow);
+                if (position < finalTags.size() - 5) {
+                    deleteTag(finalTags.get(position), popupWindow);
                 }
                 return true;
             }
@@ -640,6 +627,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
 
     /**
      * 删除分组
+     *
      * @param tag
      * @param popupWindow
      */
@@ -650,7 +638,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 new TagDao(context).deleteTag(tag);
                 popupWindow.dismiss();
             }
-        },null);
+        }, null);
     }
 
     /**
@@ -676,6 +664,33 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      * 添加修改重复
      */
     private void showRepeat() {
+        ListView v = new ListView(context);
+        v.setFooterDividersEnabled(false);
+        final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
+        popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true); // 点击popWin
+        popupWindow.setOutsideTouchable(true); // 以处的区域，自动关闭
+
+        int[] location = new int[2];
+        tv_repeat.getLocationOnScreen(location);
+        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] + tv_repeat.getHeight());
+
+        final List<String> list = new ArrayList<>();
+        list.add("单次");
+        list.add("每天");
+        list.add("每周");
+        list.add("每月");
+        v.setAdapter(new ArrayAdapter<String>(context, R.layout.item_list_simple, list));
+
+        v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                task.setRepeat(position);
+                tv_repeat.setText(list.get(position));
+                popupWindow.dismiss();
+            }
+        });
 
     }
 
@@ -686,7 +701,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         AlertDialogUtils.showEditDialog(context, "输入附加信息", "写好了", "算了", new EtOkCallBack() {
             @Override
             public void onOkClick(String s) {
-                note = s;
+                task.setNote(s);
             }
         });
     }
@@ -717,7 +732,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             tv.setLayoutParams(lp);
             tv.setBackgroundResource(R.drawable.btn_little_grey_f);
             if (atFriends.size() > 0)
-                tv.setText("@" + toUsers.getNick() + "  ");
+                tv.setText(" @" + toUsers.getNick() + "  ");
             ll_at_friend.addView(tv);
             tv.setOnClickListener(new OnClickListener() {
                 @Override
@@ -768,11 +783,10 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                             }, null);
                         }
                     });
-
                     TaskUtil.upLoadFile(context, f, new UpLoadListener() {
                         @Override
                         public void onSuccess(String url) {
-                            audioUrl = url;
+                            task.setAudioUrl(url);
                         }
 
                         @Override
@@ -857,7 +871,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         TaskUtil.upLoadFile(context, f, new UpLoadListener() {
             @Override
             public void onSuccess(String url) {
-                imgUrl = url;
+                task.setImageUrl(url);
             }
 
             @Override
@@ -898,31 +912,14 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 }
             });
         } else {
-//            userPhotosAdapter.setLockedAnimations(true);
             vRevealBackground.setToFinishedFrame();
         }
-    }
-
-    private void setupUserProfileGrid() {
-        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-//        rvUserProfile.setLayoutManager(layoutManager);
-//        rvUserProfile.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                userPhotosAdapter.setLockedAnimations(true);
-//            }
-//        });
     }
 
     @Override
     public void onStateChange(int state) {
         if (RevealBackgroundView.STATE_FINISHED == state) {
-//            rvUserProfile.setVisibility(View.VISIBLE);
-//            userPhotosAdapter = new UserProfileAdapter(this);
-//            rvUserProfile.setAdapter(userPhotosAdapter);
             titleAnim();
-        } else {
-//            rvUserProfile.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="app.hanks.com.conquer"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest
+    package="app.hanks.com.conquer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- normal permission -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -72,116 +73,113 @@
             android:name=".activity.DialogActivity"
             android:theme="@style/MyDialog"></activity>
         <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.SchoolActivity"></activity>
-        <activity android:name=".activity.SchoolInfoActivity"></activity>
-        <activity android:name=".activity.DepartmentActivity"></activity>
         <activity android:name=".activity.AddFriendActivity"></activity>
         <activity
             android:name=".activity.AddTaskActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentActivity">
-    </activity>
+        </activity>
 
-    <activity android:name=".activity.UserDataActivity"></activity>
-    <activity android:name=".activity.AllMyZixiActivity"></activity>
-    <activity android:name=".activity.ChatActivity"></activity>
-    <activity android:name=".activity.SettingActivity"></activity>
-    <activity android:name=".activity.LocationActivity"></activity>
-    <activity android:name=".activity.FriendActivity"></activity>
-    <activity android:name=".activity.FriendDataActivity"></activity>
-    <activity android:name=".activity.BlackListActivity"></activity>
-    <activity android:name=".activity.MyHistoryActivity"></activity>
-    <activity android:name=".activity.MyPhotoActivity"></activity>
-    <activity android:name=".activity.PhotoGallery"></activity>
-    <activity android:name=".activity.SelectFriendActivity"></activity>
-    <activity android:name=".activity.NewFriendActivity"></activity>
-    <activity android:name=".activity.NearPeopleActivity"></activity>
-    <activity android:name=".activity.AboutActivity"></activity>
-    <activity android:name=".activity.EditMyInfoActivity"></activity>
-    <activity
-        android:name=".activity.SelectPicActivity"
-        android:theme="@style/MyDialog"></activity>
-    <activity android:name=".activity.AlertActivity"></activity>
-
-
-    <service android:name=".service.AlertService">
-        <intent-filter>
-            <action android:name="com.hpu.pnszx.service.AlertService"/>
-        </intent-filter>
-    </service>
-    <!-- qq授权需要注册该activity -->
-    <activity
-        android:name="com.tencent.connect.common.AssistActivity"
-        android:configChanges="orientation|keyboardHidden"
-        android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-    <activity
-        android:name="com.tencent.tauth.AuthActivity"
-        android:launchMode="singleTask"
-        android:noHistory="true">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-
-            <category android:name="android.intent.category.DEFAULT"/>
-            <category android:name="android.intent.category.BROWSABLE"/>
-
-            <data android:scheme="tencent1104571383"/>
-        </intent-filter>
-    </activity>
-
-    <!-- baidu map -->
-    <meta-data
-        android:name="com.baidu.lbsapi.API_KEY"
-        android:value="6dZ1XzqMIqgGyiHTx8oEEEv9"/>
-
-    <service
-        android:name="com.baidu.location.f"
-        android:enabled="true"
-        android:process=":remote">
-        <intent-filter>
-            <action android:name="com.baidu.location.service_v2.2">
-            </action>
-        </intent-filter>
-    </service>
-
-    <!-- IM聊天所需的Push start -->
-    <service
-        android:name="cn.bmob.push.lib.service.PushService"
-        android:exported="true"
-        android:label="PushService"
-        android:permission="cn.bmob.permission.push"
-        android:process="cn.bmob.push">
-        <intent-filter>
-            <action android:name="cn.bmob.push.lib.service.PushService"/>
-        </intent-filter>
-    </service>
-
-    <receiver android:name="cn.bmob.push.PushReceiver">
-        <intent-filter android:priority="2147483647">
-
-            <!-- 优先级加最高 -->
-            <!-- 系统启动完成后会调用 -->
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            <!-- 解锁完成后会调用 -->
-            <action android:name="android.intent.action.USER_PRESENT"/>
-            <!-- 监听网络连通性 -->
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-        </intent-filter>
-    </receiver>
-    <receiver android:name=".MyMessageReceiver">
-        <intent-filter>
-            <action android:name="cn.bmob.push.action.MESSAGE"/>
-        </intent-filter>
-    </receiver>
-    <!-- IM聊天所需的Push end -->
+        <activity android:name=".activity.UserDataActivity"></activity>
+        <activity android:name=".activity.AllMyZixiActivity"></activity>
+        <activity android:name=".activity.ChatActivity"></activity>
+        <activity android:name=".activity.SettingActivity"></activity>
+        <activity android:name=".activity.LocationActivity"></activity>
+        <activity android:name=".activity.FriendActivity"></activity>
+        <activity android:name=".activity.FriendDataActivity"></activity>
+        <activity android:name=".activity.BlackListActivity"></activity>
+        <activity android:name=".activity.MyHistoryActivity"></activity>
+        <activity android:name=".activity.MyPhotoActivity"></activity>
+        <activity android:name=".activity.PhotoGallery"></activity>
+        <activity android:name=".activity.SelectFriendActivity"></activity>
+        <activity android:name=".activity.NewFriendActivity"></activity>
+        <activity android:name=".activity.NearPeopleActivity"></activity>
+        <activity android:name=".activity.AboutActivity"></activity>
+        <activity android:name=".activity.EditMyInfoActivity"></activity>
+        <activity
+            android:name=".activity.SelectPicActivity"
+            android:theme="@style/MyDialog"></activity>
+        <activity android:name=".activity.AlertActivity"></activity>
 
 
-    <!-- 启动定时检测操作 -->
-    <service android:name="cn.bmob.im.poll.BmobPollService">
-        <intent-filter>
-            <action android:name="cn.bmob.im.service.BmobPollService"/>
-        </intent-filter>
-    </service>
-</application>
+        <service android:name=".service.AlertService">
+            <intent-filter>
+                <action android:name="com.hpu.pnszx.service.AlertService"/>
+            </intent-filter>
+        </service>
+        <!-- qq授权需要注册该activity -->
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
 
-    </manifest>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent1104571383"/>
+            </intent-filter>
+        </activity>
+
+        <!-- baidu map -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="6dZ1XzqMIqgGyiHTx8oEEEv9"/>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2">
+                </action>
+            </intent-filter>
+        </service>
+
+        <!-- IM聊天所需的Push start -->
+        <service
+            android:name="cn.bmob.push.lib.service.PushService"
+            android:exported="true"
+            android:label="PushService"
+            android:permission="cn.bmob.permission.push"
+            android:process="cn.bmob.push">
+            <intent-filter>
+                <action android:name="cn.bmob.push.lib.service.PushService"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name="cn.bmob.push.PushReceiver">
+            <intent-filter android:priority="2147483647">
+
+                <!-- 优先级加最高 -->
+                <!-- 系统启动完成后会调用 -->
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <!-- 解锁完成后会调用 -->
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <!-- 监听网络连通性 -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".MyMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.bmob.push.action.MESSAGE"/>
+            </intent-filter>
+        </receiver>
+        <!-- IM聊天所需的Push end -->
+
+
+        <!-- 启动定时检测操作 -->
+        <service android:name="cn.bmob.im.poll.BmobPollService">
+            <intent-filter>
+                <action android:name="cn.bmob.im.service.BmobPollService"/>
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
