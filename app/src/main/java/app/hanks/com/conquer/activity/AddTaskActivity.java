@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewTreeObserver;
@@ -247,7 +246,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         et_name.setAdapter(adapter);
         et_name.setDropDownHeight(metrics.heightPixels / 3);
         et_name.setThreshold(1);
-        et_name.setOnFocusChangeListener(new OnFocusChangeListener() {
+       /* et_name.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 AutoCompleteTextView view = (AutoCompleteTextView) v;
@@ -255,7 +254,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                     view.showDropDown();
                 }
             }
-        });
+        });*/
         et_name.setOnEditorActionListener(new SaveEditActionListener());
     }
 
@@ -457,7 +456,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             L.e(card.toString());
             String json = new Gson().toJson(card);
             L.d("发送邀请：" + user.getNick());
-            MsgUtils.sendMsg(context, BmobChatManager.getInstance(context), user, json);
+            MsgUtils.sendMsg(context, BmobChatManager.getInstance(context.getApplicationContext()), user, json);
         }
     }
 

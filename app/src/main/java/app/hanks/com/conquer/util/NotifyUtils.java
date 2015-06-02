@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Date;
@@ -204,15 +206,16 @@ public class NotifyUtils {
 		ImageView iv_bell = (ImageView) view.findViewById(R.id.iv_bell);
 		TextView tv_type = (TextView) view.findViewById(R.id.tv_type);
 		TextView tv_from = (TextView) view.findViewById(R.id.tv_from);
+		SimpleDraweeView iv_avatar = (SimpleDraweeView) view.findViewById(R.id.iv_avatar);
 		TextView tv_zixitime = (TextView) view.findViewById(R.id.tv_zixitime);
 		TextView tv_zixiname = (TextView) view.findViewById(R.id.tv_zixiname);
 		TextView tv_content = (TextView) view.findViewById(R.id.tv_content);
 		tv_type.setText("勾搭任务");
-		tv_from.setText(card.getFnick());
+		tv_from.setText("来自:"+card.getFnick());
 		tv_zixitime.setText(TaskUtil.getZixiDateS(card.getTime()) + " " + TaskUtil.getZixiTimeS(card.getTime()));
 		tv_zixiname.setText(card.getZixiName());
 		tv_content.setText(card.getContent());
-
+		iv_avatar.setImageURI(Uri.parse(card.getFavatar()));
 		// 铃铛动画
 		iv_bell.setBackgroundResource(R.drawable.alert_bell_anim);
 		AnimationDrawable draw = (AnimationDrawable) iv_bell.getBackground();
@@ -253,7 +256,6 @@ public class NotifyUtils {
 						CustomApplication.getInstance().setContactList(CollectionUtils.list2map(BmobDB.create(context).getContactList()));
 						BmobDB.create(context).addBlack(card.getFusername());
 					}
-
 					@Override
 					public void onFailure(int arg0, String arg1) {
 						T.show(context, "黑名单添加失败:" + arg1);

@@ -64,7 +64,7 @@ public class RecordUtil {
 		dialog.setCanceledOnTouchOutside(false);
 		initView(view);
 
-		recordManager = BmobRecordManager.getInstance(context);
+		recordManager = BmobRecordManager.getInstance(context.getApplicationContext());
 		// 设置音量大小监听--在这里开发者可以自己实现：当剩余10秒情况下的给用户的提示，类似微信的语音那样
 		recordManager.setOnRecordChangeListener(new OnRecordChangeListener() {
 			@Override
