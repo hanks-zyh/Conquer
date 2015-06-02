@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="8dp"
             app:mm_strokeWidth="2"
-            app:mm_transformDuration="400"/>
+            app:mm_transformDuration="300"/>
 
         <ImageButton
             android:id="@+id/iv_sort"

@@ -17,8 +17,9 @@ import app.hanks.com.conquer.activity.AllMyZixiActivity;
 import app.hanks.com.conquer.activity.FriendActivity;
 import app.hanks.com.conquer.activity.MyHistoryActivity;
 import app.hanks.com.conquer.activity.SettingActivity;
-import app.hanks.com.conquer.activity.UserDataActivity;
 import app.hanks.com.conquer.bean.User;
+import app.hanks.com.conquer.otto.BusProvider;
+import app.hanks.com.conquer.otto.MenuPhotoClickEvent;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.UserDataUtils;
@@ -58,7 +59,7 @@ public class MenuFragment extends BaseFragment implements OnClickListener {
 		// ((MainActivity) context).toggle();
 		switch (v.getId()) {
 			case R.id.iv_photo:
-				A.goOtherActivity(context, UserDataActivity.class);
+				BusProvider.getInstance().post(new MenuPhotoClickEvent());
 				break;
 			case R.id.ll_friend:
 				A.goOtherActivity(context, FriendActivity.class);

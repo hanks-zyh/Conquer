@@ -91,11 +91,11 @@ public abstract class BaseActivity extends FragmentActivity {
         option_photo = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_photo)
                 .showImageForEmptyUri(R.drawable.default_photo).showImageOnFail(R.drawable.default_photo)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(800)).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(200)).build();
         option_pic = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.pic_loading)
                 .showImageForEmptyUri(R.drawable.pic_loading).showImageOnFail(R.drawable.pic_loading)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(1000)).build();
+                .bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(200)).build();
         dbUtils = DbUtils.create(context);
     }
 

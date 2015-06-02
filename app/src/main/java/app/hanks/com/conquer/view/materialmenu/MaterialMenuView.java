@@ -35,6 +35,7 @@ import static app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable.DEFAU
 import static app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable.DEFAULT_PRESSED_DURATION;
 import static app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable.DEFAULT_SCALE;
 import static app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable.DEFAULT_TRANSFORM_DURATION;
+
 /**
  * A basic View wrapper of {@link MaterialMenuDrawable}. Used
  * for custom view ActionBar or other layouts
@@ -66,6 +67,22 @@ public class MaterialMenuView extends View implements MaterialMenu {
             int scale = attr.getInteger(R.styleable.MaterialMenuView_mm_scale, DEFAULT_SCALE);
             int transformDuration = attr.getInteger(R.styleable.MaterialMenuView_mm_transformDuration, DEFAULT_TRANSFORM_DURATION);
             int pressedDuration = attr.getInteger(R.styleable.MaterialMenuView_mm_pressedDuration, DEFAULT_PRESSED_DURATION);
+            int state = attr.getInt(R.styleable.MaterialMenuView_mm_strokeWidth, 0);
+
+            switch (state) {
+                case 0:
+                    currentState = IconState.BURGER;
+                    break;
+                case 1:
+                    currentState = IconState.ARROW;
+                    break;
+                case 2:
+                    currentState = IconState.X;
+                    break;
+                case 3:
+                    currentState = IconState.CHECK;
+                    break;
+            }
             Stroke stroke = Stroke.valueOf(attr.getInteger(R.styleable.MaterialMenuView_mm_strokeWidth, 0));
             boolean rtlEnabled = attr.getBoolean(R.styleable.MaterialMenuView_mm_rtlEnabled, false);
 
@@ -199,9 +216,9 @@ public class MaterialMenuView extends View implements MaterialMenu {
     private void adjustDrawablePadding() {
         if (drawable != null) {
             drawable.setBounds(
-                0, 0,
-                drawable.getIntrinsicWidth() + getPaddingLeft() + getPaddingRight(),
-                drawable.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom()
+                    0, 0,
+                    drawable.getIntrinsicWidth() + getPaddingLeft() + getPaddingRight(),
+                    drawable.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom()
             );
         }
     }

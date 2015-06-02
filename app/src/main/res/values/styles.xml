@@ -232,12 +232,14 @@
     </style>
 
     <style name="TextView_Login_QQ_or_Sina">
-        <item name="android:textSize">12.0sp</item>
+        <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">35.0dip</item>
         <item name="android:layout_marginTop">10.0dip</item>
+        <item name="android:layout_marginLeft">40.0dip</item>
+        <item name="android:layout_marginRight">40.0dip</item>
     </style>
 
     <style name="MyProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">

@@ -164,10 +164,10 @@ public class EditMyInfoActivity extends BaseActivity implements OnClickListener 
     }
 
     private void changePhoto() {
-        Intent intent = new Intent(context, SelectPicActivity.class);
-        intent.putExtra("noCut", false);
-        intent.putExtra("cutW", 200);
-        intent.putExtra("cutH", 200);
+        Intent intent = new Intent(context, AlbumActivity.class);
+//        intent.putExtra("noCut", false);
+//        intent.putExtra("cutW", 200);
+//        intent.putExtra("cutH", 200);
         startActivityForResult(intent, 0);
     }
 
@@ -194,7 +194,11 @@ public class EditMyInfoActivity extends BaseActivity implements OnClickListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         L.d(requestCode + "," + resultCode + "," + data);
         if (resultCode == RESULT_OK && data != null) {
-            File f = new File(data.getStringExtra("photo_path"));
+            List<String> images = data.getStringArrayListExtra(AlbumActivity.INTENT_SELECTED_PICTURE);
+            if (images == null || images.size() <= 0) {
+                return;
+            }
+            File f = new File(images.get(0));
             L.e("照片路径：" + f.getAbsolutePath());
             if (f.exists()) uploadPic(f);
         }
@@ -226,7 +230,9 @@ public class EditMyInfoActivity extends BaseActivity implements OnClickListener 
     @Override
     public void onBackPressed() {
         updateUserInfo();
-        super.onBackPressed();
+//        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, R.anim.activity_right_exit);
     }
 
     @Override

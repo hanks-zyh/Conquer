@@ -1,14 +1,18 @@
 package app.hanks.com.conquer.activity;
 
+import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
@@ -20,83 +24,115 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.hanks.com.conquer.R;
-import app.hanks.com.conquer.bean.User;
 import app.hanks.com.conquer.util.A;
-import app.hanks.com.conquer.util.CollectionUtils;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.TaskUtil.UpLoadListener;
 import app.hanks.com.conquer.util.UserDataUtils;
-import app.hanks.com.conquer.util.UserDataUtils.QueryUserDataListener;
 import app.hanks.com.conquer.util.UserDataUtils.UpdateUserDataListener;
 import app.hanks.com.conquer.view.CircularImageView;
+import app.hanks.com.conquer.view.RevealBackgroundView;
+import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
+import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
 
-public class UserDataActivity extends BaseActivity implements OnClickListener, ObservableScrollViewCallbacks {
+public class UserDataActivity extends BaseActivity implements OnClickListener, ObservableScrollViewCallbacks, RevealBackgroundView.OnStateChangeListener {
+
+    private static String photoUrl = "";
+    private static String homeUrl  = "";
 
     private ObservableScrollView scrollView;
     private CircularImageView    iv_photo;
     private ImageView            iv_gender;
-    private TextView             tv_id, tv_nickname;
-    private TextView et_school, et_dep, et_year, et_city, et_phone;
+
+    private TextView tv_id, tv_nickname;
+    private TextView et_city, et_phone;
     private ViewGroup ll_label, ll_album;
-    private View title_bg;
-    private int SCROLL_DIS = 180;// 头部滑动检测距离
     private ImageView add_pic;
     private ImageView iv_home_bg;
-    private View      add;
-    private static String photoUrl = "";
-    private static String homeUrl  = "";
-    private float photoScale;
-    private int   home_bg_height;
-    private View  topView;
-    private View  iv_camera;
+
+    private int SCROLL_DIS = 180;// 头部滑动检测距离
+    private int home_bg_height;
+
+    private View title_bg;
+    private View add;
+    private View topView;
+    private View iv_camera;
+    private View data;
+    private View album;
+    private View bt_eidt;
+
+    private RevealBackgroundView vRevealBackground;
+    private MaterialMenuView     material_menu;
+
+    private boolean finishRelav;
+    private boolean isHide = false;
+
+    private Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
+    public static void startUserProfileFromLocation(int[] startingLocation, Activity mainActivity) {
+        Intent intent = new Intent(mainActivity, UserDataActivity.class);
+        intent.putExtra("startingLocation", startingLocation);
+        mainActivity.startActivity(intent);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_data);
         // 每次进来更新信息
+        bindViews();
         init();
+        setScrollListen();
+        setupRevealBackground(savedInstanceState);
     }
 
-    private void init() {
+    private void bindViews() {
         scrollView = (ObservableScrollView) findViewById(R.id.sv);
         title_bg = findViewById(R.id.title_bg);
         iv_photo = (CircularImageView) findViewById(R.id.iv_photo);
+        material_menu = (MaterialMenuView) findViewById(R.id.material_menu);
         tv_nickname = (TextView) findViewById(R.id.tv_nickname);
         iv_gender = (ImageView) findViewById(R.id.iv_gender);
         iv_home_bg = (ImageView) findViewById(R.id.iv_home_bg);
+        album = findViewById(R.id.album);
+        data = findViewById(R.id.data);
         tv_id = (TextView) findViewById(R.id.tv_id);
         et_city = (TextView) findViewById(R.id.et_city);
-//        et_school = (TextView) findViewById(R.id.et_school);
-//        et_dep = (TextView) findViewById(R.id.et_dep);
-//        et_year = (TextView) findViewById(R.id.et_year);
         et_phone = (TextView) findViewById(R.id.et_phone);
         topView = findViewById(R.id.topView);
-        // et_love_status = (EditText) findViewById(R.id.et_love_status);
         iv_camera = findViewById(R.id.iv_camera);
-        iv_camera.setOnClickListener(this);
-
         ll_album = (ViewGroup) findViewById(R.id.ll_album);
         ll_label = (ViewGroup) findViewById(R.id.ll_label);
-
+        bt_eidt = findViewById(R.id.bt_eidt);
         add = View.inflate(context, R.layout.item_album, null);
         add_pic = (ImageView) add.findViewById(R.id.iv_pic);
+    }
+
+    private void init() {
+
+        iv_camera.setOnClickListener(this);
+        bt_eidt.setOnClickListener(this);
         add_pic.setImageResource(R.drawable.ic_add_pic);
         ll_album.addView(add);
-        findViewById(R.id.bt_eidt).setOnClickListener(this);
-        // initUserData();//resume中调用
+
         SCROLL_DIS = getResources().getDimensionPixelSize(R.dimen.photo_top) - getResources().getDimensionPixelSize(R.dimen.title_height)
                 / 2 + getResources().getDimensionPixelSize(R.dimen.photo_size) / 2;
 
-        photoScale = getResources().getDimensionPixelSize(R.dimen.photo_size) * 1.8f;
         home_bg_height = getResources().getDimensionPixelSize(R.dimen.home_bg_height)
                 - getResources().getDimensionPixelSize(R.dimen.title_height);
+        material_menu.setState(MaterialMenuDrawable.IconState.X);
 
 
-        setScrollListen();
-
+        iv_camera.setScaleX(0);
+        iv_camera.setScaleY(0);
+        isHide = true;
+        finishRelav = true;
     }
 
     /**
@@ -118,7 +154,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
                 photoUrl = avatar;
             }
             String home = currentUser.getHomeBg();
-            if (home != null && !homeUrl.equals(avatar)) {
+            if (home != null && !homeUrl.equals(home)) {
                 loader.displayImage(home, iv_home_bg, option_pic);
                 homeUrl = home;
             }
@@ -139,7 +175,6 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
                 }
             });
         }
-
     }
 
     /**
@@ -168,55 +203,25 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
         }
     }
 
-    /**
-     * 动态添加text
-     */
-    private void initLabel(ArrayList<String> list) {
-        if (list == null) return;
-        ll_label.removeAllViews();
-        LinearLayout ll = null;
-        LayoutParams pa = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1.0f);
-        param.setMargins(5, 5, 5, 5);
-        for (int i = 0; i < list.size(); i++) {
-            TextView tv = (TextView) View.inflate(context, R.layout.item_label, null);
-            tv.setLayoutParams(param);
-            tv.setText(list.get(i));
-            if (i % 4 == 0) {
-                ll = new LinearLayout(context);
-                ll.setLayoutParams(pa);
-                ll_label.addView(ll);
-            }
-            tv.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // goDiscussActivity(list.get(p));
-                }
-            });
-            ll.addView(tv);
-            if (i > 4) break;
-        }
-    }
-
     @Override
     protected void onStart() {
+        super.onStart();
         if (currentUser != null) {
             initUserData();
-            UserDataUtils.queryUserByUsername(context, currentUser.getUsername(), new QueryUserDataListener() {
-                @Override
-                public void onSuccess(List<User> arg0) {
-                    if (CollectionUtils.isNotNull(arg0)) {
-                        currentUser = arg0.get(0);
-                        initUserData();
-                    }
-                }
-
-                @Override
-                public void onFailure(int errorCode, String msg) {
-                }
-            });
+//            UserDataUtils.queryUserByUsername(context, currentUser.getUsername(), new QueryUserDataListener() {
+//                @Override
+//                public void onSuccess(List<User> arg0) {
+//                    if (CollectionUtils.isNotNull(arg0)) {
+//                        currentUser = arg0.get(0);
+//                        initUserData();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(int errorCode, String msg) {
+//                }
+//            });
         }
-        super.onStart();
     }
 
     @Override
@@ -235,19 +240,19 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
      * 改变用户背景
      */
     private void changeHomeBg() {
-        Intent intent = new Intent(context, SelectPicActivity.class);
-        intent.putExtra("noCut", true);
-        // intent.putExtra("cutW", 720);
-        // intent.putExtra("cutH", 400);
+        Intent intent = new Intent(context, AlbumActivity.class);
         startActivityForResult(intent, 0);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        L.d(requestCode + "," + resultCode + "," + data);
         if (resultCode == RESULT_OK) {
-            File f = new File(data.getStringExtra("photo_path"));
-            L.e("照片路径：" + f.getAbsolutePath());
+            List<String> images = data.getStringArrayListExtra(AlbumActivity.INTENT_SELECTED_PICTURE);
+            if (images == null || images.size() <= 0) {
+                return;
+            }
+            File f = new File(images.get(0));
+            L.d("照片路径：" + f.getAbsolutePath());
             if (f.exists()) {
                 loader.displayImage("file://" + f.getAbsolutePath(), iv_home_bg, option_pic);
                 uploadPic(f);
@@ -264,12 +269,13 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
     private void uploadPic(File f) {
         TaskUtil.upLoadFile(context, f, new UpLoadListener() {
             @Override
-            public void onSuccess(String url) {
+            public void onSuccess(final String url) {
                 currentUser.setHomeBg(url);
+                loader.displayImage(url,iv_home_bg);
                 UserDataUtils.UpdateUserData(context, currentUser, new UpdateUserDataListener() {
                     @Override
                     public void onSuccess() {
-                        initUserData();
+                        homeUrl = url;
                     }
 
                     @Override
@@ -293,39 +299,28 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
 
     @Override
     public View getContentView() {
-        return View.inflate(context, R.layout.common_title, null);
+        return View.inflate(context, R.layout.activity_user_data, null);
     }
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-//        if (scrollY <= home_bg_height) {
-//            ViewHelper.setAlpha(title_bg, (float) (scrollY * 1.0 / home_bg_height));
-//            ViewHelper.setTranslationY(iv_home_bg, scrollY * 0.2f);
-//            if (scrollY <= SCROLL_DIS) {
-//                ViewHelper.setTranslationY(iv_photo, -scrollY);
-//                ViewHelper.setScaleX(iv_photo, (photoScale - scrollY) / photoScale);
-//                ViewHelper.setScaleY(iv_photo, (photoScale - scrollY) / photoScale);
-//            }
-//        }
-
-        int height = iv_home_bg.getHeight() - title_bg.getHeight();
-        if (scrollY > height) {
-            scrollY = height;
+        if (scrollY > home_bg_height) {
+            scrollY = home_bg_height;
         }
-        float f = scrollY * 1.0f / height; //当前滚动的距离占目标距离的百分比
+        float f = scrollY * 1.0f / home_bg_height; //当前滚动的距离占目标距离的百分比
         topView.setAlpha(f);
         topView.setTranslationY(-scrollY);
-        iv_photo.setTranslationY(-SCROLL_DIS * f);
-        iv_photo.setScaleX(1 - 0.65f * f);
-        iv_photo.setScaleY(1 - 0.65f * f);
-        if (scrollY >= 5) {
-            hideFabAnimate();
-        } else {
-            showFabAnimate();
+        if (finishRelav) {
+            iv_photo.setTranslationY(-SCROLL_DIS * f);
+            iv_photo.setScaleX(1 - 0.65f * f);
+            iv_photo.setScaleY(1 - 0.65f * f);
+            if (scrollY >= 5) {
+                hideFabAnimate();
+            } else {
+                showFabAnimate();
+            }
         }
     }
-
-    private boolean isHide = false;
 
     private void hideFabAnimate() {
         if (isHide) {
@@ -354,4 +349,73 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
     }
 
 
+    private void setupRevealBackground(Bundle savedInstanceState) {
+        vRevealBackground = (RevealBackgroundView) findViewById(R.id.vRevealBackground);
+        vRevealBackground.setOnStateChangeListener(this);
+        if (savedInstanceState == null) {
+            final int[] startingLocation = getIntent().getIntArrayExtra("startingLocation");
+            vRevealBackground.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    vRevealBackground.getViewTreeObserver().removeOnPreDrawListener(this);
+                    vRevealBackground.startFromLocation(startingLocation);
+                    return false;
+                }
+            });
+        } else {
+            vRevealBackground.setToFinishedFrame();
+        }
+    }
+
+    @Override
+    public void onStateChange(int state) {
+        if (RevealBackgroundView.STATE_FINISHED == state) {
+            titleAnim(); //开启一系列动画
+        }
+    }
+
+    private void titleAnim() {
+
+        bt_eidt.animate().alpha(1).setDuration(300).start(); //编辑信息的按钮
+        material_menu.animateState(MaterialMenuDrawable.IconState.ARROW); //左边返回按钮
+
+        //头像信息
+        iv_photo.setTranslationY(-iv_photo.getHeight());
+        iv_photo.animate().alpha(1).translationY(0).setStartDelay(100).start();
+
+        //title的透明度
+        title_bg.animate().alpha(0).setDuration(400).start();
+
+        scrollView.setVisibility(View.VISIBLE);  //scrollview
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(iv_home_bg.getHeight(), 0);
+        valueAnimator.setDuration(400);
+        valueAnimator.start();
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int v = (int) animation.getAnimatedValue();
+                scrollView.setScrollY(v);
+            }
+        });
+
+        final DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        final int[] location = new int[2];
+        data.getLocationOnScreen(location);
+        data.setTranslationY(metrics.heightPixels - location[1]);
+
+        album.getLocationOnScreen(location);
+        album.setTranslationY(metrics.heightPixels - location[1]);
+        handle.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                data.setVisibility(View.VISIBLE);
+                album.setVisibility(View.VISIBLE);
+                data.animate().translationY(0).setStartDelay(450).start();
+                album.animate().translationY(0).setStartDelay(500).start();
+            }
+        }, 400);
+
+    }
 }

@@ -32,11 +32,15 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.squareup.otto.Subscribe;
+
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.fragment.MenuFragment;
 import app.hanks.com.conquer.fragment.MyTaskFragment;
 import app.hanks.com.conquer.fragment.OtherTaskFragment;
+import app.hanks.com.conquer.otto.BusProvider;
+import app.hanks.com.conquer.otto.MenuPhotoClickEvent;
 import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.view.OpAnimationView;
@@ -63,6 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private OtherTaskFragment  otherTaskFragment;
     private Fragment           currentFragment;
     private boolean isFirst = true;
+    private boolean userDataFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initUserLocation();
         initDrawerMenu();
         initMain();
+
+        BusProvider.getInstance().register(this);
+    }
+
+
+    @Subscribe
+    public void goUserData(MenuPhotoClickEvent event) {
+        if (drawerLayout.isDrawerOpen(Gravity.START)) {
+            drawerLayout.closeDrawer(Gravity.START);
+//            A.goOtherActivity(context, UserDataActivity.class);
+            userDataFlag = true;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BusProvider.getInstance().unregister(this);
     }
 
     private void initUserLocation() {
@@ -123,7 +146,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onDrawerClosed(View arg0) {
-                materialMenu.animatePressedState(MaterialMenuDrawable.IconState.BURGER);
+                if (userDataFlag) {
+                    int[] location = new int[] { PixelUtil.dp2px(20), PixelUtil.dp2px(56) };
+                    UserDataActivity.startUserProfileFromLocation(location, MainActivity.this);
+                    overridePendingTransition(0, 0);
+                }
+                materialMenu.animateState(MaterialMenuDrawable.IconState.BURGER);
+                userDataFlag = false;
             }
         });
 
@@ -256,4 +285,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return View.inflate(context, R.layout.layout_main, null);
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        finish();
+    }
 }

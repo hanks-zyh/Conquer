@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-
     android:layout_height="@dimen/title_height"
     android:layout_alignParentTop="true" >
 
@@ -10,20 +9,21 @@
         android:id="@+id/title_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0"
         android:background="?attr/colorValue" />
 
-    <ImageButton
-        android:id="@+id/iv_photo2"
-        android:layout_width="@dimen/title_height"
-        android:layout_height="@dimen/title_height"
+    <app.hanks.com.conquer.view.materialmenu.MaterialMenuView
+        android:id="@+id/material_menu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:background="@null"
+        android:layout_margin="8dp"
         android:onClick="back"
-        android:padding="11dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_arrow_back_white_24dp" />
+        app:mm_shape="x"
+        app:mm_strokeWidth="2"
+        app:mm_transformDuration="300"/>
+
 
     <ImageButton
         android:id="@+id/bt_eidt"
@@ -32,18 +32,22 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@null"
+        android:alpha="0"
         android:padding="11dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_pencil" />
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/iv_photo2"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/material_menu"
+        android:gravity="center"
         android:text="@string/user_data"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

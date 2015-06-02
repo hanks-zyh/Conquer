@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:fitsSystemWindows="true"    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:fitsSystemWindows="true"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent">
 
-    <include layout="@layout/common_title" />
+    <include android:id="@+id/title" layout="@layout/common_title"/>
+
     <GridView
+        android:layout_below="@+id/title"
         android:id="@+id/gv_album"
+        android:verticalSpacing="2dp"
+        android:horizontalSpacing="2dp"
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="match_parent"
-        android:numColumns="4" >
+        android:numColumns="3">
     </GridView>
 
-</LinearLayout>
+</RelativeLayout>

@@ -337,6 +337,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         mCalendar.add(Calendar.MINUTE, 60);// 设成60分钟后
         setTimeAndTip(new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + " "
                 + pad(mCalendar.get(Calendar.HOUR_OF_DAY)) + ":" + pad(mCalendar.get(Calendar.MINUTE)));
+
         timePickerDialog24h = TimePickerDialog.newInstance(new OnTimeSetListener() {
             @Override
             public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {

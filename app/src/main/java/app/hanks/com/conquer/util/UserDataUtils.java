@@ -24,7 +24,7 @@ public class UserDataUtils {
 	 * @param user
 	 */
 	public static void UpdateUserData(Context context, User user, final UpdateUserDataListener updateListener) {
-		user.update(context, new UpdateListener() {
+		user.update(context.getApplicationContext(), new UpdateListener() {
 			@Override
 			public void onSuccess() {
 				L.i("更新用户信息成功");
@@ -50,7 +50,7 @@ public class UserDataUtils {
 		if (hasDialog){
 			ProgressUtil.showWaitting(context);
 		}
-		user.update(context, new UpdateListener() {
+		user.update(context.getApplicationContext(), new UpdateListener() {
 
 			@Override
 			public void onSuccess() {
@@ -71,7 +71,7 @@ public class UserDataUtils {
 
 	public static void queryUserByUsername(Context context, String Username,
 			final QueryUserDataListener queryUserDataListener) {
-		BmobUserManager.getInstance(context).queryUser(Username, new FindListener<User>() {
+		BmobUserManager.getInstance(context.getApplicationContext()).queryUser(Username, new FindListener<User>() {
 			@Override
 			public void onError(int arg0, String arg1) {
 				L.i("queryUser", "onError onError:" + arg1);
