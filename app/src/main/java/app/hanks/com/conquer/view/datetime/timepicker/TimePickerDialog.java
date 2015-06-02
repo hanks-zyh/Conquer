@@ -15,10 +15,6 @@ package app.hanks.com.conquer.view.datetime.timepicker;
  * limitations under the License
  */
 
-import java.text.DateFormatSymbols;
-import java.util.ArrayList;
-import java.util.Locale;
-
 import android.app.ActionBar.LayoutParams;
 import android.app.DialogFragment;
 import android.content.res.Resources;
@@ -37,6 +33,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.text.DateFormatSymbols;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.view.datetime.Utils;
@@ -197,7 +197,7 @@ public class TimePickerDialog extends DialogFragment implements RadialPickerLayo
         mSelectHours = res.getString(R.string.select_hours);
         mMinutePickerDescription = res.getString(R.string.minute_picker_description);
         mSelectMinutes = res.getString(R.string.select_minutes);
-        mBlue = res.getColor(R.color.blue);
+        mBlue = res.getColor(R.color.red_button);
         mBlack = res.getColor(R.color.numbers_text_color);
 
         mHourView = (TextView) view.findViewById(R.id.hours);

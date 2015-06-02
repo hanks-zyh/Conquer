@@ -5,7 +5,7 @@
     <color name="line_background">#ffcccccc</color>
     <color name="done_text_color_normal">#ff333333</color>
     <color name="done_text_color_disabled">#ffcccccc</color>
-    <color name="darker_blue">#ff0099cc</color>
+    <color name="darker_blue">#E4007F</color>
     <color name="date_picker_text_normal">#ff999999</color>
     <color name="calendar_header">#ff999999</color>
     <color name="date_picker_view_animator">#fff2f2f2</color>

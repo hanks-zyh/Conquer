@@ -337,7 +337,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         mCalendar.add(Calendar.MINUTE, 60);// 设成60分钟后
         setTimeAndTip(new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + " "
                 + pad(mCalendar.get(Calendar.HOUR_OF_DAY)) + ":" + pad(mCalendar.get(Calendar.MINUTE)));
-
         timePickerDialog24h = TimePickerDialog.newInstance(new OnTimeSetListener() {
             @Override
             public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
@@ -564,16 +563,15 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private void showTagSelect() {
         ListView v = new ListView(context);
         v.setFooterDividersEnabled(false);
-        final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
-        popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
-        popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(true); // 点击popWin
-        popupWindow.setOutsideTouchable(true);        // 以处的区域，自动关闭
+        final PopupWindow popWin = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
+        popWin.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
+        popWin.setFocusable(true);
+        popWin.setOutsideTouchable(true);        // 以处的区域，自动关闭
 
         int[] location = new int[2];
         tv_tag.getLocationOnScreen(location);
 
-        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] + tv_tag.getHeight());
+        popWin.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] + tv_tag.getHeight());
 
         TagDao tagDao = new TagDao(context);
         List<Tag> tags = tagDao.getAllTag();
@@ -608,8 +606,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                     tv_tag.setText(finalTags.get(position).getName());
                     task.setTag(finalTags.get(position));
                 }
-                if (popupWindow != null) {
-                    popupWindow.dismiss();
+                if (popWin != null) {
+                    popWin.dismiss();
                 }
             }
         });
@@ -617,7 +615,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position < finalTags.size() - 5) {
-                    deleteTag(finalTags.get(position), popupWindow);
+                    deleteTag(finalTags.get(position), popWin);
                 }
                 return true;
             }
@@ -666,7 +664,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private void showRepeat() {
         ListView v = new ListView(context);
         v.setFooterDividersEnabled(false);
-        final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(80), PixelUtil.dp2px(192));
+        final PopupWindow popupWindow = new PopupWindow(v, PixelUtil.dp2px(100), PixelUtil.dp2px(180));
         popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true); // 点击popWin

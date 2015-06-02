@@ -1,12 +1,5 @@
 package app.hanks.com.conquer.view.datetime.datepicker;
 
-import java.security.InvalidParameterException;
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
-import java.util.Formatter;
-import java.util.HashMap;
-import java.util.Locale;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -18,6 +11,13 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.security.InvalidParameterException;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+import java.util.Formatter;
+import java.util.HashMap;
+import java.util.Locale;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.view.datetime.Utils;
@@ -98,7 +98,7 @@ public class SimpleMonthView extends View {
 		mDayOfWeekTypeface = resources.getString(R.string.day_of_week_label_typeface);
 		mMonthTitleTypeface = resources.getString(R.string.sans_serif);
 		mDayTextColor = resources.getColor(R.color.date_picker_text_normal);
-		mTodayNumberColor = resources.getColor(R.color.blue);
+		mTodayNumberColor = resources.getColor(R.color.red_button);
 		mMonthTitleColor = resources.getColor(R.color.white);
 		mMonthTitleBGColor = resources.getColor(R.color.circle_background);
 

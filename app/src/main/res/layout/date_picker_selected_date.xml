@@ -36,7 +36,7 @@
             android:duplicateParentState="true"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:textColor="@color/blue"
+            android:textColor="@color/red_button"
             android:textSize="@dimen/selected_date_day_size" />
     </LinearLayout>
 

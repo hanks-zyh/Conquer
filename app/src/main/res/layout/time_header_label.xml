@@ -57,7 +57,7 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:text="@string/time_placeholder"
-            android:textColor="@color/blue" />
+            android:textColor="@color/red_button" />
     </FrameLayout>
 
     <TextView

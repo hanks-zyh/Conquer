@@ -22,11 +22,12 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.View;
 
-import app.hanks.com.conquer.R;
 import com.nineoldandroids.animation.Keyframe;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.nineoldandroids.animation.ValueAnimator;
+
+import app.hanks.com.conquer.R;
 
 /**
  * View to show what number is selected. This will draw a blue circle over the number, with a blue
@@ -91,7 +92,7 @@ public class RadialSelectorView extends View {
 
         Resources res = context.getResources();
 
-        int blue = res.getColor(R.color.blue);
+        int blue = res.getColor(R.color.red_button);
         mPaint.setColor(blue);
         mPaint.setAntiAlias(true);
 
