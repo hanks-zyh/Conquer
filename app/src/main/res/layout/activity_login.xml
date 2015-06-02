@@ -1,71 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:fitsSystemWindows="true"
-              android:clipToPadding="false"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clipToPadding="false"
+                android:fitsSystemWindows="true"
     >
 
-    <include
-
-        layout="@layout/common_title"
-        android:visibility="gone"></include>
+    <View
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorValue"/>
 
     <LinearLayout
-        android:background="?attr/colorValue"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-        <TextView
-            android:layout_marginTop="70dp"
+        <include
+            layout="@layout/common_title"
+            android:visibility="gone"></include>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:text="Welcome to Conquer"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_height="30dp"/>
+            android:layout_height="220dp"
+            android:orientation="vertical">
 
-        <View
-            android:layout_marginTop="8dp"
-            android:layout_width="80dp"
-            android:layout_gravity="center_horizontal"
-            android:background="#88ffffff"
-            android:layout_height="1dp"/>
+            <TextView
+                android:alpha="0"
+                android:id="@+id/welcome"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="70dp"
+                android:gravity="center"
+                android:text="Welcome to Conquer"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <View
+                android:scaleX="0"
+                android:id="@+id/line"
+                android:layout_width="80dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:background="#88ffffff"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:alpha="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/logo"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="64dip"
+                android:text="你可以通过以下平台登录"
+                android:textColor="#ffbbbebf"
+                android:textSize="13sp"/>
+
+            <Button
+                android:id="@+id/bt_qq"
+                style="@style/TextView_Login_QQ_or_Sina"
+                android:layout_marginTop="24dip"
+                android:background="@drawable/qqlogin_selector"
+                android:onClick="qqLogin"
+                android:text="QQ登录"/>
+
+            <Button
+                android:id="@+id/bt_sina"
+                style="@style/TextView_Login_QQ_or_Sina"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/sinalogin_selector"
+                android:onClick="sianLogin"
+                android:text="新浪登录"/>
+
+        </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:visibility="gone"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/logo"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="64dip"
-        android:text="你可以通过以下平台登录"
-        android:textColor="#ffbbbebf"
-        android:textSize="13sp"/>
-
-    <Button
-        android:id="@+id/bt_qq"
-        style="@style/TextView_Login_QQ_or_Sina"
-        android:layout_marginTop="24dip"
-        android:background="@drawable/qqlogin_selector"
-        android:onClick="qqLogin"
-        android:text="QQ登录"/>
-
-    <Button
-        android:id="@+id/bt_sina"
-        style="@style/TextView_Login_QQ_or_Sina"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/sinalogin_selector"
-        android:onClick="sianLogin"
-        android:text="新浪登录"/>
-
-</LinearLayout>
+</RelativeLayout>

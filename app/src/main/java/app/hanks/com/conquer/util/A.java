@@ -53,6 +53,12 @@ public class A {
         ((Activity) context).overridePendingTransition(0, 0);
     }
 
+    public static void goOtherActivityFinishNoAnim(Context context, Intent intent) {
+        context.startActivity(intent);
+        ((Activity) context).finish();
+        ((Activity) context).overridePendingTransition(0, 0);
+    }
+
     public static void finishSelf(Context context) {
         ((Activity) context).finish();
         ((Activity) context)

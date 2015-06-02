@@ -18,8 +18,10 @@ package app.hanks.com.conquer.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -38,6 +40,7 @@ import app.hanks.com.conquer.otto.FinishActivityEvent;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.NetUtils;
+import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.T;
 import cn.bmob.im.bean.BmobChatUser;
 import cn.bmob.v3.listener.OtherLoginListener;
@@ -53,12 +56,59 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private String gender;
     private String city;
 
+    private View welcome;
+    private View line;
+    private View bottom;
+    private View bg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFullScreen();
         findViewById(R.id.bt_qq).setOnClickListener(this);
         findViewById(R.id.bt_sina).setOnClickListener(this);
         BusProvider.getInstance().register(this); //registe Bus
+        bindViews();
+        showAnim();
+    }
+
+    /**
+     * 设置为全屏显示
+     */
+    private void setFullScreen() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        View decorView = getWindow().getDecorView();
+        // Hide both the navigation bar and the status bar.
+        // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+        // a general rule, you should design your app to hide the status bar whenever you
+        // hide the navigation bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    private void bindViews() {
+        bg = findViewById(R.id.bg);
+        welcome = findViewById(R.id.welcome);
+        line = findViewById(R.id.line);
+        bottom = findViewById(R.id.bottom);
+    }
+
+    private void showAnim() {
+        int DURATION = 400;
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        //首先是背景
+        bg.animate().translationY(-metrics.heightPixels + PixelUtil.dp2px(220)).setDuration(DURATION).start();
+
+        line.animate().scaleX(1).setDuration(DURATION).setStartDelay(DURATION).start();
+
+        welcome.animate().alpha(1).setDuration(DURATION).setStartDelay(DURATION).start();
+
+        bottom.animate().alpha(1).setDuration(DURATION).setStartDelay(DURATION).start();
+
     }
 
     @Override

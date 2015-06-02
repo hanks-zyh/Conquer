@@ -2,6 +2,7 @@ package app.hanks.com.conquer.activity;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,6 +31,7 @@ public class SplashActivity extends BaseActivity {
 
     private final int GO_HOME  = 100;
     private final int GO_LOGIN = 200;
+    private View iv_photo2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class SplashActivity extends BaseActivity {
      * logo的动画
      */
     private void logoAnim() {
-        View iv_photo2 = findViewById(R.id.iv_photo2);
+        iv_photo2 = findViewById(R.id.iv_photo2);
         ObjectAnimator oa1 = ObjectAnimator.ofFloat(iv_photo2, "Alpha", 0f, 1f).setDuration(800);
         oa1.start();
         oa1.setStartDelay(500);
@@ -105,7 +107,14 @@ public class SplashActivity extends BaseActivity {
                     A.goOtherActivityFinish(context, MainActivity.class);
                     break;
                 case GO_LOGIN:
-                    A.goOtherActivityFinish(context, LoginActivity.class);
+                    int[] location = new int[2];
+                    iv_photo2.getLocationOnScreen(location);
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.putExtra("x", location[0]);
+                    intent.putExtra("y", location[1]);
+                    intent.putExtra("width", iv_photo2.getWidth());
+                    intent.putExtra("height", iv_photo2.getHeight());
+                    A.goOtherActivityFinishNoAnim(context, intent);
                     break;
             }
         }
@@ -149,7 +158,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected View getContentView() {//设置界面
-        return View.inflate(context,R.layout.activity_splash,null);
+        return View.inflate(context, R.layout.activity_splash, null);
     }
 
     @Override
