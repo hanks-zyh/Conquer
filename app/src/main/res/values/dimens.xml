@@ -76,7 +76,7 @@
     <dimen name="home_bg_height">220dp</dimen>
     <dimen name="rippleStrokeWidth">2dp</dimen>
     <dimen name="rippleRadius">64dp</dimen>
-    <dimen name="title_btn_padding">6dp</dimen>
+    <dimen name="title_btn_padding">14dp</dimen>
     <dimen name="pop_tv_height">36dp</dimen>
     <dimen name="btn_fab_size">56dp</dimen>
 

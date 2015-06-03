@@ -16,11 +16,11 @@
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <color android:color="@color/red_button"/>
+        <color android:color="#ff0000"/>
     </item>
-    <item android:left="16dp">
+    <item android:left="32dp">
         <bitmap
-            android:src="@drawable/ic_cancel_white_24dp"
-            android:gravity="left|center_vertical"/>
+            android:gravity="left|center_vertical"
+            android:src="@drawable/ic_cancel_white_24dp"/>
     </item>
 </layer-list>

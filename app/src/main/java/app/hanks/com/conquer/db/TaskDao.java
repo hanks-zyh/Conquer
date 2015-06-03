@@ -254,4 +254,26 @@ public class TaskDao {
             create(task);
         }
     }
+
+    /**
+     * 模糊查询
+     */
+    public List<String> queryByKeyword(String keyword) {
+        open();
+//select name from Task where name like '%d%'
+       Cursor cursor =  database.query(DBConstants.TaskColum.TABLE_NAME,
+                new String[] { DBConstants.TaskColum.COLUMN_NAME_NAME },
+                DBConstants.TaskColum.COLUMN_NAME_NAME + " like '%"+keyword+"%'",
+                null, null, null, null);
+        List<String> result = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            result.add(cursor.getString(0));
+        }
+        cursor.close();
+        close();
+
+        return result;
+
+    }
 }

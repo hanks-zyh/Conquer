@@ -85,6 +85,10 @@
             android:name=".activity.UserDataActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentActivity">
+        </activity>    <activity
+            android:name=".activity.SearchResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentActivity">
         </activity>
         <activity android:name=".activity.AllMyZixiActivity"></activity>
         <activity android:name=".activity.ChatActivity"></activity>

@@ -41,6 +41,7 @@ import app.hanks.com.conquer.fragment.MyTaskFragment;
 import app.hanks.com.conquer.fragment.OtherTaskFragment;
 import app.hanks.com.conquer.otto.BusProvider;
 import app.hanks.com.conquer.otto.MenuPhotoClickEvent;
+import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.view.OpAnimationView;
@@ -58,6 +59,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private MaterialMenuView   materialMenu;
     private MenuFragment       menuFragment;// 侧滑菜单Fragment
     private ImageButton        iv_sort;
+    private View               iv_search;
     private View               toolbar;
     private TextView           mTitle;
     private PopupWindow        popWin;
@@ -78,6 +80,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mTitle = (TextView) findViewById(R.id.tv_title);
         iv_sort = (ImageButton) findViewById(R.id.iv_sort);
         addButtom = (OpAnimationView) findViewById(R.id.iv_add);
+        iv_search = findViewById(R.id.iv_search);
+        iv_search.setVisibility(View.VISIBLE);
+        iv_search.setOnClickListener(this);
         materialMenu.setOnClickListener(this);
         iv_sort.setOnClickListener(this);
         addButtom.setOnClickListener(this);
@@ -180,6 +185,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.material_menu:
                 toggle();
                 break;
+            case R.id.iv_search:
+                A.goOtherActivityNoAnim(context,SearchResultActivity.class);
+                break;
             case R.id.iv_add:
                 launcherAddTaskActivity(v);
                 break;
@@ -278,6 +286,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initTitleBar(ViewGroup rl_title, TextView tv_title, ImageButton ib_back, ImageButton ib_right, View shadow) {
+
+
     }
 
     @Override

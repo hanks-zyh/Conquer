@@ -31,10 +31,20 @@
             android:layout_height="@dimen/title_height"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@null"
+            android:background="@drawable/btn_selector_white"
             android:padding="@dimen/title_btn_padding"
             android:scaleType="centerInside"
             android:src="@drawable/ic_more_vert_white_24dp"/>
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/iv_search"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:layout_toLeftOf="@+id/iv_sort"
+            android:background="@null"
+            android:padding="@dimen/title_btn_padding"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_search_white_24dp"/>
 
         <TextView
             android:id="@+id/tv_title"

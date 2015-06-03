@@ -56,7 +56,6 @@ repositories {
         url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
@@ -81,6 +80,7 @@ dependencies {
     //recylerViewItem动画
     compile 'jp.wasabeef:recyclerview-animators:1.2.0@aar'
 
+    compile 'com.android.support:design:22.2.0'
 
 
     compile ("org.robobinding:robobinding:0.8.9:with-aop-and-dependencies") {

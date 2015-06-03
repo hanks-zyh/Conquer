@@ -87,13 +87,7 @@
         <attr name="rv_zoom" format="boolean"/>
         <attr name="rv_zoomScale" format="float"/>
     </declare-styleable>
-    <declare-styleable name="ToggleButton">
-        <attr name="borderWidth" format="dimension"></attr>
-        <attr name="offBorderColor" format="reference|color"></attr>
-        <attr name="offColor" format="reference|color"></attr>
-        <attr name="onColor" format="reference|color"></attr>
-        <attr name="spotColor" format="reference|color"></attr>
-    </declare-styleable>
+
     <declare-styleable name="RoundProgressBar">
         <attr name="roundColor" format="color"/>
         <attr name="roundProgressColor" format="color"/>
