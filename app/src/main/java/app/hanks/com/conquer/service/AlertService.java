@@ -10,17 +10,17 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
-import com.tencent.stat.common.User;
 
 import java.util.List;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.bean.Card;
+import app.hanks.com.conquer.bean.User;
 import app.hanks.com.conquer.bean.Task;
+import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.NotifyUtils;
 import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.util.TaskUtil;
-import app.hanks.com.conquer.util.L;
 import cn.bmob.im.BmobUserManager;
 
 
@@ -80,7 +80,7 @@ public class AlertService extends Service {
                     card.setFnick("Conquer");
                     card.setZixiName(task.getName());
                     card.setTime(task.getTime());
-                    card.settId(user.getUid());
+                    card.settId(user.getObjectId());
                     card.setZixiId(task.getId());
                     card.setFavatar("http://file.bmob.cn/M00/D7/E0/oYYBAFSER8OAM-OhAAAC5aqrGKs048.png");
                     int streamID = pool.play(id, 1, 1, 0, 0, 1);

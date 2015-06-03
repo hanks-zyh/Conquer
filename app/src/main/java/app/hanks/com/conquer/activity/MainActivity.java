@@ -146,7 +146,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onDrawerOpened(View arg0) {
-                materialMenu.animatePressedState(MaterialMenuDrawable.IconState.X);
+//                materialMenu.animatePressedState(MaterialMenuDrawable.IconState.X);
             }
 
             @Override

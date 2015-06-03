@@ -22,6 +22,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"
+            android:background="@drawable/btn_selector_white"
             app:mm_strokeWidth="2"
             app:mm_transformDuration="300"/>
 
@@ -41,7 +42,7 @@
             android:layout_width="@dimen/title_height"
             android:layout_height="@dimen/title_height"
             android:layout_toLeftOf="@+id/iv_sort"
-            android:background="@null"
+            android:background="@drawable/btn_selector_white"
             android:padding="@dimen/title_btn_padding"
             android:scaleType="centerInside"
             android:src="@drawable/ic_search_white_24dp"/>

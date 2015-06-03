@@ -85,8 +85,14 @@
             android:name=".activity.UserDataActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentActivity">
-        </activity>    <activity
+        </activity>
+        <activity
             android:name=".activity.SearchResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentActivity">
+        </activity>
+        <activity
+            android:name=".activity.EditTaskActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentActivity">
         </activity>
