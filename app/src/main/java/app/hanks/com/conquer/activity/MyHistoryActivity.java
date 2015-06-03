@@ -81,7 +81,6 @@ public class MyHistoryActivity extends BaseActivity {
                     adapter.notifyDataSetChanged();
                 }
             }
-
             public void onError(int errorCord, String msg) {
             }
         });

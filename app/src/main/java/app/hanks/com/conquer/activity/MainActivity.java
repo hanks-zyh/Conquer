@@ -178,9 +178,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void toggle() {
         if (drawerLayout.isDrawerOpen(Gravity.START)) {
             drawerLayout.closeDrawer(Gravity.START);
-            materialMenu.animatePressedState(MaterialMenuDrawable.IconState.BURGER);
+//            materialMenu.animatePressedState(MaterialMenuDrawable.IconState.BURGER);
         } else {
-            materialMenu.animatePressedState(MaterialMenuDrawable.IconState.X);
+//            materialMenu.animatePressedState(MaterialMenuDrawable.IconState.X);
             drawerLayout.openDrawer(Gravity.START);
         }
     }

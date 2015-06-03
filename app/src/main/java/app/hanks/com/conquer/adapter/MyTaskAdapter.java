@@ -126,13 +126,11 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
 
     @Override
     public void onBindViewHolder(TaskViewHolder holder, final int position) {
-
         // set listeners
         // (if the item is *not pinned*, click event comes to the itemView)
         holder.itemView.setOnClickListener(mItemViewOnClickListener);
         // (if the item is *pinned*, click event comes to the mContainer)
         holder.mContainer.setOnClickListener(mSwipeableViewContainerOnClickListener);
-
 
         Task item = list.get(position);
         holder.tv_name.setText(item.getName());

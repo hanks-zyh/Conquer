@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:android_custom="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_title"/>
+
+    <LinearLayout
+        android:id="@+id/layout_task"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <app.hanks.com.conquer.view.RoundProgressBar
+            android:id="@+id/pb"
+            style="@style/MyProgressBar"
+            android:layout_width="70dip"
+            android:layout_height="70dip"
+            android:layout_marginLeft="16dp"
+            android:progress="0"
+            android_custom:max="4320"
+            android_custom:roundColor="#D1D1D1"
+            android_custom:roundProgressColor="@color/red_button"
+            android_custom:roundWidth="6dip"
+            android_custom:textColor="@color/black"
+            android_custom:textSize="12sp">
+        </app.hanks.com.conquer.view.RoundProgressBar>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="84dp"
-            android:layout_below="@+id/bottom_line"
-            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/pb"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <app.hanks.com.conquer.view.RoundProgressBar
-                android:id="@+id/pb"
-                style="@style/MyProgressBar"
-                android:layout_width="70dip"
-                android:layout_height="70dip"
-                android:layout_marginLeft="16dp"
-                android:progress="0"
-                android_custom:max="4320"
-                android_custom:roundColor="#D1D1D1"
-                android_custom:roundProgressColor="@color/red_button"
-                android_custom:roundWidth="6dip"
-                android_custom:textColor="@color/black"
-                android_custom:textSize="12sp">
-            </app.hanks.com.conquer.view.RoundProgressBar>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/pb"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="00:00"
+                android:textColor="#000"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="00:00"
-                    android:textColor="#000"
-                    android:textSize="30sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical|left"
-                    android:singleLine="true"
-                    android:text="N/A"
-                    android:textSize="20sp"/>
-            </LinearLayout>
+            <EditText
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:background="@null"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical|left"
+                android:singleLine="true"
+                android:text="N/A"
+                android:textSize="20sp"/>
         </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
