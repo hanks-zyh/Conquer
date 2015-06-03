@@ -7,7 +7,7 @@
         android:fromAlpha="0.4"
         android:toAlpha="1" />
 
-    <scale
+    <!--<scale
         android:duration="@integer/activity_anim_duration"
         android:fromXScale="0.8"
         android:fromYScale="0.8"
@@ -15,5 +15,5 @@
         android:pivotY="50%p"
         android:toXScale="1"
         android:toYScale="1" />
-
+-->
 </set>

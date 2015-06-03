@@ -7,13 +7,13 @@
         android:fromAlpha="1"
         android:toAlpha="0.4" />
 
-    <scale
+   <!-- <scale
         android:duration="@integer/activity_anim_duration"
         android:fromXScale="1"
         android:fromYScale="1"
         android:pivotX="50%p"
         android:pivotY="50%p"
         android:toXScale="0.8"
-        android:toYScale="0.8" />
+        android:toYScale="0.8" />-->
 
 </set>

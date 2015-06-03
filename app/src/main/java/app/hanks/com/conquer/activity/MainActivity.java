@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     UserDataActivity.startUserProfileFromLocation(location, MainActivity.this);
                     overridePendingTransition(0, 0);
                 }
-                materialMenu.animateState(MaterialMenuDrawable.IconState.BURGER);
+
                 userDataFlag = false;
             }
         });
@@ -164,6 +164,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         // 侧滑菜单
         menuFragment = new MenuFragment();
         changeFramgnt(R.id.left_drawer, menuFragment);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        materialMenu.animateState(MaterialMenuDrawable.IconState.BURGER);
     }
 
     /**
