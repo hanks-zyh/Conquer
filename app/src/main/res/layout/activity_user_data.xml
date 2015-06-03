@@ -14,7 +14,7 @@
 
     <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
         android:id="@+id/sv"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:scrollY="166dp"
@@ -23,7 +23,6 @@
         android:scrollbars="none">
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="24dp"

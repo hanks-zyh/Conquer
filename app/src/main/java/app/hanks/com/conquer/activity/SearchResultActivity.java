@@ -13,8 +13,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-import com.nostra13.universalimageloader.utils.L;
-
 import org.robobinding.binder.Binders;
 
 import java.util.ArrayList;
@@ -78,4 +76,14 @@ public class SearchResultActivity extends Activity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        finish();
+        overridePendingTransition(0,0);
+    }
+
+    public void back(View view){
+        onBackPressed();
+    }
 }

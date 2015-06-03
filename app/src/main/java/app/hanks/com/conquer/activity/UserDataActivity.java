@@ -26,6 +26,7 @@ import java.util.List;
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.L;
+import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.TaskUtil.UpLoadListener;
@@ -128,7 +129,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
                 - getResources().getDimensionPixelSize(R.dimen.title_height);
         material_menu.setState(MaterialMenuDrawable.IconState.X);
 
-
+        iv_home_bg.setTranslationY(-PixelUtil.dp2px(220));
         iv_camera.setScaleX(0);
         iv_camera.setScaleY(0);
         isHide = true;
@@ -147,17 +148,17 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
      */
     private void initUserData() {
         if (currentUser != null) {
-            L.e("initUserData", currentUser.toString());
+            L.e("initUserData" + currentUser.getAvatar());
             String avatar = currentUser.getAvatar();
-            if (avatar != null && !photoUrl.equals(avatar)) {
-                loader.displayImage(avatar, iv_photo, option_photo);
-                photoUrl = avatar;
-            }
+//            if (avatar != null && !photoUrl.equals(avatar)) {
+            loader.displayImage(avatar, iv_photo, option_photo);
+//                photoUrl = avatar;
+//            }
             String home = currentUser.getHomeBg();
-            if (home != null && !homeUrl.equals(home)) {
-                loader.displayImage(home, iv_home_bg, option_pic);
-                homeUrl = home;
-            }
+//            if (home != null && !homeUrl.equals(home)) {
+            loader.displayImage(home, iv_home_bg, option_pic);
+//                homeUrl = home;
+//            }
             tv_nickname.setText(currentUser.getNick());
             iv_gender.setImageResource(currentUser.isMale() ? R.drawable.ic_male : R.drawable.ic_female);
             tv_id.setText(currentUser.getUsername());
@@ -189,6 +190,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
         for (int i = 0; i < list.size(); i++) {
             View v = View.inflate(context, R.layout.item_album, null);
             ImageView iv = (ImageView) v.findViewById(R.id.iv_pic);
+
             loader.displayImage(list.get(i), iv, option_pic);
             v.setOnClickListener(new OnClickListener() {
                 @Override
@@ -271,7 +273,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
             @Override
             public void onSuccess(final String url) {
                 currentUser.setHomeBg(url);
-                loader.displayImage(url,iv_home_bg);
+                loader.displayImage(url, iv_home_bg);
                 UserDataUtils.UpdateUserData(context, currentUser, new UpdateUserDataListener() {
                     @Override
                     public void onSuccess() {
@@ -387,6 +389,13 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
         title_bg.animate().alpha(0).setDuration(400).start();
 
         scrollView.setVisibility(View.VISIBLE);  //scrollview
+        handle.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                iv_home_bg.setTranslationY(0);
+            }
+        }, 50);
         ValueAnimator valueAnimator = ValueAnimator.ofInt(iv_home_bg.getHeight(), 0);
         valueAnimator.setDuration(400);
         valueAnimator.start();
@@ -415,7 +424,7 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
                 data.animate().translationY(0).setStartDelay(450).start();
                 album.animate().translationY(0).setStartDelay(500).start();
             }
-        }, 400);
+        }, 300);
 
     }
 }

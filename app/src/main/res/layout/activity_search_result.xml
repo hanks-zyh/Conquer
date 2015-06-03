@@ -23,6 +23,7 @@
 
 
             <ImageButton
+                android:onClick="back"
                 android:id="@+id/search"
                 android:layout_width="@dimen/title_height"
                 android:layout_height="@dimen/title_height"
@@ -42,9 +43,9 @@
                 android:layout_centerVertical="true"
                 android:background="@null"
                 android:padding="@dimen/title_btn_padding"
-                android:visibility="gone"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_clear_black_24dp"
+                android:visibility="gone"
                 />
 
             <EditText
@@ -55,8 +56,11 @@
                 android:layout_toLeftOf="@+id/iv_clear"
                 android:layout_toRightOf="@+id/search"
                 android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:hint="搜索"
                 android:textColor="@color/red_button"
+
                 android:textCursorDrawable="@null"/>
 
 
@@ -70,6 +74,7 @@
             android:background="@drawable/shadow_title"/>
 
     </RelativeLayout>
+
 
     <ListView
         android:layout_width="fill_parent"
