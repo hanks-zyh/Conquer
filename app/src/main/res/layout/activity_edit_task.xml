@@ -77,15 +77,23 @@
             android:textStyle="bold"/>
     </RelativeLayout>
 
-
+    <RelativeLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/iv_home_bg"
+        android:alpha="0"
+        android:background="@color/white">
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/layout_task"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_below="@+id/iv_home_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="invisible">
+         >
 
         <app.hanks.com.conquer.view.RoundProgressBar
             android:id="@+id/pb"
@@ -118,6 +126,8 @@
                 android:gravity="center"
                 android:text="00:00"
                 android:textColor="#000"
+                android:onClick="showDatePicker"
+                android:clickable="true"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
 
@@ -134,14 +144,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/iv_home_bg"
-        android:alpha="0"
-        android:background="@color/white">
 
-    </RelativeLayout>
 
 </RelativeLayout>

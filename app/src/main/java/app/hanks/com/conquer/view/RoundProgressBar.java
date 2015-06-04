@@ -232,6 +232,7 @@ public class RoundProgressBar extends View {
      *
      * @param progress
      */
+
     public synchronized void setProgress(int progress) {
         if (this.progress == progress) {
             return;
@@ -260,6 +261,22 @@ public class RoundProgressBar extends View {
             }
         });
 
+    }
+
+    public synchronized void setProgressNoAnim(int progress) {
+        if (this.progress == progress) {
+            return;
+        }
+//        hasShowing = true;
+        if (progress < 0) {
+//			throw new IllegalArgumentException("progress not less than 0");
+            return;
+        }
+        if (progress > max) {
+            progress = max;
+        }
+        RoundProgressBar.this.progress = progress;
+        invalidate();
     }
 
     public int getCricleColor() {

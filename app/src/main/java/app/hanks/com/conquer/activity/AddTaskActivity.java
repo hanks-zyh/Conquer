@@ -89,7 +89,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private static final int REQUES_FRIEND = 1;
 
     boolean isFirst = true;
-    private String               tag;
     private AutoCompleteTextView et_name;
     private TextView             tv_time, tv_time_tip;
     private TimePickerDialog timePickerDialog24h;
@@ -502,10 +501,10 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 }
                 break;
             case R.id.tv_title:
-                datePickerDialog.show(getFragmentManager(), tag);
+                datePickerDialog.show(getFragmentManager(), "");
                 break;
             case R.id.tv_time:
-                timePickerDialog24h.show(getFragmentManager(), tag);
+                timePickerDialog24h.show(getFragmentManager(), "");
                 break;
             case R.id.material_menu:
                 onBackPressed();

@@ -5,6 +5,7 @@
  */
 package app.hanks.com.conquer.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,12 +19,20 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.Calendar;
+
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.bean.Task;
+import app.hanks.com.conquer.db.TaskDao;
+import app.hanks.com.conquer.otto.BusProvider;
+import app.hanks.com.conquer.otto.RefreshEvent;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.PixelUtil;
+import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.view.RoundProgressBar;
+import app.hanks.com.conquer.view.datetime.timepicker.RadialPickerLayout;
+import app.hanks.com.conquer.view.datetime.timepicker.TimePickerDialog;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
 
@@ -33,17 +42,19 @@ import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
 public class EditTaskActivity extends BaseActivity {
     private Task task;
 
-    private EditText    tv_name;
-    private TextView    tv_time;
-    private ImageButton iv_sort;
-
-    private RoundProgressBar pb;
-    private SimpleDraweeView iv_home_bg;
-    private MaterialMenuView materialMenu;
-
     private View layout_task;
     private View title_bg;
     private View ll_bottom;
+
+    private EditText tv_name;
+    private TextView tv_time;
+
+    private ImageButton iv_search;
+    private ImageButton iv_sort;
+
+    private MaterialMenuView materialMenu;
+    private RoundProgressBar pb;
+    private SimpleDraweeView iv_home_bg;
 
     private Handler handler = new Handler() {
         @Override
@@ -72,6 +83,7 @@ public class EditTaskActivity extends BaseActivity {
         pb = (RoundProgressBar) findViewById(R.id.pb);
         materialMenu = (MaterialMenuView) findViewById(R.id.material_menu);
         iv_sort = (ImageButton) findViewById(R.id.iv_sort);
+        iv_search = (ImageButton) findViewById(R.id.iv_search);
         iv_home_bg = (SimpleDraweeView) findViewById(R.id.iv_home_bg);
         title_bg = findViewById(R.id.title_bg);
         ll_bottom = findViewById(R.id.ll_bottom);
@@ -81,14 +93,14 @@ public class EditTaskActivity extends BaseActivity {
             public void run() {
                 tv_name.requestFocus();
             }
-        },450);
+        }, 450);
 
     }
 
     private void bindData() {
         task = (Task) getIntent().getSerializableExtra("task");
         tv_name.setText(task.getName());
-        tv_name.moveCursorToVisibleOffset();
+        tv_name.setSelection(tv_name.length());
         tv_time.setText(TaskUtil.getZixiTimeS(task.getTime()));
         int p = 4320 - TaskUtil.getDurationFromNow(task.getTime());
         if (p <= 0) p = 1;
@@ -100,8 +112,18 @@ public class EditTaskActivity extends BaseActivity {
             pb.setRoundWidth(PixelUtil.dp2px(6));
         }
         if (p < 100) p = 100;// 防止太小了
-        pb.setProgress(p);
+        pb.setProgressNoAnim(p);
+        if (task.getImageUrl() != null) {
+            iv_home_bg.setImageURI(Uri.parse(task.getImageUrl()));
+        }
 
+
+        materialMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void showAnim() {
@@ -113,6 +135,7 @@ public class EditTaskActivity extends BaseActivity {
         layout_task.setTranslationY(y - loc[1]);
         layout_task.animate().translationY(0).setDuration(400).start();
         iv_sort.animate().alpha(0).setDuration(400).start();
+        iv_search.animate().alpha(0).setDuration(400).start();
         iv_home_bg.animate().alpha(1).setDuration(400).start();
         title_bg.animate().alpha(0).setDuration(400).start();
         ll_bottom.animate().alpha(1).setDuration(400).start();
@@ -122,34 +145,33 @@ public class EditTaskActivity extends BaseActivity {
     /**
      * 初始化日历时间的选择控件
      */
-    private void initDatePicker() {
-//        mCalendar.add(Calendar.MINUTE, 60);// 设成60分钟后
-//        setTimeAndTip(new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + " "
-//                + pad(mCalendar.get(Calendar.HOUR_OF_DAY)) + ":" + pad(mCalendar.get(Calendar.MINUTE)));
-//
-//        timePickerDialog24h = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
-//            @Override
-//            public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-//                setTimeAndTip(tv_date.getText()
-//                        + " "
-//                        + new StringBuilder().append(pad(hourOfDay)).append(":").append(pad(minute))
-//                        .toString());
-//            }
-//        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
-//
-//        datePickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
-//            public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-//                Calendar c = Calendar.getInstance();
-//                c.set(year, month, day);
-//                headTime = c.getTimeInMillis();
-//                initWeekday(c);
-//                tv_date.setText(new StringBuilder().append(pad(year)).append("/").append(pad(month + 1))
-//                        .append("/").append(pad(day)));
-//                setTimeAndTip(tv_date.getText() + " " + tv_time.getText());
-//            }
-//        }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
-//        int curYear = mCalendar.get(Calendar.YEAR);
-//        datePickerDialog.setYearRange(curYear, mCalendar.get(Calendar.MONTH) >= 11 ? curYear + 1 : curYear);
+    public void showDatePicker(View v) {
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.setTimeInMillis(task.getTime());
+
+
+        String timeStr = tv_time.getText().toString().trim();
+        int hour = Integer.parseInt(timeStr.substring(0, 2));
+        int min = Integer.parseInt(timeStr.substring(3, 5));
+        mCalendar.set(Calendar.HOUR_OF_DAY, hour);
+        mCalendar.set(Calendar.MINUTE, min);
+
+        TimePickerDialog timePickerDialog24h = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+                tv_time.setText(
+                        new StringBuilder().append(pad(hourOfDay)).append(":").append(pad(minute))
+                                .toString());
+            }
+        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
+        timePickerDialog24h.show(getFragmentManager(), "");
+    }
+
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
     }
 
     @Override
@@ -166,11 +188,29 @@ public class EditTaskActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         String name = tv_name.getText().toString();
-        if(TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             return;
         }
         task.setName(name);
-//        task.setTime();
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.setTimeInMillis(task.getTime());
+
+        String timeStr = tv_time.getText().toString().trim();
+        int hour = Integer.parseInt(timeStr.substring(0, 2));
+        int min = Integer.parseInt(timeStr.substring(3, 5));
+        mCalendar.set(Calendar.HOUR_OF_DAY, hour);
+        mCalendar.set(Calendar.MINUTE, min);
+        task.setTime(mCalendar.getTimeInMillis());
+
+
+        if (task.getTime() < System.currentTimeMillis()) {
+            T.show(context, "时间已经过去了╮(-_-)╭");
+            return;
+        }
+
+        new TaskDao(context).update(task);
+
+        BusProvider.getInstance().post(new RefreshEvent());
 
         super.onBackPressed();
     }
