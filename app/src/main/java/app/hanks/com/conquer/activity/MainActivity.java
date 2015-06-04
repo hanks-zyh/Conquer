@@ -20,6 +20,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -44,6 +45,7 @@ import app.hanks.com.conquer.otto.MenuPhotoClickEvent;
 import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.SP;
+import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.view.OpAnimationView;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuDrawable;
 import app.hanks.com.conquer.view.materialmenu.MaterialMenuView;
@@ -301,9 +303,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return View.inflate(context, R.layout.layout_main, null);
     }
 
+    long[] mHits = new long[2]; // 五次点击改成5
+
+    /**
+     * 返回退出
+     */
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-        finish();
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        if (mHits[0] >= SystemClock.uptimeMillis() - 1500) {
+            this.finish();
+            return;
+        }
+        T.show(this, getString(R.string.two_exit));
     }
 }

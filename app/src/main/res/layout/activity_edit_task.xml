@@ -12,6 +12,7 @@
         android:layout_height="@dimen/home_bg_height"
         android:alpha="0"
         android_custom:actualImageScaleType="centerCrop"
+        android_custom:backgroundImage="@color/white"
         android_custom:fadeDuration="300"
         android_custom:placeholderImage="@drawable/home_bg"
         android_custom:placeholderImageScaleType="centerCrop"/>

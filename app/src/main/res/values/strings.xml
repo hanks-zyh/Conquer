@@ -72,5 +72,6 @@
     <string name="login">登录</string>
     <string name="finish">完成</string>
     <string name="edit_task">编辑任务</string>
+    <string name="two_exit">再按一次退出</string>
 
 </resources>

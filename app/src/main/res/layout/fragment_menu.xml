@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView android:id="@+id/scroll_view"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/scroll_view"
             android:layout_width="304dp"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:clipToPadding="false"
             android:fadingEdge="none"
-            android:overScrollMode="never"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
+            android:overScrollMode="never"
             android:scrollbars="none">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
 
         <RelativeLayout
@@ -41,8 +41,8 @@
                 android:layout_height="70dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="40dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="40dp"
                 android:clickable="true"
                 android:src="@drawable/default_photo"
                 app:border="false"
@@ -83,66 +83,84 @@
                 android:src="@drawable/ic_arrow_down"/>
         </RelativeLayout>
 
-        <LinearLayout
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent" android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
 
-            android:layout_marginTop="32dp"
-            android:id="@+id/ll_all_zixi"
-            style="@style/Menu_ll">
+            <LinearLayout
 
-            <ImageView
-                style="@style/Menu_iv"
-                android:src="@drawable/ic_teaser_forums_24dp"/>
+                android:id="@+id/ll_all_zixi"
+                style="@style/Menu_ll"
+                >
 
-            <TextView
-                style="@style/Menu_tv"
-                android:text="全部"/>
-        </LinearLayout>
+                <ImageView
+                    style="@style/Menu_iv"
+                    android:src="@drawable/ic_teaser_forums_24dp"/>
 
-        <LinearLayout
-            android:id="@+id/ll_history"
-            style="@style/Menu_ll">
+                <TextView
+                    style="@style/Menu_tv"
+                    android:text="全部"/>
+            </LinearLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
 
-            <ImageView
-                style="@style/Menu_iv"
-                android:src="@drawable/ic_teaser_promos_24dp"/>
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/Menu_tv"
-                android:text="提醒"/>
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_history"
+                style="@style/Menu_ll">
 
-        <LinearLayout
-            android:id="@+id/ll_friend"
-            style="@style/Menu_ll">
+                <ImageView
+                    style="@style/Menu_iv"
+                    android:src="@drawable/ic_teaser_promos_24dp"/>
 
-            <ImageView
-                style="@style/Menu_iv"
-                android:src="@drawable/ic_teaser_social_24dp"/>
+                <TextView
+                    style="@style/Menu_tv"
+                    android:text="提醒"/>
+            </LinearLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
 
-            <TextView
-                style="@style/Menu_tv"
-                android:text="好友"/>
-        </LinearLayout>
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_friend"
+                style="@style/Menu_ll">
+
+                <ImageView
+                    style="@style/Menu_iv"
+                    android:src="@drawable/ic_teaser_social_24dp"/>
+
+                <TextView
+                    style="@style/Menu_tv"
+                    android:text="好友"/>
+            </LinearLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
 
         <include
+            layout="@layout/line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            layout="@layout/line"/>
+            android:layout_height="1dp"/>
 
-        <LinearLayout
-            android:id="@+id/ll_setting"
-            style="@style/Menu_ll">
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                style="@style/Menu_iv"
-                android:src="@drawable/ic_drawer_settings_24dp"/>
+            <LinearLayout
+                android:id="@+id/ll_setting"
+                style="@style/Menu_ll">
 
-            <TextView
-                style="@style/Menu_tv"
-                android:text="设置"/>
-        </LinearLayout>
+                <ImageView
+                    style="@style/Menu_iv"
+                    android:src="@drawable/ic_drawer_settings_24dp"/>
+
+                <TextView
+                    style="@style/Menu_tv"
+                    android:text="设置"/>
+            </LinearLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
 </ScrollView>
