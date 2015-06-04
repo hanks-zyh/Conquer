@@ -5,10 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +26,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
 
 import java.io.File;
 import java.text.ParseException;
@@ -55,6 +60,7 @@ import app.hanks.com.conquer.util.AlertDialogUtils.EtOkCallBack;
 import app.hanks.com.conquer.util.AlertDialogUtils.OkCallBack;
 import app.hanks.com.conquer.util.AudioUtils;
 import app.hanks.com.conquer.util.CollectionUtils;
+import app.hanks.com.conquer.util.JsonParser;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.MsgUtils;
 import app.hanks.com.conquer.util.PixelUtil;
@@ -63,9 +69,7 @@ import app.hanks.com.conquer.util.SP;
 import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.util.TaskUtil.UpLoadListener;
-import app.hanks.com.conquer.util.Tasks;
 import app.hanks.com.conquer.util.TimeUtil;
-import app.hanks.com.conquer.view.AutoCompleteArrayAdapter;
 import app.hanks.com.conquer.view.FlowLayout;
 import app.hanks.com.conquer.view.OpAnimationView;
 import app.hanks.com.conquer.view.RevealBackgroundView;
@@ -242,13 +246,13 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         tv_time.setOnClickListener(this);
 
         //自动补全
-        String[] course = Tasks.tasks;
+       /* String[] course = Tasks.tasks;
         AutoCompleteArrayAdapter<String> adapter = new AutoCompleteArrayAdapter<String>(this,
                 R.layout.item_list_simple, course);
         et_name.setAdapter(adapter);
         et_name.setDropDownHeight(metrics.heightPixels / 3);
         et_name.setThreshold(1);
-       /* et_name.setOnFocusChangeListener(new OnFocusChangeListener() {
+        et_name.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 AutoCompleteTextView view = (AutoCompleteTextView) v;
@@ -942,48 +946,67 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
 
     public void xfVoice(View view) {
 
-        //1.创建SpeechRecognizer对象，第二个参数：本地听写时传InitListener
-        RecognizerDialog iatDialog = new RecognizerDialog(this, mInitListener);
-        //2.设置听写参数，同上节  
-        //3.设置回调接口
-        iatDialog.setListener(recognizerDialogListener);
-        //4.开始听写
-        iatDialog.show();
-        //1.创建SpeechRecognizer对象，第二个参数：本地听写时传InitListener
-        SpeechRecognizer mIat = SpeechRecognizer.createRecognizer(context, null);
+        SpeechRecognizer mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
         //2.设置听写参数，详见《科大讯飞MSC API手册(Android)》SpeechConstant类
         mIat.setParameter(SpeechConstant.DOMAIN, "iat");
         mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
         mIat.setParameter(SpeechConstant.ACCENT, "mandarin ");
-        //3.开始听写   mIat.startListening(mRecoListener);
-        //听写监听器
-        private RecognizerListener mRecoListener = new RecognizerListener() {
-            //听写结果回调接口(返回Json格式结果，用户可参见附录12.1)；
-            //一般情况下会通过onResults接口多次返回结果，完整的识别内容是多次结果的累加；
-            //关于解析Json的代码可参见MscDemo中JsonParser类；
-            //isLast等于true时会话结束。
-            public void onResult(RecognizerResult results, boolean isLast) {
-                Log.d("Result:", results.getResultString());
-            }
+        mIat.setParameter(SpeechConstant.ASR_PTT, "0");
 
-            //会话发生错误回调接口
-            public void onError(SpeechError error) {
-                error.getPlainDescription(true) //获取错误码描述}
-                //开始录音
-                public void onBeginOfSpeech () {
-                }
-                //音量值0~30
+        //3.开始听写
+        mIat.startListening(mRecoListener);
 
-            public void onVolumeChanged(int volume) {
-            }
-
-            //结束录音
-            public void onEndOfSpeech() {
-            }
-
-            //扩展用接口
-            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-            }
-        };
-        }
     }
+
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+            if (code != ErrorCode.SUCCESS) {
+                T.show(context, "初始化失败,错误码：" + code);
+            }
+        }
+    };
+
+    //听写监听器
+    private RecognizerListener mRecoListener = new RecognizerListener() {
+        //听写结果回调接口(返回Json格式结果，用户可参见附录12.1)；
+        //一般情况下会通过onResults接口多次返回结果，完整的识别内容是多次结果的累加；
+        //关于解析Json的代码可参见MscDemo中JsonParser类；
+        //isLast等于true时会话结束。
+        public void onResult(RecognizerResult results, boolean isLast) {
+            String text = JsonParser.parseIatResult(results.getResultString());
+            et_name.append(text);
+            et_name.setSelection(et_name.length());
+        }
+
+        //会话发生错误回调接口
+        public void onError(SpeechError error) {
+            error.getPlainDescription(true);//获取错误码描述
+        }
+
+        //开始录音
+        public void onBeginOfSpeech() {
+            L.d("onBeginOfSpeech");
+        }
+        //音量值0~30
+
+        public void onVolumeChanged(int volume) {
+            L.d("onVolumeChanged...."+volume);
+        }
+
+        //结束录音
+        public void onEndOfSpeech() {
+            L.d("onEndOfSpeech");
+        }
+
+        //扩展用接口
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+        }
+    };
+}
+
+
