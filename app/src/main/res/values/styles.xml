@@ -247,7 +247,7 @@
     </style>
 
     <style name="CommonTitleTV" parent="WW">
-        <item name="android:textSize">16.0sp</item>
+        <item name="android:textSize">20.0sp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_toRightOf">@+id/ib_back</item>

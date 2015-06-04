@@ -245,7 +245,7 @@ public class RoundProgressBar extends View {
         if (progress > max) {
             progress = max;
         }
-        ValueAnimator va = ValueAnimator.ofInt(0, progress);
+        ValueAnimator va = ValueAnimator.ofInt(this.progress, progress);
         va.setDuration(1000);
         va.setInterpolator(new AccelerateInterpolator());
         va.start();

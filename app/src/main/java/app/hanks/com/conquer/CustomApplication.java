@@ -22,6 +22,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.lidroid.xutils.DbUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -69,6 +71,8 @@ public class CustomApplication extends Application {
         DbUtils.create(getApplicationContext()).configDebug(false);
         Fresco.initialize(getApplicationContext());
         LeakCanary.install(this);
+        // 将“12345678”替换成您申请的APPID，申请地址：http://open.voicecloud.cn
+        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID + "=556fce70");
         init();
     }
 

@@ -127,7 +127,6 @@ public class UserDataActivity extends BaseActivity implements OnClickListener, O
 
         home_bg_height = getResources().getDimensionPixelSize(R.dimen.home_bg_height)
                 - getResources().getDimensionPixelSize(R.dimen.title_height);
-        material_menu.setState(MaterialMenuDrawable.IconState.X);
 
         iv_home_bg.setTranslationY(-PixelUtil.dp2px(220));
         iv_camera.setScaleX(0);

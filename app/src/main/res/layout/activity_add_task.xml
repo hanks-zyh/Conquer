@@ -195,6 +195,7 @@
                     android:imeOptions="actionDone"
                     android:paddingBottom="4dp"
                     android:paddingTop="16dp"
+                    android:singleLine="true"
                     android:textColorHint="@color/gray"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -231,10 +232,22 @@
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:alpha="0"
                     android:background="@drawable/spinner_bg"
                     android:gravity="center_vertical|left"
-                    android:alpha="0"
                     android:text="全部"
+                    android:textColor="@color/text2"
+                    android:textSize="14sp"/>
+
+                <Button
+                    android:id="@+id/iv_voice"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical|left"
+                    android:text="VO"
+                    android:onClick="xfVoice"
                     android:textColor="@color/text2"
                     android:textSize="14sp"/>
 

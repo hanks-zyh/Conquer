@@ -63,6 +63,7 @@
     <dimen name="message_top_height">70.0dip</dimen>
     <dimen name="margin_chat_top">5.0dip</dimen>
     <dimen name="title_height">54dp</dimen>
+    <dimen name="title_icon_size">48dp</dimen>
     <dimen name="title_height_with_shadow">57dp</dimen>
     <dimen name="title_bg_height">52dp</dimen>
     <dimen name="title_shadow_height">3dp</dimen>
@@ -76,7 +77,7 @@
     <dimen name="home_bg_height">220dp</dimen>
     <dimen name="rippleStrokeWidth">2dp</dimen>
     <dimen name="rippleRadius">64dp</dimen>
-    <dimen name="title_btn_padding">14dp</dimen>
+    <dimen name="title_btn_padding">12dp</dimen>
     <dimen name="pop_tv_height">36dp</dimen>
     <dimen name="btn_fab_size">56dp</dimen>
 
