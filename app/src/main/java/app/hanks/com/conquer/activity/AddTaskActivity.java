@@ -5,7 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -17,7 +20,7 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -89,8 +92,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private static final int REQUES_FRIEND = 1;
 
     boolean isFirst = true;
-    private AutoCompleteTextView et_name;
-    private TextView             tv_time, tv_time_tip;
+    private EditText et_name;
+    private TextView tv_time, tv_time_tip;
     private TimePickerDialog timePickerDialog24h;
     private DatePickerDialog datePickerDialog;
 
@@ -118,12 +121,15 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private MaterialMenuView material_menu;
     private View             iv_sort; //title上面的
 
+    private TextView tv_repeat, tv_tag;
 
     private View layout_date;//日期选择
     private View currentTime; //显示选择的时间
+    private View iv_voice, iv_clear; //语音，清除
     private View ib_audio, ib_theme, ib_img, ib_at;
+
+    private TextInputLayout textInputLayout;
     private OpAnimationView ib_save;
-    private TextView        tv_repeat, tv_tag;
 
 
     final Task task = new Task();
@@ -162,7 +168,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         material_menu = (MaterialMenuView) findViewById(R.id.material_menu);
         iv_sort = findViewById(R.id.iv_sort);
         iv_sort.setOnClickListener(this);
-        et_name = (AutoCompleteTextView) findViewById(R.id.et_name);
+        et_name = (EditText) findViewById(R.id.et_name);
 
         ll_audio = findViewById(R.id.ll_audio);
         ll_audio.setVisibility(View.GONE);
@@ -176,6 +182,15 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         layout_date = findViewById(R.id.layout_date);
         currentTime = findViewById(R.id.currentTime);
 
+        iv_voice = findViewById(R.id.iv_voice);
+        iv_clear = findViewById(R.id.iv_clear);
+
+        textInputLayout = (TextInputLayout) findViewById(R.id.textInputLayout);
+
+        iv_clear.setOnClickListener(this);
+
+
+        //右下角
         ib_at = findViewById(R.id.ib_at);
         ib_img = findViewById(R.id.ib_img);
         ib_audio = findViewById(R.id.ib_audio);
@@ -260,6 +275,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 }
             }
         });*/
+        et_name.addTextChangedListener(new EditTextChangeListener());
         et_name.setOnEditorActionListener(new SaveEditActionListener());
     }
 
@@ -393,9 +409,12 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         /** 3.提交服务器，成功finish ，失败关闭dialog或者设置保存按钮可以使用 */
         String name = et_name.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            T.show(context, "请添加任务名称");
+//            T.show(context, "请添加任务名称");
+            textInputLayout.setErrorEnabled(true);
+            textInputLayout.setError("内容不能为空");
             return;
         }
+
 
         task.setUser(currentUser);
         task.setName(name);
@@ -514,6 +533,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                 break;
             case R.id.tv_repeat:
                 showRepeat();
+                break;
+            case R.id.iv_clear:
+                et_name.setText("");
                 break;
             case R.id.wk_0:
             case R.id.day_0:
@@ -994,7 +1016,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         //音量值0~30
 
         public void onVolumeChanged(int volume) {
-            L.d("onVolumeChanged...."+volume);
+            L.d("onVolumeChanged...." + volume);
         }
 
         //结束录音
@@ -1006,6 +1028,23 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
         }
     };
+
+    private class EditTextChangeListener implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            iv_clear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+        }
+    }
 }
 
 

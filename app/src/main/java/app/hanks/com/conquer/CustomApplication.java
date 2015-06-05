@@ -30,7 +30,6 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.squareup.leakcanary.LeakCanary;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,7 +69,7 @@ public class CustomApplication extends Application {
         BmobChat.DEBUG_MODE = true;
         DbUtils.create(getApplicationContext()).configDebug(false);
         Fresco.initialize(getApplicationContext());
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         // 将“12345678”替换成您申请的APPID，申请地址：http://open.voicecloud.cn
         SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID + "=556fce70");
         init();

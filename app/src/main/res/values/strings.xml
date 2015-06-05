@@ -8,7 +8,7 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="new_friends">新朋友</string>
-    <string name="near_people">附件的人</string>
+    <string name="near_people">附近的人</string>
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">松开刷新数据</string>
     <string name="xlistview_header_hint_loading">正在加载&#8230;</string>
