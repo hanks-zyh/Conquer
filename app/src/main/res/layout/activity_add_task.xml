@@ -15,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_title"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -168,6 +170,71 @@
                 android:background="#22666666"/>
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_height="58dp">
+
+
+            <RelativeLayout
+                android:layout_marginTop="8dp"
+                android:id="@+id/et_layout"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_bg"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:visibility="invisible"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/iv_voice"
+                    android:onClick="xfVoice"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/btn_selector"
+                    android:src="@drawable/ic_keyboard_voice_grey600_24dp"
+                    android:layout_width="42dp"
+                    android:layout_marginLeft="-12dp"
+                    android:layout_height="42dp"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    hanks:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/iv_voice"
+                    android:layout_toLeftOf="@+id/iv_clear"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="记下所想内容..."
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageButton
+                    android:layout_marginRight="-12dp"
+                    android:visibility="gone"
+                    android:id="@+id/iv_clear"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/btn_selector"
+                    android:src="@drawable/ic_clear_grey600_24dp"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"/>
+            </RelativeLayout>
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -180,81 +247,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
-                android:clipToPadding="false"
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
-                android:clipChildren="false"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp">
 
                 <RelativeLayout
+                    android:id="@+id/ll_recording"
                     android:layout_width="match_parent"
-                    android:background="@drawable/edit_bg"
-                    android:clipToPadding="false"
-                    android:clipChildren="false"
-                    android:layout_height="54dp">
+                    android:layout_height="52dp"
+                    android:visibility="gone"
+                    android:padding="16dp"
+                    android:background="@drawable/btn_sound_wave"
+                    >
 
-                    <ImageButton
-                        android:layout_marginLeft="-12dp"
-                        android:id="@+id/iv_voice"
-                        android:onClick="xfVoice"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/btn_selector"
-                        android:src="@drawable/ic_keyboard_voice_grey600_24dp"
-                        android:layout_width="42dp"
+                    <app.hanks.com.conquer.view.SoundWaveView
+                        android:id="@+id/soundWaveView"
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"/>
 
-                        android:layout_height="42dp"/>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/textInputLayout"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        hanks:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+                    <TextView
+                        android:layout_toRightOf="@id/soundWaveView"
                         android:layout_width="match_parent"
-                        android:layout_toRightOf="@+id/iv_voice"
-                        android:layout_toLeftOf="@+id/iv_clear"
-                        android:layout_height="match_parent">
-
-                        <EditText
-                            android:id="@+id/et_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@null"
-                            android:hint="输入内容"
-
-                            android:imeOptions="actionDone"
-                            android:singleLine="true"
-                            android:textColorHint="@color/gray"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:visibility="visible"/>
-                    </android.support.design.widget.TextInputLayout>
-
-                    <ImageButton
-
-                        android:visibility="gone"
-                        android:id="@+id/iv_clear"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/btn_selector"
-                        android:src="@drawable/ic_clear_grey600_24dp"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"/>
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/text1"
+                        android:text="@string/recording"
+                        android:layout_height="match_parent"/>
                 </RelativeLayout>
-
-
-                <app.hanks.com.conquer.view.FlowLayout
-                    android:id="@+id/ll_voice_conver"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp">
-                </app.hanks.com.conquer.view.FlowLayout>
 
                 <app.hanks.com.conquer.view.FlowLayout
                     android:id="@+id/ll_at_friend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:paddingTop="8dp"
+                    android:paddingRight="8dp">
                 </app.hanks.com.conquer.view.FlowLayout>
 
                 <include
@@ -270,7 +297,8 @@
                     android:id="@+id/iv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxHeight="320dp"
+                    android:maxHeight="260dp"
+                    android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/home_bg"
                     android:visibility="gone"/>

@@ -73,5 +73,6 @@
     <string name="finish">完成</string>
     <string name="edit_task">编辑任务</string>
     <string name="two_exit">再按一次退出</string>
+    <string name="recording">正在录音</string>
 
 </resources>

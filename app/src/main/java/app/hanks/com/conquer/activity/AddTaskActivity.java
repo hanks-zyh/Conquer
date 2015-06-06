@@ -76,6 +76,7 @@ import app.hanks.com.conquer.util.TimeUtil;
 import app.hanks.com.conquer.view.FlowLayout;
 import app.hanks.com.conquer.view.OpAnimationView;
 import app.hanks.com.conquer.view.RevealBackgroundView;
+import app.hanks.com.conquer.view.SoundWaveView;
 import app.hanks.com.conquer.view.datetime.datepicker.DatePickerDialog;
 import app.hanks.com.conquer.view.datetime.datepicker.DatePickerDialog.OnDateSetListener;
 import app.hanks.com.conquer.view.datetime.timepicker.RadialPickerLayout;
@@ -128,6 +129,10 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
     private View iv_voice, iv_clear; //语音，清除
     private View ib_audio, ib_theme, ib_img, ib_at;
 
+    private ViewGroup ll_recording;
+    private ViewGroup et_layout;
+
+    private SoundWaveView   soundWaveView;
     private TextInputLayout textInputLayout;
     private OpAnimationView ib_save;
 
@@ -184,6 +189,10 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
 
         iv_voice = findViewById(R.id.iv_voice);
         iv_clear = findViewById(R.id.iv_clear);
+
+        et_layout = (ViewGroup) findViewById(R.id.et_layout);
+        ll_recording = (ViewGroup) findViewById(R.id.ll_recording);
+        soundWaveView = (SoundWaveView) findViewById(R.id.soundWaveView);
 
         textInputLayout = (TextInputLayout) findViewById(R.id.textInputLayout);
 
@@ -286,7 +295,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         layout_date.setTranslationY(-layout_date.getHeight());
         tv_tag.setTranslationY(tv_tag.getHeight());
         currentTime.setAlpha(0);
+
         et_name.setVisibility(View.VISIBLE);
+        et_layout.setVisibility(View.VISIBLE);
         layout_date.setVisibility(View.VISIBLE);
         currentTime.setVisibility(View.VISIBLE);
         material_menu.animateState(MaterialMenuDrawable.IconState.ARROW);
@@ -409,9 +420,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         /** 3.提交服务器，成功finish ，失败关闭dialog或者设置保存按钮可以使用 */
         String name = et_name.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-//            T.show(context, "请添加任务名称");
-            textInputLayout.setErrorEnabled(true);
-            textInputLayout.setError("内容不能为空");
+            T.show(context, "写点内容吧~~");
+//            textInputLayout.setErrorEnabled(true);
+//            textInputLayout.setError("内容不能为空");
             return;
         }
 
@@ -1012,16 +1023,22 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         //开始录音
         public void onBeginOfSpeech() {
             L.d("onBeginOfSpeech");
+            ll_recording.setVisibility(View.VISIBLE);
         }
         //音量值0~30
 
         public void onVolumeChanged(int volume) {
             L.d("onVolumeChanged...." + volume);
+            if (volume / 30f >= 0 && volume / 30f <= 1) {
+//                ll_recording.setAlpha(volume / 20f);
+                soundWaveView.setProgress(volume / 30f);
+            }
         }
 
         //结束录音
         public void onEndOfSpeech() {
             L.d("onEndOfSpeech");
+            ll_recording.setVisibility(View.GONE);
         }
 
         //扩展用接口

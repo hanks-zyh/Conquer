@@ -346,5 +346,8 @@
 
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/red_button</item>
+        <item name="android:textColorHint">@color/red_button</item>
+        <item name="android:textColorHighlight">@color/red_button</item>
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>
