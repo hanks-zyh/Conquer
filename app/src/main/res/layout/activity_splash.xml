@@ -1,26 +1,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorValue" >
-
-    <TextView
-        android:id="@+id/tv_dis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/hello_world"
-        android:lineSpacingMultiplier="1.2"
-        android:textColor="@color/white"
-        android:textSize="28sp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
     <ImageView
         android:id="@+id/iv_photo2"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_above="@+id/tv_dis"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="120dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
+        android:src="@drawable/icon"/>
+
+    <LinearLayout
+        android:layout_above="@+id/tv_dis"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_height="4dp">
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#6E84FE"/>
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#7F59C2"/>
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#E82893"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dis"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/hello_world"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="#747474"
+        android:layout_alignParentBottom="true"
+        android:textSize="14sp"/>
+
 
 </RelativeLayout>

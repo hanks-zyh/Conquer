@@ -3,6 +3,7 @@ package app.hanks.com.conquer.activity;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +24,7 @@ import app.hanks.com.conquer.util.A;
 import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.NetUtils;
 import app.hanks.com.conquer.util.PollingUtils;
+import app.hanks.com.conquer.util.SystemBarTintManager;
 import app.hanks.com.conquer.util.T;
 import cn.bmob.im.BmobChat;
 import cn.bmob.v3.Bmob;
@@ -42,6 +44,12 @@ public class SplashActivity extends BaseActivity {
         startPollService();                       //开启后台服务检测到期的任务
         initBmob();                               //初始化bmob
         goMainActivity();                         //界面跳转
+    }
+
+    @Override
+    protected void setStatusBarColor(SystemBarTintManager tintManager, int color) {
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintColor(Color.WHITE);
     }
 
     /**
@@ -145,7 +153,7 @@ public class SplashActivity extends BaseActivity {
             updateUserInfos();
             mHandler.sendEmptyMessageDelayed(GO_HOME, 2000);
         } else {
-            mHandler.sendEmptyMessageDelayed(GO_LOGIN, 2000);
+            mHandler.sendEmptyMessageDelayed(GO_LOGIN,2000);
         }
     }
 

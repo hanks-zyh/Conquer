@@ -160,8 +160,6 @@ public abstract class BaseActivity extends FragmentActivity {
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void initStatusBar() {
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
         int theme = (Integer) SP.get(context, "theme", 0);
         int color = R.color.theme_0;
         switch (theme) {
@@ -178,9 +176,15 @@ public abstract class BaseActivity extends FragmentActivity {
                 color = R.color.theme_3;
                 break;
         }
-        tintManager.setStatusBarTintColor(getResources().getColor(color));
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        setStatusBarColor(tintManager,color);
     }
 
+
+    protected void setStatusBarColor(SystemBarTintManager tintManager,int color){
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintColor(getResources().getColor(color));
+    }
     /**
      * 切换Fragment
      *

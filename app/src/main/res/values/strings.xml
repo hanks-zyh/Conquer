@@ -3,7 +3,7 @@
 
     <string name="app_name">Conquer</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">合理安排时间\n帮你克服拖延</string>
+    <string name="hello_world">I came  I see  I conquer   我来过  我看过  我征服</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_login">LoginActivity</string>
