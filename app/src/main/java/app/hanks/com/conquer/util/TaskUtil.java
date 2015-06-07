@@ -61,7 +61,7 @@ public class TaskUtil {
                 long curTime = System.currentTimeMillis();
                 L.i("大小" + temp.size());
                 for (Task task : temp) {
-                    if (task.getTime() >= curTime) {
+                    if (task.getTime() >= curTime || task.getRepeat() == 1) { //大于当前时间的或者每天重复的
                         listTask.add(task);
                         if (listTask.size() > Constants.MAIN_MYZIXI_LIMIT) break;
                     }
@@ -199,7 +199,7 @@ public class TaskUtil {
                 List<Task> listTask = new ArrayList<Task>();
                 long curTime = System.currentTimeMillis();
                 for (Task task : arg0) {
-                    if (task.getTime() >= curTime) {
+                    if (task.getTime() >= curTime || task.getRepeat() == 1) { //大于当前时间的或者每天重复的
                         listTask.add(task);
                     }
                     if (listTask.size() > limit) break;
@@ -270,7 +270,7 @@ public class TaskUtil {
      * @throws Exception
      */
 
-    public static void getNetZixiNotUser(Context context, User currentUser, final GetZixiCallBack getZixiCallBack) {
+    public static void getNetTaskNotUser(Context context, User currentUser, final GetZixiCallBack getZixiCallBack) {
 
         // 这个先不用缓存
         // final DbUtils dbUtils = DbUtils.create(context);
@@ -278,10 +278,11 @@ public class TaskUtil {
         query.include("user");
         query.addWhereNotEqualTo("user", currentUser);
         query.addWhereGreaterThanOrEqualTo("time", System.currentTimeMillis()); // 设置大于当后系统时间的
+        query.order("-createdAt");
         query.findObjects(context, new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> arg0) {
-                L.i("getNetZixiNotUser,查询成功" + arg0.size());
+                L.i("getNetTaskNotUser,查询成功" + arg0.size());
                 // try {
                 // // 1.更新本地数据库
                 // if (arg0.size() > 0) {
@@ -297,7 +298,7 @@ public class TaskUtil {
 
             @Override
             public void onError(int arg0, String arg1) {
-                L.i("getNetZixiNotUser：查询失败" + arg0 + arg1);
+                L.i("getNetTaskNotUser：查询失败" + arg0 + arg1);
                 getZixiCallBack.onError(arg0, arg1);
             }
         });
@@ -559,7 +560,16 @@ public class TaskUtil {
         String dis = "";
         if (currentUser != null && currentUser.getLocation() != null && location != null) {
             BmobGeoPoint loc = currentUser.getLocation();
-            dis = (int) distance(loc.getLongitude(), loc.getLatitude(), location.getLongitude(), location.getLatitude()) + "米";
+            int d = (int) distance(loc.getLongitude(), loc.getLatitude(), location.getLongitude(), location.getLatitude());
+            if (d >= 1000) {
+                d = d / 1000;
+                dis = d + " km";
+            } else if (d >= 100) {
+                d = d / 100;
+                dis = d + "00 m";
+            }else{
+                dis = "附近";
+            }
         }
         return dis;
     }

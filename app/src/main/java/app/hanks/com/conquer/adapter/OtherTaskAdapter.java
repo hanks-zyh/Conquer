@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -53,38 +52,41 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
 
     @Override
     public void onBindViewHolder(OtherTaskAdapter.TaskViewHolder holder, int position) {
-        final Task task = list.get(position);
         try {
+            final Task task = list.get(position);
             holder.tv_created_time.setText("("
                     + TimeUtil.getDescriptionTimeFromTimestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(task.getCreatedAt())
                     .getTime()) + ")");
-        } catch (ParseException e) {
+            holder.tv_note.setText(task.getNote());
+            holder.tv_zixitime.setText(TaskUtil.getDescriptionTimeFromTimestamp(task.getTime()));
+            holder.tv_time.setText(TaskUtil.getZixiTimeS(task));
+            holder.tv_name.setText(task.getName());
+            holder.tv_Nick.setText(task.getUser().getNick());
+            holder.tv_dis.setText(TaskUtil.getDistance(currentUser, task.getUser().getLocation()));
+            if (task.getUser() != null && task.getUser().getAvatar() != null) {
+                holder.iv_photo.setImageURI(Uri.parse(task.getUser().getAvatar()));
+            }
+            holder.iv_photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, FriendDataActivity.class);
+                    i.putExtra("friendName", task.getUser().getUsername());
+                    A.goOtherActivity(context, i);
+                }
+            });
+            holder.iv_gender.setImageResource(task.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
+            // 陪她按钮
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, AlertActivity.class);
+                    intent.putExtra("task", task);
+                    A.goOtherActivity(context, intent);
+                }
+            });
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        holder.tv_note.setText(task.getNote());
-        holder.tv_zixitime.setText(TaskUtil.getDescriptionTimeFromTimestamp(task.getTime()));
-        holder.tv_time.setText(TaskUtil.getZixiTimeS(task));
-        holder.tv_name.setText(task.getName());
-        holder.tv_Nick.setText(task.getUser().getNick());
-        holder.tv_dis.setText(TaskUtil.getDistance(currentUser, task.getUser().getLocation()));
-        holder.iv_photo.setImageURI(Uri.parse(task.getUser().getAvatar()));
-        holder.iv_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, FriendDataActivity.class);
-                i.putExtra("friendName", task.getUser().getUsername());
-                A.goOtherActivity(context, i);
-            }
-        });
-        holder.iv_gender.setImageResource(task.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
-        // 陪她按钮
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(context, AlertActivity.class);
-                intent.putExtra("task", task);
-                A.goOtherActivity(context, intent);
-            }
-        });
     }
 
     @Override

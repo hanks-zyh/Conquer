@@ -1018,6 +1018,8 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         //会话发生错误回调接口
         public void onError(SpeechError error) {
             error.getPlainDescription(true);//获取错误码描述
+//            T.show(context,"网络不给力~");
+            L.e(error.getErrorDescription());
         }
 
         //开始录音

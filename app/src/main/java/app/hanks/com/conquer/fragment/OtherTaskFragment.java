@@ -10,6 +10,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,11 +34,12 @@ import app.hanks.com.conquer.util.TaskUtil;
 /**
  * Created by Hanks on 2015/5/21.
  */
-public class OtherTaskFragment extends BaseFragment{
+public class OtherTaskFragment extends BaseFragment {
     private RecyclerView        mRecylerView;
     private LinearLayoutManager mLayoutManager;
-    private List<Task>          list = new ArrayList<>();
-    private OtherTaskAdapter adapter;
+    private List<Task> list = new ArrayList<>();
+    private OtherTaskAdapter   adapter;
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Nullable
     @Override
@@ -50,12 +52,23 @@ public class OtherTaskFragment extends BaseFragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.refreshLayout);
+        mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.theme_0), getResources().getColor(R.color.theme_1), getResources().getColor(R.color.theme_2), getResources().getColor(R.color.theme_3));
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getOtherZixi();
+            }
+        });
+
+
         mRecylerView = (RecyclerView) getView().findViewById(R.id.recylerView);
         mLayoutManager = new LinearLayoutManager(context);
         mRecylerView.setLayoutManager(mLayoutManager);
         adapter = new OtherTaskAdapter(context, list);
         mRecylerView.setAdapter(adapter);
-        mRecylerView.addItemDecoration(new SimpleListDividerDecorator( createRectShape(10,PixelUtil.dp2px(8), Color.TRANSPARENT),false));
+
+        mRecylerView.addItemDecoration(new SimpleListDividerDecorator(createRectShape(8, PixelUtil.dp2px(8), Color.TRANSPARENT), false));
         getOtherZixi();
     }
 
@@ -71,7 +84,7 @@ public class OtherTaskFragment extends BaseFragment{
      * 获取好友或者其他人的任务，让用户任务设置选择优先级</br> 0.优先时间近 1.优先好友的 2.优先本学院 3.优先本学校的 4.优先位置近的 5.其他
      */
     private void getOtherZixi() {
-        TaskUtil.getNetZixiNotUser(context, currentUser, new TaskUtil.GetZixiCallBack() {
+        TaskUtil.getNetTaskNotUser(context, currentUser, new TaskUtil.GetZixiCallBack() {
             @Override
             public void onSuccess(List<Task> list) {
                 if (CollectionUtils.isNotNull(list)) {
@@ -93,6 +106,7 @@ public class OtherTaskFragment extends BaseFragment{
         list.clear();
         list.addAll(newList);
         adapter.notifyDataSetChanged();
+        mRefreshLayout.setRefreshing(false);
     }
 
     public void animToOther() {
