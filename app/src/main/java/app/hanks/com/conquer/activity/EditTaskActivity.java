@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -27,6 +28,7 @@ import app.hanks.com.conquer.db.TaskDao;
 import app.hanks.com.conquer.otto.BusProvider;
 import app.hanks.com.conquer.otto.RefreshEvent;
 import app.hanks.com.conquer.util.L;
+import app.hanks.com.conquer.util.NotifyUtils;
 import app.hanks.com.conquer.util.PixelUtil;
 import app.hanks.com.conquer.util.T;
 import app.hanks.com.conquer.util.TaskUtil;
@@ -56,6 +58,7 @@ public class EditTaskActivity extends BaseActivity {
     private RoundProgressBar pb;
     private SimpleDraweeView iv_home_bg;
 
+    private View ll_audio;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -87,7 +90,7 @@ public class EditTaskActivity extends BaseActivity {
         iv_home_bg = (SimpleDraweeView) findViewById(R.id.iv_home_bg);
         title_bg = findViewById(R.id.title_bg);
         ll_bottom = findViewById(R.id.ll_bottom);
-
+        ll_audio = findViewById(R.id.ll_audio);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -124,6 +127,36 @@ public class EditTaskActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+
+
+        String path = task.getAudioUrl();
+        if (path != null) {
+            final ImageButton ib_play = (ImageButton) ll_audio.findViewById(R.id.ib_play);
+            final ProgressBar pb = (ProgressBar) ll_audio.findViewById(R.id.pb2);
+            ib_play.setTag("play");
+            ib_play.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ib_play.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (ib_play.getTag().equals("play")) {
+                                ib_play.setImageResource(R.drawable.pause_audio);
+                                ib_play.setTag("pause");
+                                NotifyUtils.palyAudio(context, ib_play, pb, task.getAudioUrl());
+                            } else {
+                                ib_play.setTag("play");
+                                ib_play.setImageResource(R.drawable.play_audio);
+                                NotifyUtils.pauseAudio(ib_play);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        if (task.getNote() != null) {
+            ((TextView) findViewById(R.id.tv_note)).setText(task.getNote());
+        }
     }
 
     private void showAnim() {
@@ -140,6 +173,10 @@ public class EditTaskActivity extends BaseActivity {
         title_bg.animate().alpha(0).setDuration(400).start();
         ll_bottom.animate().alpha(1).setDuration(400).start();
         materialMenu.animateState(MaterialMenuDrawable.IconState.ARROW);
+        String path = task.getAudioUrl();
+        if (path != null) {
+            ll_audio.animate().alpha(1).setDuration(300).start();
+        }
     }
 
     /**
@@ -188,7 +225,7 @@ public class EditTaskActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         String name = tv_name.getText().toString();
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(name) && task.getRepeat() == 0) {
             return;
         }
         task.setName(name);
@@ -203,7 +240,7 @@ public class EditTaskActivity extends BaseActivity {
         task.setTime(mCalendar.getTimeInMillis());
 
 
-        if (task.getTime() < System.currentTimeMillis()) {
+        if (task.getTime() < System.currentTimeMillis() && task.getRepeat() == 0) {
             T.show(context, "时间已经过去了╮(-_-)╭");
             return;
         }

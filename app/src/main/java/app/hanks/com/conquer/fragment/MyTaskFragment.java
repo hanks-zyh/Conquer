@@ -28,11 +28,13 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import app.hanks.com.conquer.R;
 import app.hanks.com.conquer.activity.EditTaskActivity;
 import app.hanks.com.conquer.adapter.MyTaskAdapter;
+import app.hanks.com.conquer.bean.SortTask;
 import app.hanks.com.conquer.bean.Task;
 import app.hanks.com.conquer.config.Constants;
 import app.hanks.com.conquer.otto.BusProvider;
@@ -220,6 +222,7 @@ public class MyTaskFragment extends BaseFragment {
     private void setListData(List<Task> newList) {
         list.clear();
         list.addAll(newList);
+        Collections.sort(list,new SortTask());
         L.d("任务个数:" + list.size());
         mAdapter.notifyDataSetChanged();
         refreshLayout.setRefreshing(false);

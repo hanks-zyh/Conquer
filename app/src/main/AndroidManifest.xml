@@ -96,7 +96,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentActivity">
         </activity>
-        <activity android:name=".activity.AllMyZixiActivity"></activity>
+        <activity android:name=".activity.AllMyTaskActivity"></activity>
         <activity android:name=".activity.ChatActivity"></activity>
         <activity android:name=".activity.SettingActivity"></activity>
         <activity android:name=".activity.LocationActivity"></activity>

@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/card_bg"
         android:paddingBottom="16dp"
-        android:paddingTop="16dp" >
+        android:paddingTop="16dp">
 
         <TextView
             android:id="@+id/tv_name"
@@ -26,55 +26,73 @@
             android:shadowDy="1"
             android:shadowRadius="2"
             android:singleLine="true"
+            android:maxEms="8"
             android:text="高等数学"
             android:textColor="@color/blue_normal"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_name"
-            android:layout_below="@+id/tv_name"
-            android:drawableLeft="@drawable/ic_zixi_time"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/ic_alarm_black_24dp"
             android:gravity="center"
             android:text="10:10"
-            android:textSize="28sp" />
+            android:textColor="@color/black"
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/tv_zixitime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
-            android:layout_margin="8dp"
-            android:layout_toRightOf="@+id/tv_time"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
             android:text="(20分钟后)"
             android:textColor="@color/grey"
-            android:textSize="18sp" />
+            android:textSize="14sp"/>
 
         <View
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/tv_time"
+            android:layout_below="@+id/image"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/gray" />
+            android:background="@color/gray"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image"
+            android:visibility="gone"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="240dp"
+            android:adjustViewBounds="true"
+            android:layout_below="@+id/tv_zixitime"
+            android:layout_marginLeft="16dp"
+            fresco:placeholderImage="@drawable/pic_loading"
+            fresco:actualImageScaleType="centerCrop"
+            />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv_photo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignLeft="@+id/line"
             android:layout_below="@+id/line"
             android:layout_marginLeft="16dp"
             android:clickable="true"
             fresco:placeholderImage="@drawable/default_photo"
             fresco:roundAsCircle="true"
-             />
+            />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_created_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,12 +100,14 @@
             android:layout_alignBottom="@+id/tv_nickname"
             android:layout_alignRight="@+id/line"
             android:layout_marginRight="16dp"
+            android:gravity="center"
             android:drawableLeft="@drawable/ic_time"
             android:text="20分钟前"
-            android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:textColor="@color/text2"
+            android:textSize="12sp"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_hot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,17 +116,20 @@
             android:layout_alignRight="@+id/tv_created_time"
             android:drawableLeft="@drawable/ic_hot"
             android:text="12人"
-            android:textColor="@color/text_gray" />
+            android:textColor="@color/text_gray"/>
 
         <TextView
             android:id="@+id/tv_dis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_photo"
-            android:layout_alignLeft="@+id/iv_gender"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
             android:drawableLeft="@drawable/ic_location"
             android:text="200米"
-            android:textSize="12sp" />
+            android:textColor="@color/text2"
+            android:textSize="12sp"/>
 
         <ImageView
             android:id="@+id/iv_gender"
@@ -115,15 +138,16 @@
             android:layout_alignTop="@+id/iv_photo"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_photo"
-            android:src="@drawable/ic_female" />
+            android:src="@drawable/ic_female"/>
 
         <TextView
             android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:layout_alignBottom="@+id/iv_gender"
             android:layout_toRightOf="@+id/iv_gender"
-            android:text="花开花落" />
+            android:text="花开花落"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -131,14 +155,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_bg"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_card_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/home_bg" />
+            android:src="@drawable/home_bg"/>
 
         <include
             android:id="@+id/ll_audio"
@@ -146,7 +170,7 @@
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             layout="@layout/layout_audio"
-            android:background="@color/transparent" />
+            android:background="@color/transparent"/>
 
         <TextView
             android:id="@+id/tv_note"
@@ -163,7 +187,7 @@
             android:shadowRadius="2"
             android:text="亲爱的快来和我一块上任务"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </RelativeLayout>
 
 </FrameLayout>

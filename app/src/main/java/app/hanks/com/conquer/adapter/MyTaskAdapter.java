@@ -138,14 +138,22 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
         int p = 4320 - TaskUtil.getDurationFromNow(item.getTime());
         if (p <= 0) p = 1;
         holder.pb.setText(TaskUtil.getDescriptionTimeFromTimestamp(item.getTime()));
-        if (item.getTime() <= System.currentTimeMillis()) {
-            holder.pb.setRoundWidth(0);
-            holder.pb.setText(TaskUtil.getZixiDateS(item.getTime()));
-        } else {
+        if (item.getRepeat() == 1) { //每天
             holder.pb.setRoundWidth(PixelUtil.dp2px(6));
+            holder.pb.setText("每天");
+            holder.pb.setCricleProgressColor(context.getResources().getColor(R.color.red_button));
+            holder.pb.setProgress(4320);
+        } else {
+
+            if (item.getTime() <= System.currentTimeMillis()) {
+                holder.pb.setRoundWidth(0);
+                holder.pb.setText(TaskUtil.getZixiDateS(item.getTime()));
+            } else {
+                holder.pb.setRoundWidth(PixelUtil.dp2px(6));
+            }
+            if (p < 100) p = 100;// 防止太小了
+            holder.pb.setProgress(p);
         }
-        if (p < 100) p = 100;// 防止太小了
-        holder.pb.setProgress(p);
 
 //        if (zixiViewHolder.tv_name == null) {
 //            L.d("tv_name空了空空了空空了空空了空空了空空了空空了空");
@@ -389,7 +397,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
     @Override
     public int getItemCount() {
 //        L.d("item count:" + list.size());
-        return  list.size();
+        return list.size();
     }
 
     class TaskViewHolder extends AbstractDraggableSwipeableItemViewHolder {

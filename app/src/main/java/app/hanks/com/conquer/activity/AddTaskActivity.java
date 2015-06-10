@@ -198,7 +198,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
 
         iv_clear.setOnClickListener(this);
 
-
         //右下角
         ib_at = findViewById(R.id.ib_at);
         ib_img = findViewById(R.id.ib_img);
@@ -267,7 +266,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         initDatePicker();
         tv_date.setOnClickListener(this);
         tv_time.setOnClickListener(this);
-
         //自动补全
        /* String[] course = Tasks.tasks;
         AutoCompleteArrayAdapter<String> adapter = new AutoCompleteArrayAdapter<String>(this,

@@ -74,6 +74,13 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
                     A.goOtherActivity(context, i);
                 }
             });
+            if (task.getImageUrl() != null) {
+                holder.image.setVisibility(View.VISIBLE);
+                holder.image.setImageURI(Uri.parse(task.getImageUrl()));
+
+            } else {
+                holder.image.setVisibility(View.GONE);
+            }
             holder.iv_gender.setImageResource(task.getUser().isMale() ? R.drawable.ic_male : R.drawable.ic_female);
             // 陪她按钮
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +112,7 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
         TextView         tv_created_time;
         TextView         tv_zixitime;
         TextView         tv_note;
+        SimpleDraweeView image;
 
         public TaskViewHolder(View view) {
             super(view);
@@ -114,6 +122,7 @@ public class OtherTaskAdapter extends RecyclerView.Adapter<OtherTaskAdapter.Task
             tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_time = (TextView) view.findViewById(R.id.tv_time);
             tv_dis = (TextView) view.findViewById(R.id.tv_dis);
+            image = (SimpleDraweeView) view.findViewById(R.id.image);
             tv_created_time = (TextView) view.findViewById(R.id.tv_created_time);
             tv_zixitime = (TextView) view.findViewById(R.id.tv_zixitime);
             tv_note = (TextView) view.findViewById(R.id.tv_note);

@@ -145,7 +145,7 @@ public class TaskUtil {
             List<Task> findAll = new TaskDao(context).getAllTask();
             if (CollectionUtils.isNotNull(findAll)) {
                 for (Task task : findAll) {
-                    if (isToday(task.getTime(), time)) temp.add(task);
+                    if (isToday(task.getTime(), time) && task.getRepeat() == 0) temp.add(task);
                 }
                 L.i("大小" + temp.size());
             }
@@ -336,7 +336,7 @@ public class TaskUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         DecimalFormat df = new DecimalFormat("00");
-        return calendar.get(Calendar.YEAR) + "-" + df.format(calendar.get(Calendar.MONTH)) + "-"
+        return calendar.get(Calendar.YEAR) + "-" + df.format(calendar.get(Calendar.MONTH) + 1) + "-"
                 + df.format(calendar.get(Calendar.DAY_OF_MONTH));
     }
 
@@ -567,9 +567,12 @@ public class TaskUtil {
             } else if (d >= 100) {
                 d = d / 100;
                 dis = d + "00 m";
-            }else{
+            } else if (d >= 10) {
+                dis = d + " m";
+            } else {
                 dis = "附近";
             }
+            L.i("ddddd...."+d);
         }
         return dis;
     }

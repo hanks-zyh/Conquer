@@ -128,7 +128,7 @@ public class NotifyUtils {
 	 * @param pb 进度条
 	 * @param path 音频路径
 	 */
-	private static void palyAudio(final Context context, final ImageButton ib_play, final ProgressBar pb, String path) {
+	public static void palyAudio(final Context context, final ImageButton ib_play, final ProgressBar pb, String path) {
 		// 播放录音
 		if (path == null) {
 			T.show(context, "找不到录音文件");
@@ -177,7 +177,7 @@ public class NotifyUtils {
 		});
 	}
 
-	private static void pauseAudio(ImageButton ib_play) {
+	public static void pauseAudio(ImageButton ib_play) {
 		// 暂停播放,保存播放进度
 		if (player != null && player.isPlaying()) {
 			curPosition = player.getCurrentPosition();

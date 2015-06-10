@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import app.hanks.com.conquer.R;
-import app.hanks.com.conquer.activity.AllMyZixiActivity;
+import app.hanks.com.conquer.activity.AllMyTaskActivity;
 import app.hanks.com.conquer.activity.FriendActivity;
 import app.hanks.com.conquer.activity.MyHistoryActivity;
 import app.hanks.com.conquer.activity.SettingActivity;
@@ -65,7 +65,7 @@ public class MenuFragment extends BaseFragment implements OnClickListener {
 				A.goOtherActivity(context, FriendActivity.class);
 				break;
 			case R.id.ll_all_zixi:
-				A.goOtherActivity(context, AllMyZixiActivity.class);
+				A.goOtherActivity(context, AllMyTaskActivity.class);
 				break;
 			case R.id.ll_history:
 				A.goOtherActivity(context, MyHistoryActivity.class);

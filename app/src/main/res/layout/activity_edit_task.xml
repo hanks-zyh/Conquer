@@ -146,5 +146,52 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_audio"
+        layout="@layout/layout_audio"
+        android:layout_below="@+id/layout_task"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:alpha="0"
+        android:background="@drawable/ll_bg"
+        android:gravity="center_vertical"
+        android:minHeight="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/tv_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_play"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/add_bt_selector"
+            android:padding="9dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/play_audio"/>
+
+        <ProgressBar
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/pb2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:max="1000">
+        </ProgressBar>
+    </LinearLayout>
+    <TextView
+        android:layout_below="@+id/ll_audio"
+        android:layout_width="match_parent"
+        android:id="@+id/tv_note"
+        android:layout_height="wrap_content"/>
+
 
 </RelativeLayout>

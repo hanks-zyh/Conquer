@@ -34,7 +34,7 @@ import app.hanks.com.conquer.util.L;
 import app.hanks.com.conquer.util.TaskUtil;
 import app.hanks.com.conquer.view.xlist.XListView.IXListViewListener;
 
-public class AllMyZixiActivity extends BaseActivity implements IXListViewListener {
+public class AllMyTaskActivity extends BaseActivity implements IXListViewListener {
 
 
     private RecyclerViewTouchActionGuardManager mRecyclerViewTouchActionGuardManager;
