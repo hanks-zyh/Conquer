@@ -43,6 +43,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     DBConstants.TagColum.COLUMN_NAME_NAME + TEXT_TYPE +
                     " )";
 
+    private static final String SQL_INSERT_TAG =
+            "INSERT INTO " + DBConstants.TagColum.TABLE_NAME + " (" +
+                    DBConstants.TagColum.COLUMN_NAME_NAME +
+                   ") VALUES ";
+
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,6 +58,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TASK);
         db.execSQL(SQL_CREATE_TAG);
+        db.execSQL(SQL_INSERT_TAG+"('全部')");
+        db.execSQL(SQL_INSERT_TAG+"('工作')");
+        db.execSQL(SQL_INSERT_TAG+"('生活')");
+        db.execSQL(SQL_INSERT_TAG+"('临时')");
+        db.execSQL(SQL_INSERT_TAG+"('新建')");
     }
 
     //数据库升级

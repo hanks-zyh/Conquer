@@ -82,9 +82,7 @@ public class TaskDao {
             values.put(DBConstants.TaskColum.COLUMN_NAME_NOTE, task.getNote());
         }
         values.put(DBConstants.TaskColum.COLUMN_NAME_REPEAT, task.getRepeat());
-        if (task.getTag() != null) {
-            values.put(DBConstants.TaskColum.COLUMN_NAME_TAGID, task.getTag().getId());
-        }
+        values.put(DBConstants.TaskColum.COLUMN_NAME_TAGID, task.getTagId());
         if (task.getAtFriends() != null) {
             StringBuilder atFriends = new StringBuilder();
             for (String at : task.getAtFriends()) {
@@ -177,9 +175,7 @@ public class TaskDao {
         if (task.getNote() != null) {
             values.put(DBConstants.TaskColum.COLUMN_NAME_NOTE, task.getNote());
         }
-        if (task.getTag() != null) {
-            values.put(DBConstants.TaskColum.COLUMN_NAME_TAGID, task.getTag().getId());
-        }
+        values.put(DBConstants.TaskColum.COLUMN_NAME_TAGID, task.getTagId());
         if (task.getAtFriends() != null) {
             StringBuilder atFriends = new StringBuilder();
             for (String at : task.getAtFriends()) {
@@ -261,13 +257,13 @@ public class TaskDao {
     public List<String> queryByKeyword(String keyword) {
         open();
 //select name from Task where name like '%d%'
-       Cursor cursor =  database.query(DBConstants.TaskColum.TABLE_NAME,
+        Cursor cursor = database.query(DBConstants.TaskColum.TABLE_NAME,
                 new String[] { DBConstants.TaskColum.COLUMN_NAME_NAME },
-                DBConstants.TaskColum.COLUMN_NAME_NAME + " like '%"+keyword+"%'",
+                DBConstants.TaskColum.COLUMN_NAME_NAME + " like '%" + keyword + "%'",
                 null, null, null, null);
         List<String> result = new ArrayList<>();
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             result.add(cursor.getString(0));
         }
         cursor.close();

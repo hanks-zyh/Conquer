@@ -599,7 +599,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
      */
     private void showTagSelect() {
         ListView v = new ListView(context);
-        v.setFooterDividersEnabled(false);
         final PopupWindow popWin = new PopupWindow(v, PixelUtil.dp2px(180), PixelUtil.dp2px(200));
         popWin.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_bg));
         popWin.setFocusable(true);
@@ -615,22 +614,6 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
         if (tags == null) {
             tags = new ArrayList<>();
         }
-        Tag tag0 = new Tag();
-        tag0.setName("全部");
-        Tag tag1 = new Tag();
-        tag1.setName("生活");
-        Tag tag2 = new Tag();
-        tag2.setName("工作");
-        Tag tag3 = new Tag();
-        tag3.setName("临时");
-        Tag tag4 = new Tag();
-        tag4.setName("新建分组");
-
-        tags.add(tag0);
-        tags.add(tag1);
-        tags.add(tag2);
-        tags.add(tag3);
-        tags.add(tag4);
         v.setAdapter(new TagAdapter(context, tags));
 
         final List<Tag> finalTags = tags;
@@ -641,7 +624,7 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                     createNewTag();
                 } else {
                     tv_tag.setText(finalTags.get(position).getName());
-                    task.setTag(finalTags.get(position));
+                    task.setTagId(finalTags.get(position).getId());
                 }
                 if (popWin != null) {
                     popWin.dismiss();
@@ -687,9 +670,9 @@ public class AddTaskActivity extends BaseActivity implements OnClickListener, Re
                         if (s != null) {
                             Tag tag = new Tag();
                             tag.setName(s);
-                            new TagDao(context).create(tag);
+                            long id = new TagDao(context).create(tag);
                             tv_tag.setText(s);
-                            task.setTag(tag);
+                            task.setTagId((int) id);
                         }
                     }
                 });

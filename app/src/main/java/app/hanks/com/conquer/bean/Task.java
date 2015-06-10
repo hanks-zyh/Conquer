@@ -24,7 +24,7 @@ public class Task extends BmobObject {
     /**
      * 任务的标签
      */
-    private Tag          tag;
+    private int          tagId;
     /**
      * 0.单次 1.每天 2.每周 3.每月
      */
@@ -90,12 +90,13 @@ public class Task extends BmobObject {
         this.time = time;
     }
 
-    public Tag getTag() {
-        return tag;
+
+    public int getTagId() {
+        return tagId;
     }
 
-    public void setTag(Tag tag) {
-        this.tag = tag;
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     public int getRepeat() {
