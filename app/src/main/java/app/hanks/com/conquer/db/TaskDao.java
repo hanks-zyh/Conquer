@@ -257,9 +257,14 @@ public class TaskDao {
     public List<String> queryByKeyword(String keyword) {
         open();
 //select name from Task where name like '%d%'
+        String selection = DBConstants.TaskColum.COLUMN_NAME_NAME + " like '%" + keyword + "%'";
+        int tagId = getTagIdByName(keyword);
+        if (tagId != 1) {
+            selection += " OR " + DBConstants.TaskColum.COLUMN_NAME_TAGID + " = " + tagId;
+        }
         Cursor cursor = database.query(DBConstants.TaskColum.TABLE_NAME,
                 new String[] { DBConstants.TaskColum.COLUMN_NAME_NAME },
-                DBConstants.TaskColum.COLUMN_NAME_NAME + " like '%" + keyword + "%'",
+                selection,
                 null, null, null, null);
         List<String> result = new ArrayList<>();
 
@@ -270,6 +275,15 @@ public class TaskDao {
         close();
 
         return result;
+    }
 
+
+    public int getTagIdByName(String tagName) {
+        int tagId = 1;
+        Cursor cursor = database.query(DBConstants.TagColum.TABLE_NAME, new String[] { DBConstants.TagColum.COLUMN_NAME_ID }, "name = ?", new String[] { tagName }, null, null, null);
+        if (cursor.moveToNext()) {
+            tagId = cursor.getInt(0);
+        }
+        return tagId;
     }
 }
