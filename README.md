@@ -22,14 +22,14 @@ A todo list app base Material Design
 
 ####**Video** Demo in youtube
 
-[![Vvideo demo](https://github.com/hanks-zyh/Conquer/blob/master/app/src/main/res/drawable-xxhdpi/ic_launcher.png)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
+[![Vvideo demo](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/video.png)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
 
 
 
 ####Screenshots
 
 ![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s0.png)
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s1.png)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s2.png)
 ![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s2.png)
 ![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s3.png)
 
