@@ -2,40 +2,37 @@
 A todo list app base Material Design
 
 ---
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
- 　　　　　◆◆◆◆◆◆◆◆　　　◆◆◆◆◆◆◆◆　　　　　　　　　　　　◆◆◆◆◆◆◆◆　◆◆◆◆◆◆◆◆　　　　　　　
- 　　　　　　◆◆◆◆◆◆　　　　　◆◆◆◆◆◆　　　　　　　　　　　　　　◆◆◆◆◆◆　　　◆◆◆◆◆◆　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　　　◆◆◆　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　　◆◆◆　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　◆◆◆　　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　◆◆◆　　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　◆◆◆　　　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　◆◆◆　　　　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆◆◆◆◆◆　　　　　　　　　　　　　　
- 　　　　　　　　◆◆◆◆◆◆◆◆◆◆◆◆◆　　　　　　　　　　　　　　　　　　◆◆◆◆◆◆◆　　　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆◆　◆◆◆◆　　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　◆◆◆◆　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　　◆◆◆　　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　　◆◆◆◆　　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　　　◆◆◆◆　　　　　　　　　　
- 　　　　　　　　◆◆　　　　　　　　　◆◆　　　　　　　　　　　　　　　　　　◆◆　　　　　◆◆◆◆　　　　　　　　　　
- 　　　　　　　◆◆◆◆　　　　　　　◆◆◆◆　　　　　　　　　　　　　　　　◆◆◆◆　　　　　◆◆◆◆◆　　　　　　　　
- 　　　　　◆◆◆◆◆◆◆◆　　　◆◆◆◆◆◆◆◆　　　　　　　　　　　　◆◆◆◆◆◆◆◆　　◆◆◆◆◆◆◆◆　　　　　　
- 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　，，　　　　　，，　　　　　　，，　　　　，，　　　　
+　　　，，　　　　　，，　　　　　　，，　　　，，　　　　　
+　　　，，　　　　　，，　　　　　　，，　　，，，　　　　　
+　　　，，　　　　　，，　　　　　　，，　，，，　　　　　　
+　　　，，，，，，，，，　　　　　　，，，，，，　　　　　　
+　　　，，　　　　　，，　　　　　　，，，，，，，　　　　　
+　　　，，　　　　　，，　　　　　　，，，　　，，　　　　　
+　　　，，　　　　　，，　　　　　　，，　　　，，，　　　　
+　　　，，　　　　　，，　　　　　　，，　　　　，，，　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
 ---
 
 1. add to do list, include img,audio
 2. remind user in time
 3. IM
 
-Video Demo in youtube
+
+####**Video** Demo in youtube
+
 [![Vvideo demo](https://github.com/hanks-zyh/Conquer/blob/master/app/src/main/res/drawable-xxhdpi/ic_launcher.png)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
 
-Screenshots
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s0.jpeg)
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s1.jpeg)
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s2.jpeg)
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s3.jpeg)
+
+
+####Screenshots
+
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s0.png)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s1.png)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s2.png)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s3.png)
+
 
 #### OpenSource library
 - com.squareup.okhttp
