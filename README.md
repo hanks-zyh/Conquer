@@ -1,19 +1,6 @@
 # Conquer
 A todo list app base Material Design
 
----
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-　　　，，　　　　　，，　　　　　　，，　　　　，，　　　　
-　　　，，　　　　　，，　　　　　　，，　　　，，　　　　　
-　　　，，　　　　　，，　　　　　　，，　　，，，　　　　　
-　　　，，　　　　　，，　　　　　　，，　，，，　　　　　　
-　　　，，，，，，，，，　　　　　　，，，，，，　　　　　　
-　　　，，　　　　　，，　　　　　　，，，，，，，　　　　　
-　　　，，　　　　　，，　　　　　　，，，　　，，　　　　　
-　　　，，　　　　　，，　　　　　　，，　　　，，，　　　　
-　　　，，　　　　　，，　　　　　　，，　　　　，，，　　　
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
----
 
 1. add to do list, include img,audio
 2. remind user in time
