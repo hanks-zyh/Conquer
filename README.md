@@ -1,7 +1,7 @@
 # Conquer
 A todo list app base Material Design
 
-[![Vvideo demo](http://img.youtube.com/vi/4Ic8UMuPRkk/0.jpg)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
+[![Vvideo demo](https://github.com/hanks-zyh/Conquer/blob/master/app/src/main/res/drawable-xxhdpi/ic_launcher.png)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
 
 
 License
