@@ -2,29 +2,12 @@
 A todo list app base Material Design
 
 ---
-          _____                    _____                    _____                    _____
-         /\    \                  /\    \                  /\    \                  /\    \
-        /::\____\                /::\    \                /::\    \                /::\    \
-       /:::/    /                \:::\    \              /::::\    \              /::::\    \
-      /:::/    /                  \:::\    \            /::::::\    \            /::::::\    \
-     /:::/    /                    \:::\    \          /:::/\:::\    \          /:::/\:::\    \
-    /:::/____/                      \:::\    \        /:::/__\:::\    \        /:::/__\:::\    \
-   /::::\    \                      /::::\    \      /::::\   \:::\    \      /::::\   \:::\    \
-  /::::::\    \   _____    ____    /::::::\    \    /::::::\   \:::\    \    /::::::\   \:::\    \
- /:::/\:::\    \ /\    \  /\   \  /:::/\:::\    \  /:::/\:::\   \:::\____\  /:::/\:::\   \:::\    \
-/:::/  \:::\    /::\____\/::\   \/:::/  \:::\____\/:::/  \:::\   \:::|    |/:::/__\:::\   \:::\____\
-\::/    \:::\  /:::/    /\:::\  /:::/    \::/    /\::/   |::::\  /:::|____|\:::\   \:::\   \::/    /
- \/____/ \:::\/:::/    /  \:::\/:::/    / \/____/  \/____|:::::\/:::/    /  \:::\   \:::\   \/____/
-          \::::::/    /    \::::::/    /                 |:::::::::/    /    \:::\   \:::\    \
-           \::::/    /      \::::/____/                  |::|\::::/    /      \:::\   \:::\____\
-           /:::/    /        \:::\    \                  |::| \::/____/        \:::\   \::/    /
-          /:::/    /          \:::\    \                 |::|  ~|               \:::\   \/____/
-         /:::/    /            \:::\    \                |::|   |                \:::\    \
-        /:::/    /              \:::\____\               \::|   |                 \:::\____\
-        \::/    /                \::/    /                \:|   |                  \::/    /
-         \/____/                  \/____/                  \|___|                   \/____/
-
-
+╭╮╭╮ ╭━━╮ ╭━━╮ ╭━━╮ ╭╮╭╮
+┃┃┃┃ ┃╭╮┃ ┃╭╮┃ ┃╭╮┃ ┃╰╯┃
+┃╰╯┃ ┃╰╯┃ ┃╰╯┃ ┃╰╯┃ ╰╮╭╯
+┃╭╮┃ ┃╭╮┃ ┃╭━╯ ┃╭━╯ 　┃┃　
+┃┃┃┃ ┃┃┃┃ ┃┃　　 ┃┃　　 　┃┃　
+╰╯╰╯ ╰╯╰╯ ╰╯　　 ╰╯　　 　╰╯
 ---
 
 1. add to do list, include img,audio
@@ -35,10 +18,10 @@ Video Demo in youtube
 [![Vvideo demo](https://github.com/hanks-zyh/Conquer/blob/master/app/src/main/res/drawable-xxhdpi/ic_launcher.png)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
 
 Screenshots
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/Screenshot00.jpeg)
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/Screenshot01.jpeg)
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/Screenshot02.jpeg)
-![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/Screenshot03.jpeg)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s0.jpeg)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s1.jpeg)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s2.jpeg)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s3.jpeg)
 
 #### OpenSource library
 - com.squareup.okhttp
