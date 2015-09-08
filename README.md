@@ -1,7 +1,26 @@
 # Conquer
 A todo list app base Material Design
 
+---
+1. add to do list, include img,audio
+2. remind user in time
+3. IM
+
+
 [![Vvideo demo](https://github.com/hanks-zyh/Conquer/blob/master/app/src/main/res/drawable-xxhdpi/ic_launcher.png)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
+
+
+#### OpenSource library
+- com.squareup.okhttp
+- com.squareup.leakcanary:leakcanary-android
+- com.squareup.picasso
+- com.orhanobut:logger
+- com.facebook.fresco
+- com.github.ksoichiro:android-observablescrollview
+- com.h6ah4i.android.widget.advrecyclerview
+- jp.wasabeef:recyclerview-animators
+- com.balysv:material-ripple
+- org.robobinding:robobinding
 
 
 License

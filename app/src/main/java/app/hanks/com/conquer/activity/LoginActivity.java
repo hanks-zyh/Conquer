@@ -160,8 +160,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
      */
     private void LoginQQ() {
         Tencent mTencent = Tencent.createInstance(Constants.QQ_KEY, this.getApplicationContext());
-
-
+        mTencent.login(this, "all", this);
     }
 
     /**
