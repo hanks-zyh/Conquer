@@ -6,6 +6,7 @@ A todo list app base Material Design
 2. remind user in time
 3. IM
 
+[该项目](https://github.com/hanks-zyh/Conquer)参与了[「寻找实干和坚持的技术力量」](http://i.100offer.com/projects/48), 如果觉得对您有用，请[支持一下](http://i.100offer.com/projects/48)
 
 ####**Video** Demo in youtube
 
