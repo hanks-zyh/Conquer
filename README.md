@@ -16,6 +16,8 @@ A todo list app base Material Design
 
 ####Screenshots
 
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/demo.gif)
+![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/demo2.gif)
 ![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s0.png)
 ![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s2.png)
 ![](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/s2.png)
