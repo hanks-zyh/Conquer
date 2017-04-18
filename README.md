@@ -7,7 +7,7 @@ A todo list app base Material Design
 3. IM
 
 
-####**Video** Demo in youtube
+#### **Video** Demo in youtube
 [![Vvideo demo](https://github.com/hanks-zyh/Conquer/blob/master/Screenshot/video.png)](http://www.youtube.com/watch?v=4Ic8UMuPRkk)
 
 [国内地址](http://my.tv.sohu.com/us/80753361/81553705.shtml)
@@ -36,7 +36,7 @@ A todo list app base Material Design
 - com.balysv:material-ripple
 - org.robobinding:robobinding
 
-##注意：
+## 注意：
 授权登录的代码主要都在 LoginActivity 中，直接运行会出现授权不成功，登录失败
 需要 自己申请qq或者微博的key，然后替换
 
